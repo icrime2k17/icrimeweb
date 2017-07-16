@@ -29,14 +29,7 @@ Class WebserviceModel extends CI_Model {
         {
             $sql = "SELECT id FROM app_users where username = ? and password = ?";
             $stmt = $this->pdo->query($sql,array($username,$password));
-            if(count($stmt->result() > 0))
-            {
-                return TRUE;
-            }
-            else
-            {
-                return FALSE;
-            }
+            return $stmt->result();
         } 
         catch (Exception $ex) 
         {

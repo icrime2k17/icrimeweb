@@ -34,12 +34,12 @@ class Webservice extends CI_Controller {
                 $username = $_POST['username'];
                 $password = sha1($_POST['password']);
                 
-                $valid = $this->model->AuthenticateUser($username,$password);
-                if($valid)
+                $stmt = $this->model->AuthenticateUser($username,$password);
+                if(count($stmt) > 0)
                 {
                     $json_data['success'] = TRUE;
                 }
-                else 
+                else
                 {
                     $json_data['success'] = FALSE;
                     $json_data['message'] = 'Login failed';
