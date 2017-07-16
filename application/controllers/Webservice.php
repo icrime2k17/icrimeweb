@@ -18,8 +18,40 @@ class Webservice extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+        public function __construct() {
+            parent::__construct();
+            $this->load->model('WebserviceModel','model');
+        }
 	public function index()
 	{
-		echo "this is webservice";
 	}
+        
+        public function Signin()
+        {
+            $json_data = array();
+            if(isset($_POST['username']) && isset($_POST['password']))
+            {
+                $username = $_POST['username'];
+                $password = sha1($_POST['password']);
+                
+                $valid = $this->model->AuthenticateUser($username,$password);
+                if($valid)
+                {
+                    $json_data['success'] = TRUE;
+                }
+                else 
+                {
+                    $json_data['success'] = FALSE;
+                    $json_data['message'] = 'Login failed';
+                }
+            }
+            else
+            {
+                $json_data['success'] = FALSE;
+                $json_data['message'] = 'Invalid Action';
+            }
+            
+            echo json_encode($json_data);
+            exit;
+        }
 }

@@ -1,0 +1,50 @@
+<?php
+//$sql = "INSERT INTO users(username,password) values(?,?)";
+//        $this->pdo->query($sql, array('jethrotest', 'acosta'));
+        
+Class WebserviceModel extends CI_Model {
+
+    Public function __construct() {
+        parent::__construct();
+        $this->pdo = $this->load->database('pdo', true);
+    }
+
+    public function GetUsers() {
+        try
+        {
+            $sql = "SELECT * FROM app_users";
+            $stmt = $this->pdo->query($sql);
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function AuthenticateUser($username,$password) 
+    {
+        try
+        {
+            $sql = "SELECT id FROM app_users where username = ? and password = ?";
+            $stmt = $this->pdo->query($sql,array($username,$password));
+            if(count($stmt->result() > 0))
+            {
+                return TRUE;
+            }
+            else
+            {
+                return FALSE;
+            }
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+
+}
+
+?> 
