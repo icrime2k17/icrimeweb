@@ -5,10 +5,9 @@
 
 $(document).ready(function()
 {
-//    $('.menu-toggle').click(function(){
-//       $(this).toggleClass('active'); 
-//       $('.left-nav').ToggleClass("active");
-//    });
+    $('.add-app-user').click(function(){
+        $("#add-app-user-modal").modal();
+    });
 });
 
 

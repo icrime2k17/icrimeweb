@@ -103,3 +103,46 @@ body
     left: 50%;
     transform: translate(-50%);
 }
+
+.users
+{
+    margin-top: 10px;
+}
+
+.action-link
+{
+    margin: 0 5px;
+}
+
+.floating-button
+{
+    padding: 17px 24px;
+    font-size: 22px;
+    background: #2c3e50;
+    color: #fff;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.floating-button:hover
+{
+    background: #3b5167;
+}
+
+.btn-submit
+{
+    border: 2px solid #2c3e50;
+    background: #2c3e50;
+    color: #fff;
+    transition: 0.5s;
+}
+
+.btn-submit:hover
+{
+    color: #2c3e50;
+    background: #fff;
+}
