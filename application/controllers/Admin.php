@@ -22,12 +22,29 @@ class Admin extends CI_Controller {
             parent::__construct();
             $this->load->library('session'); 
             $this->load->model('AdminModel','model');
+            $this->load->helper('url');
         }
 	public function index()
 	{
-            $this->load->helper('url');
+            $this->load->view('Admin/AdminHeader');
             $this->load->view('Admin/Admin');
+            $this->load->view('Admin/AdminFooter');
 	}
+        
+        public function appusers()
+        {
+            $data = array();
+            $data['list'] = '';
+            $stmt = $this->model->GetAppUsers();
+            foreach($stmt->result() as $row)
+            {
+                $data['list'] .= $this->load->view('Admin/AppUsersList',$row,TRUE);
+            }
+                    
+            $this->load->view('Admin/AdminHeader');
+            $this->load->view('Admin/AppUsers',$data);
+            $this->load->view('Admin/AdminFooter');
+        }
         
         public function Signin()
         {

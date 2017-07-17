@@ -6,7 +6,7 @@ Class AdminModel extends CI_Model {
         $this->pdo = $this->load->database('pdo', true);
     }
 
-    public function GetUsers() {
+    public function GetAppUsers() {
         try
         {
             $sql = "SELECT * FROM app_users";
