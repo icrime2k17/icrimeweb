@@ -1,0 +1,105 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 06 17, 17
+    Author     : jethro
+*/
+
+/*primary color: #2c3e50
+secondary color: #888539*/
+
+
+h1
+{
+    font-family: 'Oswald', sans-serif;
+    color: #243852;
+}
+
+body
+{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.navbar
+{
+    background: #2c3e50;
+    border-radius: 0;
+}
+
+.navbar, .navbar a, navbar a:focus
+{
+    color: #fff;
+    transition: 0.5;
+}
+
+.navbar li:hover,.navbar li:focus, .navbar li.open, .navbar li.open, .navbar li a:hover, .navbar li a:focus, .navbar li.open a:focus, .nav .open>a
+{
+    background: #202d3a;
+}
+
+.left-nav
+{
+    padding: 0;
+    min-height: 100vh;
+    border-right: 1px solid #ddd;
+    background: #ddd;
+    margin-top: 50px;
+}
+
+.left-nav .list-group-item:first-child, .left-nav .list-group-item:last-child
+{
+    border-radius: 0
+}
+
+.left-nav .list-group-item
+{
+    border-left: none;
+    border-right: none;
+}
+
+.left-nav .list-group-item:hover
+{
+    background: #21ccc7;
+    color: #fff;
+    cursor: pointer;
+}
+
+.main-container
+{
+    margin-top: 80px;
+}
+
+.menu-icon
+{
+    float: left;
+    padding: 2px;
+    text-align: center;
+    background: url(/images/police.svg) center center no-repeat;
+    outline: none;
+    border: none;
+    width: 36px;
+    height: 36px;
+    margin: 7px;
+}
+
+.navbar-brand
+{
+    font-size: 18px;
+    font-family: 'Oswald', sans-serif;
+    margin-left: -10px !important;
+}
+
+.dropdown-menu>li>a:hover
+{
+    color : #fff;
+}
+
+.modules
+{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
