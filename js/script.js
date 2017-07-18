@@ -10,6 +10,34 @@ $(document).ready(function()
     });
     
     $('#app_user_form').submit(function(){
+        var data = $(this).serialize();
+        $.ajax({
+            url : 'AddAppUser',
+            method : 'POST',
+            data : data,
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    $("#add-app-user-modal").modal('hide');
+                    swal("Good job!", "User successfully added!", "success")
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+        
         return false;
     });
 

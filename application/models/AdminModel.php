@@ -20,6 +20,28 @@ Class AdminModel extends CI_Model {
         }
     }
     
+    public function AddAppUser($data) {
+        try
+        {
+            extract($data);
+            $password = sha1($password);
+            $sql = "INSERT INTO app_users
+                    SET username = ?,
+                    password = ?,
+                    lastname = ?,
+                    firstname = ?,
+                    position = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array($username,$password,$lastname,$firstname,$position));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
     public function AuthenticateUser($username,$password) 
     {
         try

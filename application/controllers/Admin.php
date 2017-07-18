@@ -46,6 +46,14 @@ class Admin extends CI_Controller {
             $this->load->view('Admin/AdminFooter');
         }
         
+        public function AddAppUser()
+        {
+            $json_data = array();
+            $json_data['success'] = $this->model->AddAppUser($_POST);;
+            echo json_encode($json_data);
+            exit;
+        }
+        
         public function Signin()
         {
             $json_data = array();
