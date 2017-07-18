@@ -12,7 +12,7 @@ $(document).ready(function()
     $('#app_user_form').submit(function(){
         var data = $(this).serialize();
         $.ajax({
-            url : 'AddAppUser',
+            url : '/admin/AddAppUser',
             method : 'POST',
             data : data,
             dataType : "json",
