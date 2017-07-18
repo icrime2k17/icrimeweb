@@ -141,8 +141,18 @@ body
     transition: 0.5s;
 }
 
-.btn-submit:hover
+.modal .btn-submit
+{
+    margin-top: 5px;
+}
+
+.btn-submit:hover, .btn-submit:focus
 {
     color: #2c3e50;
     background: #fff;
+}
+
+.form-group 
+{
+    margin-bottom: 5px;
 }

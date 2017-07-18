@@ -7,14 +7,24 @@
       <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/bootstrap.min.css">
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
       <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/style.css">
+      <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/sweetalert.css">
+      <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/loader.css">
       <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto+Condensed" rel="stylesheet">
       <script type = 'text/javascript' src = "<?php echo base_url();?>js/jquery-1.11.3.js"></script>
       <script type = 'text/javascript' src = "<?php echo base_url();?>js/bootstrap.min.js"></script>
+      <script type = 'text/javascript' src = "<?php echo base_url();?>js/sweetalert.min.js"></script>
       <script type = 'text/javascript' src = "<?php echo base_url();?>js/script.js"></script>
       
    </head>
 	
        <body>
+        <div class="loader">
+            <div class="loader-graphic">
+                <svg class="circle-loader progress" width="40" height="40" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="15">
+                </svg>
+            </div>
+        </div>
         <nav class="navbar navbar-fixed-top">
             <div class="container-fluid">
               <div class="navbar-header">

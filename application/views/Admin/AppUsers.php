@@ -25,7 +25,7 @@
         </div>
         <div class="modal-body">
             <div class="row">
-                <form class="col-xs-12">
+                <form id="app_user_form" class="col-xs-12">
                     <div class="form-group">
                       <label for="usr">First Name:</label>
                       <input type="text" class="form-control input-sm" id="firstname" name="firstname" required>
