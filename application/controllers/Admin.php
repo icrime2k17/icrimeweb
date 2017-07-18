@@ -31,7 +31,7 @@ class Admin extends CI_Controller {
             $this->load->view('Admin/AdminFooter');
 	}
         
-        public function appusers()
+        public function AppUsers()
         {
             $data = array();
             $data['list'] = '';
@@ -65,6 +65,23 @@ class Admin extends CI_Controller {
         {
             $json_data = array();
             $json_data['success'] = $this->model->AddAppUser($_POST);;
+            echo json_encode($json_data);
+            exit;
+        }
+        
+        public function UpdateAppUser()
+        {
+            $json_data = array();
+            $json_data['success'] = $this->model->UpdateAppUser($_POST);;
+            echo json_encode($json_data);
+            exit;
+        }
+        
+        public function GetAppUserById()
+        {
+            $json_data = array();
+            $json_data['info'] = $this->model->GetAppUserById($_POST['id']);
+            $json_data['success'] = TRUE;
             echo json_encode($json_data);
             exit;
         }

@@ -1,13 +1,13 @@
 <?php
 echo "
 <tr>
-    <td>$username</td>
-    <td>$firstname</td>
     <td>$lastname</td>
+    <td>$firstname</td>
+    <td>$username</td>
     <td>$position</td>
     <td>
-        <a class='action-link' href='appUsersEdit/$id'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a>
-        <a class='action-link' href='appUsersDelete/$id'><i class='fa fa-trash-o' aria-hidden='true'></i></a>
+        <a class='action-link edit_app_user' data-id='$id'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a>
+        <a class='action-link' data-id='$id'><i class='fa fa-trash-o' aria-hidden='true'></i></a>
     </td>
 </tr>
 ";

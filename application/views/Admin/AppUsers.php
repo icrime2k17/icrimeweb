@@ -3,9 +3,9 @@
     <table class="table table-striped table-hover">
     <thead>
       <tr>
-        <th>Username</th>
-        <th>Firstname</th>
         <th>Lastname</th>
+        <th>Firstname</th>
+        <th>Username</th>
         <th>Position</th>
         <th>Actions</th>
       </tr>
@@ -65,6 +65,56 @@
     </div>
   </div>
 
+<div class="modal fade" id="update-app-user-modal" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Update App User</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <form id="update_app_user_form" class="col-xs-12">
+                    <input type="hidden" id="edit_id" name="edit_id">
+                    <div class="form-group">
+                      <label for="usr">First Name:</label>
+                      <input type="text" class="form-control input-sm" id="edit_firstname" name="firstname" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="usr">Last Name:</label>
+                      <input type="text" class="form-control input-sm" id="edit_lastname" name="lastname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="usr">Position:</label>
+                        <select class="form-control input-sm" id="edit_position" name="position" required>
+                            <option value="">...</option>
+                            <option value="Brgy Chairman">Brgy Chairman</option>
+                            <option value="Brgy Kagawad">Brgy Kagawad</option>
+                            <option value="Police">Police</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="username">Username:</label>
+                      <input type="text" class="form-control input-sm" id="edit_username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password: <i>(Note: Leave this blank to retain old password)</i></label>
+                        <input type="password" class="form-control input-sm" id="edit_password" name="password">
+                    </div>
+                    <div class="form-group">
+                      <label for="pwd">Confirm Password:</label>
+                      <input type="password" class="form-control input-sm" id="edit_confirmpassword" name="confirmpassword">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-submit pull-right">
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
 <span class="floating-button add-app-user">
     <i class="fa fa-plus" aria-hidden="true"></i>
 </span>
@@ -73,8 +123,18 @@
 
     var password = document.getElementById("password");
     var confirm_password = document.getElementById("confirmpassword");
+    var edit_password = document.getElementById("edit_password");
+    var edit_confirm_password = document.getElementById("edit_confirmpassword");
 
     function validatePassword(){
+      if(password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Don't Match");
+      } else {
+        confirm_password.setCustomValidity('');
+      }
+    }
+    
+    function editValidatePassword(){
       if(password.value != confirm_password.value) {
         confirm_password.setCustomValidity("Passwords Don't Match");
       } else {
@@ -84,5 +144,7 @@
 
     password.onchange = validatePassword;
     confirm_password.onkeyup = validatePassword;
+    edit_password.onchange = editValidatePassword;
+    edit_confirm_password.onkeyup = editValidatePassword;
 
 </script>
