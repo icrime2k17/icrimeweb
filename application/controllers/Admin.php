@@ -77,6 +77,14 @@ class Admin extends CI_Controller {
             exit;
         }
         
+        public function DeleteAppUser()
+        {
+            $json_data = array();
+            $json_data['success'] = $this->model->DeleteAppUser($_POST['id']);
+            echo json_encode($json_data);
+            exit;
+        }
+        
         public function GetAppUserById()
         {
             $json_data = array();

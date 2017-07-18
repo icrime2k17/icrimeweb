@@ -9,7 +9,9 @@ Class AdminModel extends CI_Model {
     public function GetAppUsers() {
         try
         {
-            $sql = "SELECT * FROM app_users ORDER BY lastname,firstname,username";
+            $sql = "SELECT * FROM app_users 
+                    WHERE enabled = 1
+                    ORDER BY lastname,firstname,username";
             $stmt = $this->pdo->query($sql);
             return $stmt;
         } 
@@ -49,6 +51,25 @@ Class AdminModel extends CI_Model {
                     position = ?
                     ";
             $stmt = $this->pdo->query($sql,array($username,$password,$lastname,$firstname,$position));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function DeleteAppUser($id)
+    {
+        try
+        {
+            $sql = "UPDATE app_users
+                    SET enabled = 0
+                    WHERE id = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array($id));
+
             return $stmt;
         } 
         catch (Exception $ex) 

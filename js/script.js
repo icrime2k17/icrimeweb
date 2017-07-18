@@ -81,8 +81,57 @@ $(document).ready(function()
         var id = $(this).attr('data-id');
         LoadAppUserEditMode(id);
     });
+    
+    $('#appUsersBody').on("click",'.delete_app_user',function(){
+        var id = $(this).attr('data-id');
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+          },
+          function(){
+                DeleteAppUser(id);
+          });
+    });
 
 });
+
+var DeleteAppUser = function(id)
+{
+    $.ajax({
+            url : '/admin/DeleteAppUser',
+            method : 'POST',
+            data : {
+                id :id
+            },
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    LoadAppUsers();
+                    swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+};
 
 var LoadAppUserEditMode = function(id)
 {
