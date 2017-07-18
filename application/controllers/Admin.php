@@ -46,6 +46,21 @@ class Admin extends CI_Controller {
             $this->load->view('Admin/AdminFooter');
         }
         
+        public function AppUsersAjax()
+        {
+            $data = array();
+            $data['list'] = '';
+            $stmt = $this->model->GetAppUsers();
+            foreach($stmt->result() as $row)
+            {
+                $data['list'] .= $this->load->view('Admin/AppUsersList',$row,TRUE);
+            }
+            
+            $data['success'] = TRUE;
+            echo json_encode($data);
+            exit;
+        }
+        
         public function AddAppUser()
         {
             $json_data = array();

@@ -23,7 +23,8 @@ $(document).ready(function()
                 if(data.success)
                 {
                     $("#add-app-user-modal").modal('hide');
-                    swal("Good job!", "User successfully added!", "success")
+                    LoadAppUsers();
+                    swal("Good job!", "User successfully added!", "success");
                 }
                 else
                 {
@@ -42,6 +43,36 @@ $(document).ready(function()
     });
 
 });
+
+var LoadAppUsers = function()
+{
+    $.ajax({
+            url : '/admin/AppUsersAjax',
+            method : 'POST',
+            data : null,
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    $("#add-app-user-modal").modal('hide');
+                    $("#appUsersBody").html(data.list);
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+};
 
 var loading = function()
 {

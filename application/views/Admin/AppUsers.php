@@ -10,7 +10,7 @@
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="appUsersBody">
       <?php echo $list; ?>
     </tbody>
   </table>
