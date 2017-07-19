@@ -46,7 +46,7 @@
         </nav>
         <div class="left-nav col-xs-2">
             <ul class="nav modules">
-                <li class="active"><a href="/admin/crimeAnalysis"><i class="fa fa-pie-chart" aria-hidden="true"></i> Crime Analysis</a></li>
+                <li class="active"><a href="/admin/crimeAnalysis"><i class="fa fa-pie-chart" aria-hidden="true"></i>Crime Analysis</a></li>
                 <li><a href="/admin/blotters"><i class="fa fa-indent" aria-hidden="true"></i></i>Blotters</a></li>
                 <li><a href="/admin/stations"><i class="fa fa-address-card-o" aria-hidden="true"></i>Police Stations</a></li>
                 <li><a href="/admin/wantedList"><i class="fa fa-ban" aria-hidden="true"></i>Wanted List</a></li>
