@@ -104,15 +104,52 @@ $(document).ready(function()
         {
             $(this).addClass('toggled');
             $('.police-stations').hide();
-            $('.map').show();
+            $('.map').addClass('show');
         }
         else
         {
             $(this).removeClass('toggled');
             $('.police-stations').show();
-            $('.map').hide();
+            $('.map').removeClass('show');
         }
         
+    });
+    
+    $("#stationform").submit(function(){
+        var data = $(this).serialize();
+        var lat = map.getCenter().lat();
+        var long = map.getCenter().lng();
+        data += '&lat='+lat;
+        data += '&long='+long;
+        
+        $.ajax({
+            url : '/admin/AddStation',
+            method : 'POST',
+            data : data,
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    $('#stationform')[0].reset();
+                    //LoadAppUsers();
+                    swal("Good job!", "Police station successfully saved!", "success");
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+        return false;
     });
 
 });

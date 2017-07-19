@@ -160,6 +160,30 @@ Class AdminModel extends CI_Model {
             exit;
         }
     }
+    
+    public function AddStation($data) {
+        try
+        {
+            extract($data);
+            $sql = "INSERT INTO stations
+                    SET station = ?,
+                    district = ?,
+                    address = ?,
+                    g_lat = ?,
+                    g_long = ?,
+                    phone = ?,
+                    chief = ?,
+                    chief_phone = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array($station,$district,$address,$lat,$long,$phone,$chief,$chief_phone));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 }
 
 ?> 

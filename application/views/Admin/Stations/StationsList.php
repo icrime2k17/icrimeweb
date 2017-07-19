@@ -2,7 +2,7 @@
 echo "
 <tr>
     <td>$station</td>
-    <td>$disctrict</td>
+    <td>$district</td>
     <td>$address</td>
     <td>$phone</td>
     <td>

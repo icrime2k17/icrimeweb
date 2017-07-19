@@ -70,7 +70,7 @@ body
 
 .left-nav li a i
 {
-    padding-right: 10px;
+    width: 30px;
 }
 
 .left-nav li a:hover
@@ -192,7 +192,12 @@ body
 
 .map
 {
-    display: none;
+    margin-top: -1100px;
+}
+
+.map.show
+{
+    margin-top: 0;
 }
 
 .modal-dialog

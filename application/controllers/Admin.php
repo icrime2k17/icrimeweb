@@ -122,4 +122,12 @@ class Admin extends CI_Controller {
             
             return $list;
         }
+        
+        public function AddStation()
+        {
+            $json_data = array();
+            $json_data['success'] = $this->model->AddStation($_POST);
+            echo json_encode($json_data);
+            exit;
+        }
 }
