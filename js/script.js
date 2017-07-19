@@ -98,6 +98,22 @@ $(document).ready(function()
                 DeleteAppUser(id);
           });
     });
+    
+    $('.add-station').click(function(){
+        if(!$(this).hasClass('toggled'))
+        {
+            $(this).addClass('toggled');
+            $('.police-stations').hide();
+            $('.map').show();
+        }
+        else
+        {
+            $(this).removeClass('toggled');
+            $('.police-stations').show();
+            $('.map').hide();
+        }
+        
+    });
 
 });
 

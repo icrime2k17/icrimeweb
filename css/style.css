@@ -14,6 +14,7 @@ secondary color: #888539*/
 
 h1
 {
+    margin-bottom: 15px;
     font-family: 'Oswald', sans-serif;
     color: #243852;
 }
@@ -45,7 +46,7 @@ body
     padding: 0;
     min-height: 100vh;
     border-right: 1px solid #ddd;
-    background: #ddd;
+    background: #262f38;
     margin-top: 50px;
 }
 
@@ -58,6 +59,23 @@ body
 {
     border-left: none;
     border-right: none;
+}
+
+.left-nav li a
+{
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.left-nav li a i
+{
+    padding-right: 10px;
+}
+
+.left-nav li a:hover
+{
+    color: #2c3e50;
 }
 
 .left-nav .list-group-item:hover
@@ -99,14 +117,13 @@ body
 
 .modules
 {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
+    margin-top: 20px;
 }
 
-.users
+.modules li
 {
-    margin-top: 10px;
+    display: block;
+    float: none;
 }
 
 .action-link
@@ -133,6 +150,21 @@ body
     background: #3b5167;
 }
 
+.floating-button i
+{
+    transition: 0.5s;
+}
+
+.floating-button.toggled i
+{
+    transform: rotate(45deg);
+}
+
+.floating-button.toggled
+{
+    background: #e74c3c;
+}
+
 .btn-submit
 {
     border: 2px solid #2c3e50;
@@ -141,7 +173,7 @@ body
     transition: 0.5s;
 }
 
-.modal .btn-submit
+.btn-submit
 {
     margin-top: 5px;
 }
@@ -155,4 +187,67 @@ body
 .form-group 
 {
     margin-bottom: 5px;
+}
+
+
+.map
+{
+    display: none;
+}
+
+.modal-dialog
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) !important;
+    margin: 0;
+}
+
+.modal-dialog .close
+{
+    font-family: sans-serif;
+    font-size: 26px;
+    opacity: 1;
+    color: #2c3e50;
+}
+
+.map-holder
+{
+    height: 500px;
+    padding-right: 0;
+}
+
+#map 
+{
+    position: relative;
+    height: 500px;
+}
+
+.map #search
+{
+    position: absolute;
+    width: 50%;
+    left: 25px;
+    border-radius: 0;
+    top: 6px;
+}
+
+#map:after 
+{
+    width: 22px;
+    height: 40px;
+    display: block;
+    content: ' ';
+    position: absolute;
+    top: 50%; left: 50%;
+    margin: -40px 0 0 -11px;
+    background: url('https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi_hdpi.png');
+    background-size: 22px 40px; /* Since I used the HiDPI marker version this compensates for the 2x size */
+    pointer-events: none; /* This disables clicks on the marker. Not fully supported by all major browsers, though */
+}
+
+.stationformholder
+{
+    padding-left: 0;
 }
