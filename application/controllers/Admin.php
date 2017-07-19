@@ -94,32 +94,32 @@ class Admin extends CI_Controller {
             exit;
         }
         
-        public function Signin()
+        public function Stations()
         {
-            $json_data = array();
-            if(isset($_POST['username']) && isset($_POST['password']))
+            $data = array();
+            $data['list'] = '';
+            $stmt = $this->model->GetStations();
+            foreach($stmt->result() as $row)
             {
-                $username = $_POST['username'];
-                $password = sha1($_POST['password']);
-                
-                $stmt = $this->model->AuthenticateUser($username,$password);
-                if(count($stmt) > 0)
-                {
-                    $json_data['success'] = TRUE;
-                }
-                else
-                {
-                    $json_data['success'] = FALSE;
-                    $json_data['message'] = 'Login failed';
-                }
-            }
-            else
-            {
-                $json_data['success'] = FALSE;
-                $json_data['message'] = 'Invalid Action';
+                $data['list'] .= $this->load->view('Admin/Stations/StationsList',$row,TRUE);
             }
             
-            echo json_encode($json_data);
-            exit;
+            $data['district_list'] = $this->BuildDistrictList();
+                    
+            $this->load->view('Admin/AdminHeader');
+            $this->load->view('Admin/Stations/Stations',$data);
+            $this->load->view('Admin/AdminFooter');
+        }
+        
+        public function BuildDistrictList()
+        {
+            $list = '';
+            $stmt = $this->model->GetDistricts();
+            foreach($stmt->result() as $row)
+            {
+                $list .= $this->load->view('Admin/Stations/DistrictList',$row,TRUE);
+            }
+            
+            return $list;
         }
 }

@@ -131,6 +131,35 @@ Class AdminModel extends CI_Model {
         }
     }
 
+    public function GetStations() {
+        try
+        {
+            $sql = "SELECT * FROM stations 
+                    ORDER BY station";
+            $stmt = $this->pdo->query($sql);
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetDistricts() {
+        try
+        {
+            $sql = "SELECT distinct(district) as district FROM stations 
+                    ORDER BY district";
+            $stmt = $this->pdo->query($sql);
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 }
 
 ?> 
