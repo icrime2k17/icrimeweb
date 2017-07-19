@@ -261,6 +261,88 @@ Class AdminModel extends CI_Model {
             exit;
         }
     }
+    
+    public function AddWanted()
+    {
+        try
+        {
+            extract($data);
+            $sql = "INSERT INTO stations
+                    SET lastname = ?,
+                    firstname = ?,
+                    middlename = ?,
+                    region = ?,
+                    alias = ?,
+                    reward = ?,
+                    mcn = ?,
+                    mcdate = ?,
+                    ccn = ?,
+                    offenses = ?,
+                    court = ?,
+                    synopsis = ?,
+                    sex = ?,
+                    height = ?,
+                    weight = ?,
+                    eyes = ?,
+                    hair = ?,
+                    complexion = ?,
+                    other = ?,
+                    age = ?,
+                    birthdate = ?,
+                    birthplace = ?,
+                    citizenship = ?,
+                    father = ?,
+                    mother = ?,
+                    address = ?,
+                    civilstatus = ?,
+                    elementary = ?,
+                    secondary = ?,
+                    college = ?,
+                    sort = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array(
+                        $lastname,
+                        $firstname,
+                        $middlename,
+                        $region,
+                        $alias,
+                        $reward,
+                        $mcn,
+                        $mcdate,
+                        $ccn,
+                        $offenses,
+                        $court,
+                        $synopsis,
+                        $sex,
+                        $height,
+                        $weight,
+                        $eyes,
+                        $hair,
+                        $complexion,
+                        $other,
+                        $age,
+                        $birthdate,
+                        $birthplace,
+                        $citizenship,
+                        $father,
+                        $mother,
+                        $address,
+                        $civilstatus,
+                        $elementary,
+                        $secondary,
+                        $college,
+                        $sort
+                    ));
+            $id = $this->pdo->lastInsertId();
+            return $id;
+            
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 }
 
 ?> 

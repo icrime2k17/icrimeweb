@@ -174,6 +174,7 @@ class Admin extends CI_Controller {
     
     public function AddWanted()
     {
+        $id = $this->model->AddWanted($_POST);
         $this->SaveImage();
     }
     
