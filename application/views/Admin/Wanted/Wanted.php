@@ -104,7 +104,7 @@
         </div>
         <div class="form-group col-sm-3">
             <label for="">Photo:</label>
-            <input type="file" class="form-control input-sm" id="image" name="image">
+            <input type="file" class="form-control input-sm" id="upload_image" name="upload_image">
         </div>
         <div class="col-sm-12">
             <h3>Personal Data</h3>
