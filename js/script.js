@@ -134,7 +134,7 @@ $(document).ready(function()
                 if(data.success)
                 {
                     $('#stationform')[0].reset();
-                    //LoadAppUsers();
+                    LoadPoliceStations();
                     swal("Good job!", "Police station successfully saved!", "success");
                 }
                 else
@@ -153,6 +153,35 @@ $(document).ready(function()
     });
 
 });
+
+var LoadPoliceStations = function()
+{
+    $.ajax({
+        url : '/admin/StationsAjax',
+        method : 'POST',
+        data : null,
+        dataType : "json",
+        beforeSend : function(){
+            loading();
+        },
+        success : function(data){
+            if(data.success)
+            {
+                $("#tableBody").html(data.list);
+            }
+            else
+            {
+                swal("Error", "Error connecting to server.", "error");
+            }
+
+            dismissLoading();
+        },
+        error : function(){
+            dismissLoading();
+            swal("Error", "Error connecting to server.", "error");
+        }
+    });
+};
 
 var DeleteAppUser = function(id)
 {

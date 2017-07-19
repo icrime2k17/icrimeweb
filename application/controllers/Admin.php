@@ -130,4 +130,18 @@ class Admin extends CI_Controller {
             echo json_encode($json_data);
             exit;
         }
+        
+        public function StationsAjax()
+        {
+            $json_data = array();
+            $json_data['list'] = '';
+            $stmt = $this->model->GetStations();
+            foreach($stmt->result() as $row)
+            {
+                $json_data['list'] .= $this->load->view('Admin/Stations/StationsList',$row,TRUE);
+            }
+            $json_data['success'] = TRUE;
+            echo json_encode($json_data);
+            exit;
+        }
 }

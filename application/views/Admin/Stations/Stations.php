@@ -10,7 +10,7 @@
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody id="appUsersBody">
+    <tbody id="tableBody">
       <?php echo $list; ?>
     </tbody>
   </table>
@@ -26,7 +26,7 @@
                 <label for="usr">District:</label>
                 <input type="text" list="district_list" class="form-control input-sm" id="district" name="district" required>
                 <datalist id="district_list">
-                    {district_list}
+                    <?php echo $district_list ?>
                 </datalist>
             </div>
             <div class="form-group">
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label for="pwd">Phone Number:</label>
-                <input type="text" class="form-control input-sm" id="phone" name="phone" required>
+                <input type="tel" class="form-control input-sm" id="phone" name="phone" required>
             </div>
             <div class="form-group">
                 <label for="pwd">Chief of Police:</label>
@@ -43,7 +43,7 @@
             </div>
             <div class="form-group">
                 <label for="pwd">Chief of Police phone number:</label>
-                <input type="text" class="form-control input-sm" id="chief_phone" name="chief_phone" required>
+                <input type="tel" class="form-control input-sm" id="chief_phone" name="chief_phone" required>
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-submit pull-right">
