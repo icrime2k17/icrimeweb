@@ -159,6 +159,10 @@ $(document).ready(function()
                 DeleteStation(id);
           });
     });
+    
+    $("#wantedform").submit(function(){
+       loading(); 
+    });
 
 });
 

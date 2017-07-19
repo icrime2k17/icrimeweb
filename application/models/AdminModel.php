@@ -245,6 +245,22 @@ Class AdminModel extends CI_Model {
             exit;
         }
     }
+    
+    public function GetWantedList() {
+        try
+        {
+            $sql = "SELECT lastname,firstname,middlename,alias,region,offenses,reward FROM wanted 
+                    WHERE enabled = 1
+                    ORDER BY lastname,firstname";
+            $stmt = $this->pdo->query($sql);
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 }
 
 ?> 

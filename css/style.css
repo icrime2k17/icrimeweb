@@ -19,6 +19,12 @@ h1
     color: #243852;
 }
 
+h3
+{
+    font-family: 'Oswald', sans-serif;
+    color: #243852;
+}
+
 body
 {
     font-family: 'Roboto Condensed', sans-serif;
@@ -43,11 +49,8 @@ body
 
 .left-nav
 {
-    padding: 0;
+    padding: 50px 0;
     min-height: 100vh;
-    border-right: 1px solid #ddd;
-    background: #262f38;
-    margin-top: 50px;
 }
 
 .left-nav .list-group-item:first-child, .left-nav .list-group-item:last-child
@@ -117,7 +120,12 @@ body
 
 .modules
 {
-    margin-top: 20px;
+    height: 100vh;
+    width: 200px;
+    background: #262f38;
+    position: fixed;
+    margin-top: 0;
+    padding-top: 20px;
 }
 
 .modules li
