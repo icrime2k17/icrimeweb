@@ -226,6 +226,25 @@ Class AdminModel extends CI_Model {
             exit;
         }
     }
+    
+    public function DeleteStation($id)
+    {
+        try
+        {
+            $sql = "UPDATE stations
+                    SET enabled = 0
+                    WHERE id = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array($id));
+
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 }
 
 ?> 

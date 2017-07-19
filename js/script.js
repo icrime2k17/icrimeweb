@@ -86,7 +86,7 @@ $(document).ready(function()
         var id = $(this).attr('data-id');
         swal({
             title: "Are you sure?",
-            text: "You will not be able to recover this imaginary file!",
+            text: "You will not be able to recover this record!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -142,8 +142,57 @@ $(document).ready(function()
         var id = $(this).attr("data-id");
         LoadPoliceStationsEditMode(id);
     });
+    
+    $('.stations-list').on("click",'.delete_record',function(){
+        var id = $(this).attr('data-id');
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this record!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+          },
+          function(){
+                DeleteStation(id);
+          });
+    });
 
 });
+
+var DeleteStation = function(id)
+{
+    $.ajax({
+            url : '/admin/DeleteStation',
+            method : 'POST',
+            data : {
+                id :id
+            },
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    LoadPoliceStations();
+                    swal("Deleted!", "Station has been deleted.", "success");
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+};
 
 var SaveStation = function(data)
 {
@@ -247,7 +296,7 @@ var LoadPoliceStationsEditMode = function(id)
                 swal("Error", "Error connecting to server.", "error");
             }
         });
-}
+};
 
 var LoadPoliceStations = function()
 {
@@ -294,7 +343,7 @@ var DeleteAppUser = function(id)
                 if(data.success)
                 {
                     LoadAppUsers();
-                    swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                    swal("Deleted!", "User has been deleted.", "success");
                 }
                 else
                 {

@@ -163,4 +163,12 @@ class Admin extends CI_Controller {
             echo json_encode($json_data);
             exit;
         }
+        
+        public function DeleteStation()
+        {
+            $json_data = array();
+            $json_data['success'] = $this->model->DeleteStation($_POST['id']);
+            echo json_encode($json_data);
+            exit;
+        }
 }
