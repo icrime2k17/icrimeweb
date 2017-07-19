@@ -135,6 +135,7 @@ Class AdminModel extends CI_Model {
         try
         {
             $sql = "SELECT * FROM stations 
+                    WHERE enabled = 1
                     ORDER BY station";
             $stmt = $this->pdo->query($sql);
             return $stmt;
@@ -176,6 +177,47 @@ Class AdminModel extends CI_Model {
                     chief_phone = ?
                     ";
             $stmt = $this->pdo->query($sql,array($station,$district,$address,$lat,$long,$phone,$chief,$chief_phone));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetStationById($id)
+    {
+        try
+        {
+            $sql = "SELECT * FROM stations WHERE id = ?";
+            $stmt = $this->pdo->query($sql,array($id));
+            $result = $stmt->result();
+            return (array) $result[0];
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function UpdateStation($data) {
+        try
+        {
+            extract($data);
+            $sql = "UPDATE stations
+                    SET station = ?,
+                    district = ?,
+                    address = ?,
+                    g_lat = ?,
+                    g_long = ?,
+                    phone = ?,
+                    chief = ?,
+                    chief_phone = ?
+                    WHERE id = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array($station,$district,$address,$lat,$long,$phone,$chief,$chief_phone,$edit_id));
             return $stmt;
         } 
         catch (Exception $ex) 

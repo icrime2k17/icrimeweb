@@ -144,4 +144,23 @@ class Admin extends CI_Controller {
             echo json_encode($json_data);
             exit;
         }
+        
+        public function GetStationById()
+        {
+            $json_data = array();
+            $json_data['info'] = $this->model->GetStationById($_POST['id']);
+            $json_data['info']['edit_id'] = $json_data['info']['id'];
+            $json_data['info']['submit'] = 'Update';
+            $json_data['success'] = TRUE;
+            echo json_encode($json_data);
+            exit;
+        }
+        
+        public function UpdateStation()
+        {
+            $json_data = array();
+            $json_data['success'] = $this->model->UpdateStation($_POST);;
+            echo json_encode($json_data);
+            exit;
+        }
 }

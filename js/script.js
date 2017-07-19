@@ -111,6 +111,8 @@ $(document).ready(function()
             $(this).removeClass('toggled');
             $('.police-stations').show();
             $('.map').removeClass('show');
+            $("#stationform")[0].reset();
+            $('.btn-submit').val("Submit");
         }
         
     });
@@ -122,10 +124,97 @@ $(document).ready(function()
         data += '&lat='+lat;
         data += '&long='+long;
         
-        $.ajax({
-            url : '/admin/AddStation',
+        var mode = $('.btn-submit').val();
+        
+        if(mode == 'Submit')
+        {
+            SaveStation(data);
+        }
+        else
+        {
+            UpdateStation(data);
+        }
+
+        return false;
+    });
+    
+    $('.stations-list').on("click",".edit_record",function(){
+        var id = $(this).attr("data-id");
+        LoadPoliceStationsEditMode(id);
+    });
+
+});
+
+var SaveStation = function(data)
+{
+    $.ajax({
+        url : '/admin/AddStation',
+        method : 'POST',
+        data : data,
+        dataType : "json",
+        beforeSend : function(){
+            loading();
+        },
+        success : function(data){
+            if(data.success)
+            {
+                $('#stationform')[0].reset();
+                LoadPoliceStations();
+                swal("Good job!", "Police station successfully saved!", "success");
+            }
+            else
+            {
+                swal("Error", "Error connecting to server.", "error");
+            }
+
+            dismissLoading();
+        },
+        error : function(){
+            dismissLoading();
+            swal("Error", "Error connecting to server.", "error");
+        }
+    });
+};
+
+var UpdateStation = function(data)
+{
+    $.ajax({
+        url : '/admin/UpdateStation',
+        method : 'POST',
+        data : data,
+        dataType : "json",
+        beforeSend : function(){
+            loading();
+        },
+        success : function(data){
+            if(data.success)
+            {
+                LoadPoliceStations();
+                swal("Good job!", "Police station successfully updated!", "success");
+            }
+            else
+            {
+                swal("Error", "Error connecting to server.", "error");
+            }
+
+            dismissLoading();
+        },
+        error : function(){
+            dismissLoading();
+            swal("Error", "Error connecting to server.", "error");
+        }
+    });
+};
+
+var LoadPoliceStationsEditMode = function(id)
+{
+    var frm = $("#stationform");
+    $.ajax({
+            url : '/admin/GetStationById',
             method : 'POST',
-            data : data,
+            data : {
+                id :id
+            },
             dataType : "json",
             beforeSend : function(){
                 loading();
@@ -133,9 +222,18 @@ $(document).ready(function()
             success : function(data){
                 if(data.success)
                 {
-                    $('#stationform')[0].reset();
-                    LoadPoliceStations();
-                    swal("Good job!", "Police station successfully saved!", "success");
+                    $.each(data.info, function(key, value){
+                        $('[name='+key+']', frm).val(value);
+                    });
+                    
+                    map.setCenter({
+                        lat:parseFloat(data.info.g_lat),
+                        lng:parseFloat(data.info.g_long)
+                    });
+                    
+                    map.setZoom(17);
+                    
+                    $('.add-station').trigger("click");
                 }
                 else
                 {
@@ -149,10 +247,7 @@ $(document).ready(function()
                 swal("Error", "Error connecting to server.", "error");
             }
         });
-        return false;
-    });
-
-});
+}
 
 var LoadPoliceStations = function()
 {

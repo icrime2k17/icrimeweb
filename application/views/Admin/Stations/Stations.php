@@ -10,7 +10,7 @@
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody id="tableBody">
+    <tbody id="tableBody" class="stations-list">
       <?php echo $list; ?>
     </tbody>
   </table>
@@ -46,7 +46,8 @@
                 <input type="tel" class="form-control input-sm" id="chief_phone" name="chief_phone" required>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-submit pull-right">
+                <input type="hidden" name="edit_id" id="edit_id">
+                <input name="submit" type="submit" class="btn btn-submit pull-right">
             </div>
         </form>
     </div>
