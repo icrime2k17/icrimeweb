@@ -37,10 +37,27 @@
         </div>
         <div class="form-group col-sm-4">
             <label for="">Region:</label>
-            <input type="text" list="region_list" class="form-control input-sm" id="region" name="region" required>
-            <datalist id="region_list">
-                <?php echo $region_list ?>
-            </datalist>
+            <select class="form-control input-sm" id="region" name="region" required>
+                <option value="">...</option>
+                <option value="NIR - Negros Island Region">NIR - Negros Island Region</option>
+                <option value="NCR - National Capital Region">NCR - National Capital Region</option>
+                <option value="CAR - Cordillera Administrative Region">CAR - Cordillera Administrative Region</option>
+                <option value="REGION I (Ilocos Region)">REGION I (Ilocos Region)</option>
+                <option value="REGION II (Cagayan Valley)">REGION II (Cagayan Valley)</option>
+                <option value="REGION III (Central Luzon)">REGION III (Central Luzon)</option>
+                <option value="REGION IV-A (CALABARZON)">REGION IV-A (CALABARZON)</option>
+                <option value="REGION IV-B MIMAROPA Region">REGION IV-B MIMAROPA Region</option>
+                <option value="REGION V (Bicol Region)REGION V (Bicol Region)">REGION V (Bicol Region)</option>
+                <option value="REGION VI (Western Visayas)">REGION VI (Western Visayas)</option>
+                <option value="REGION VII (Central Visayas)">REGION VII (Central Visayas)</option>
+                <option value="REGION VIII (Eastern Visayas)">REGION VIII (Eastern Visayas)</option>
+                <option value="REGION IX (Zamboanga Peninsula)">REGION IX (Zamboanga Peninsula)</option>
+                <option value="REGION X (Northern Mindanao)">REGION X (Northern Mindanao)</option>
+                <option value="REGION XI (Davao Region)">REGION XI (Davao Region)</option>
+                <option value="REGION XII (Soccsksargen)">REGION XII (Soccsksargen)</option>
+                <option value="REGION XIII (Caraga)">REGION XIII (Caraga)</option>
+                <option value="ARMM - Autonomous Region in Muslim Mindanao">ARMM - Autonomous Region in Muslim Mindanao</option>
+            </select>
         </div>
         <div class="form-group col-sm-4">
             <label for="">Reward:</label>
