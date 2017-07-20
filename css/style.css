@@ -265,3 +265,18 @@ body
 {
     padding-left: 0;
 }
+
+.container
+{
+    max-width: 100%;
+}
+
+.wanted-form-holder
+{
+    margin-bottom: 100px;
+}
+
+.wanted-form-holder
+{
+    display: none;
+}

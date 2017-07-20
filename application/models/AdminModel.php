@@ -249,7 +249,7 @@ Class AdminModel extends CI_Model {
     public function GetWantedList() {
         try
         {
-            $sql = "SELECT lastname,firstname,middlename,alias,region,offenses,reward FROM wanted 
+            $sql = "SELECT id,lastname,firstname,middlename,alias,region,offenses,reward FROM wanted 
                     WHERE enabled = 1
                     ORDER BY lastname,firstname";
             $stmt = $this->pdo->query($sql);
@@ -262,12 +262,12 @@ Class AdminModel extends CI_Model {
         }
     }
     
-    public function AddWanted()
+    public function AddWanted($data)
     {
         try
         {
             extract($data);
-            $sql = "INSERT INTO stations
+            $sql = "INSERT INTO wanted
                     SET lastname = ?,
                     firstname = ?,
                     middlename = ?,
@@ -333,9 +333,26 @@ Class AdminModel extends CI_Model {
                         $college,
                         $sort
                     ));
-            $id = $this->pdo->lastInsertId();
+            $id = $this->pdo->insert_id();
             return $id;
             
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function SetWantedImage($id,$filename)
+    {
+        try
+        {
+            $sql = "UPDATE wanted 
+                SET image = ?
+                WHERE id = ?";
+            $stmt = $this->pdo->query($sql,array($filename,$id));
+            return $stmt;
         } 
         catch (Exception $ex) 
         {

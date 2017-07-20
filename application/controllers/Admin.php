@@ -8,6 +8,10 @@ class Admin extends CI_Controller {
         $this->load->library('session'); 
         $this->load->model('AdminModel','model');
         $this->load->helper('url');
+        if(!session_id())
+        {
+            session_start();
+        }
     }
     public function index()
     {
@@ -166,6 +170,20 @@ class Admin extends CI_Controller {
         {
             $data['list'] .= $this->load->view('Admin/Wanted/WantedList',$row,TRUE);
         }
+        
+        if(isset($_SESSION['message']))
+        {
+            $data['showMessage'] = 'true';
+            $data = array_merge($data,$_SESSION['message']);
+            unset($_SESSION['message']);
+        }
+        else
+        {
+            $data['showMessage'] = 'false';
+            $data['title'] = '';
+            $data['message'] = '';
+            $data['type'] = '';
+        }
 
         $this->load->view('Admin/AdminHeader');
         $this->load->view('Admin/Wanted/Wanted',$data);
@@ -175,17 +193,49 @@ class Admin extends CI_Controller {
     public function AddWanted()
     {
         $id = $this->model->AddWanted($_POST);
-        $this->SaveImage();
+        if($id > 0)
+        {
+            if(trim($_FILES["upload_image"]["tmp_name"]) != '')
+            {
+                $result = $this->SaveImage($id);
+                if($result['success'])
+                {
+                    $this->model->SetWantedImage($id,$result['filename']);
+                }
+            }
+
+            $msg = array();
+            $msg['title'] = 'Good job!';
+            $msg['type'] = 'success';
+            $msg['message'] = 'Wanted successfully saved';
+            $msg['url'] = '/admin/wantedList';
+            $this->Message($msg);
+        }
+        else
+        {
+            $msg = array();
+            $msg['title'] = 'Error saving to the database!';
+            $msg['type'] = 'error';
+            $msg['message'] = 'Failed to save to the database.';
+            $msg['url'] = '/admin/wantedList';
+            $this->Message($msg);
+        }
     }
     
-    public function SaveImage()
+    public function Message($msg)
+    {
+        $_SESSION['message'] = $msg;
+        header("location: /admin/wantedList");
+    }
+    
+    public function SaveImage($id)
     {
         $status = array();
         $status['message'] = '';
         
         $target_dir = FCPATH.'images/uploads/';
-        
-        $target_file = $target_dir . basename($_FILES["upload_image"]["name"]);
+        $filename = $id.'_'.basename($_FILES["upload_image"]["name"]);
+        $target_file = $target_dir.$filename;
         $uploadOk = 1;
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
         // Check if image file is a actual image or fake image
@@ -237,6 +287,7 @@ class Admin extends CI_Controller {
             $status['success'] = FALSE;
         }
         
+        $status['filename'] = $filename;
         return $status;
     }
 }

@@ -1,5 +1,5 @@
-<h1>Wanted List</h1>
-<div class="col-xs-12 police-stations">
+<div class="col-xs-12 wanted-list">
+    <h1>Wanted List</h1>
     <table class="table table-striped table-hover">
     <thead>
       <tr>
@@ -16,6 +16,7 @@
   </table>
 </div>
 <div class="col-xs-12 wanted-form-holder">
+    <h1>Wanted Form</h1>
     <form id="wantedform" action="/admin/AddWanted" method="post" enctype="multipart/form-data">
         <div class="form-group col-sm-4">
             <label for="">Last name:</label>
@@ -111,11 +112,11 @@
         </div>
         <div class="form-group col-sm-3">
             <label for="">Age:</label>
-            <input type="text" class="form-control input-sm" id="age" name="age">
+            <input type="number" class="form-control input-sm" id="age" name="age">
         </div>
         <div class="form-group col-sm-3">
             <label for="">Date of Birth:</label>
-            <input type="text" class="form-control input-sm" id="birthdate" name="birthdate">
+            <input type="date" class="form-control input-sm" id="birthdate" name="birthdate">
         </div>
         <div class="form-group col-sm-3">
             <label for="">Place of Birth:</label>
@@ -139,7 +140,13 @@
         </div>
         <div class="form-group col-sm-3">
             <label for="">Civil Status:</label>
-            <input type="text" class="form-control input-sm" id="civilstatus" name="civilstatus">
+            <select class="form-control input-sm" id="civilstatus" name="civilstatus">
+                <option value="">...</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Separated">Separated</option>
+                <option value="Widow">Widow</option>
+            </select>
         </div>
         <div class="col-sm-12">
             <h3>Educational Background</h3>
@@ -162,10 +169,18 @@
         </div>
         <div class="form-group col-sm-12">
             <input type="hidden" name="edit_id" id="edit_id">
-            <input name="submit" type="submit" class="btn btn-submit pull-right">
+            <input name="submit" type="submit" class="btn btn-submit pull-left">
         </div>
     </form>
 </div>
 <span class="floating-button add-wanted">
     <i class="fa fa-plus" aria-hidden="true"></i>
 </span>
+
+<script>
+    var showMessage = <?php echo $showMessage; ?>;
+    if(showMessage)
+    {
+        swal("<?php echo $title; ?>", "<?php echo $message; ?>", "<?php echo $type; ?>");
+    }
+</script>
