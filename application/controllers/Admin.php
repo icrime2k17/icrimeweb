@@ -357,4 +357,27 @@ class Admin extends CI_Controller {
         echo json_encode($json_data);
         exit;
     }
+    
+    public function DeleteWanted()
+    {
+        $json_data = array();
+        $json_data['success'] = $this->model->DeleteWanted($_POST['id']);
+        echo json_encode($json_data);
+        exit;
+    }
+    
+    public function WantedListAjax()
+    {
+        $json_data = array();
+        $json_data['list'] = '';
+        $stmt = $this->model->GetWantedList();
+        foreach($stmt->result() as $row)
+        {
+            $json_data['list'] .= $this->load->view('Admin/Wanted/WantedList',$row,TRUE);
+        }
+        
+        $json_data['success'] = TRUE;
+        echo json_encode($json_data);
+        exit;
+    }
 }

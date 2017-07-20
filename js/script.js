@@ -186,7 +186,84 @@ $(document).ready(function()
         LoadWantedEditMode(id);
     });
     
+    $('.wanted-list').on("click",'.delete_record',function(){
+        var id = $(this).attr('data-id');
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this record!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+          },
+          function(){
+                DeleteWanted(id);
+          });
+    });
 });
+
+var LoadWantedList = function()
+{
+    $.ajax({
+        url : '/admin/WantedListAjax',
+        method : 'POST',
+        data : null,
+        dataType : "json",
+        beforeSend : function(){
+            loading();
+        },
+        success : function(data){
+            if(data.success)
+            {
+                $("#tableBody").html(data.list);
+            }
+            else
+            {
+                swal("Error", "Error connecting to server.", "error");
+            }
+
+            dismissLoading();
+        },
+        error : function(){
+            dismissLoading();
+            swal("Error", "Error connecting to server.", "error");
+        }
+    });
+};
+
+var DeleteWanted = function(id)
+{
+    $.ajax({
+            url : '/admin/DeleteWanted',
+            method : 'POST',
+            data : {
+                id :id
+            },
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    LoadWantedList();
+                    swal("Deleted!", "Wanted has been deleted.", "success");
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+};
 
 var LoadWantedEditMode = function(id)
 {
