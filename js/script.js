@@ -117,6 +117,23 @@ $(document).ready(function()
         
     });
     
+    $('.add-wanted').click(function(){
+        if(!$(this).hasClass('toggled'))
+        {
+            $(this).addClass('toggled');
+            $('.wanted-list').hide();
+            $('.wanted-form-holder').fadeIn();
+        }
+        else
+        {
+            $(this).removeClass('toggled');
+            $('.wanted-form-holder').hide();
+            $('.wanted-list').fadeIn();
+            $("#wantedform")[0].reset();
+            $('.btn-submit').val("Submit");
+        }
+    });
+    
     $("#stationform").submit(function(){
         var data = $(this).serialize();
         var lat = map.getCenter().lat();
