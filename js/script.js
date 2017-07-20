@@ -121,14 +121,14 @@ $(document).ready(function()
         if(!$(this).hasClass('toggled'))
         {
             $(this).addClass('toggled');
-            $('.wanted-list').hide();
+            $('.wanted-list-form').hide();
             $('.wanted-form-holder').fadeIn();
         }
         else
         {
             $(this).removeClass('toggled');
             $('.wanted-form-holder').hide();
-            $('.wanted-list').fadeIn();
+            $('.wanted-list-form').fadeIn();
             $("#wantedform")[0].reset();
             $('.btn-submit').val("Submit");
         }
@@ -181,7 +181,48 @@ $(document).ready(function()
        loading(); 
     });
 
+    $('.wanted-list').on("click",".edit_record",function(){
+        var id = $(this).attr("data-id");
+        LoadWantedEditMode(id);
+    });
+    
 });
+
+var LoadWantedEditMode = function(id)
+{
+    var frm = $("#wantedform");
+    $.ajax({
+            url : '/admin/GetWantedById',
+            method : 'POST',
+            data : {
+                id :id
+            },
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    $.each(data.info, function(key, value){
+                        $('[name='+key+']', frm).val(value);
+                    });
+                    
+                    $('.add-wanted').trigger("click");
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+};
 
 var DeleteStation = function(id)
 {

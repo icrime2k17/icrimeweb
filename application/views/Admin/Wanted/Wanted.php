@@ -1,4 +1,4 @@
-<div class="col-xs-12 wanted-list">
+<div class="col-xs-12 wanted-list-form">
     <h1>Wanted List</h1>
     <table class="table table-striped table-hover">
     <thead>
@@ -8,16 +8,17 @@
         <th>Region</th>
         <th>Offenses</th>
         <th>Reward</th>
+        <th>Actions</th>
       </tr>
     </thead>
-    <tbody id="tableBody" class="stations-list">
+    <tbody id="tableBody" class="wanted-list">
       <?php echo $list; ?>
     </tbody>
   </table>
 </div>
 <div class="col-xs-12 wanted-form-holder">
     <h1>Wanted Form</h1>
-    <form id="wantedform" action="/admin/AddWanted" method="post" enctype="multipart/form-data">
+    <form id="wantedform" action="/admin/processWanted" method="post" enctype="multipart/form-data">
         <div class="form-group col-sm-4">
             <label for="">Last name:</label>
             <input type="text" class="form-control input-sm" id="lastname" name="lastname" required>

@@ -190,6 +190,18 @@ class Admin extends CI_Controller {
         $this->load->view('Admin/AdminFooter');
     }
     
+    public function ProcessWanted()
+    {
+        if($_POST['submit'] == 'Submit')
+        {
+            $this->AddWanted();
+        }
+        else if($_POST['submit'] == 'Update')
+        {
+            $this->UpdateWanted();
+        }
+    }
+    
     public function AddWanted()
     {
         $id = $this->model->AddWanted($_POST);
@@ -207,14 +219,57 @@ class Admin extends CI_Controller {
             $msg = array();
             $msg['title'] = 'Good job!';
             $msg['type'] = 'success';
-            $msg['message'] = 'Wanted successfully saved';
+            $msg['message'] = 'Wanted successfully saved.';
             $msg['url'] = '/admin/wantedList';
             $this->Message($msg);
         }
         else
         {
             $msg = array();
-            $msg['title'] = 'Error saving to the database!';
+            $msg['title'] = 'Error!';
+            $msg['type'] = 'error';
+            $msg['message'] = 'Failed to save to the database.';
+            $msg['url'] = '/admin/wantedList';
+            $this->Message($msg);
+        }
+    }
+    
+    public function UpdateWanted()
+    {
+        $id = $_POST['edit_id'];
+        $success = $this->model->UpdateWanted($_POST);
+        if($success)
+        {
+            if(trim($_FILES["upload_image"]["tmp_name"]) != '')
+            {
+                $result = $this->SaveImage($id);
+                if($result['success'])
+                {
+                    $this->model->SetWantedImage($id,$result['filename']);
+                }
+                else
+                {
+                    $msg = array();
+                    $msg['title'] = 'Can\'t update wanted photo.!';
+                    $msg['type'] = 'error';
+                    $msg['message'] = $result['message'];
+                    $msg['url'] = '/admin/wantedList';
+                    $this->Message($msg);
+                    exit;
+                }
+            }
+
+            $msg = array();
+            $msg['title'] = 'Good job!';
+            $msg['type'] = 'success';
+            $msg['message'] = 'Wanted successfully updated.';
+            $msg['url'] = '/admin/wantedList';
+            $this->Message($msg);
+        }
+        else
+        {
+            $msg = array();
+            $msg['title'] = 'Error!';
             $msg['type'] = 'error';
             $msg['message'] = 'Failed to save to the database.';
             $msg['url'] = '/admin/wantedList';
@@ -226,6 +281,7 @@ class Admin extends CI_Controller {
     {
         $_SESSION['message'] = $msg;
         header("location: /admin/wantedList");
+        exit;
     }
     
     public function SaveImage($id)
@@ -257,7 +313,7 @@ class Admin extends CI_Controller {
         }
         // Check file size
         if ($_FILES["upload_image"]["size"] > 500000) {
-            $status['message'] .= "Sorry, your file is too large. ";
+            $status['message'] .= "Sorry, your file is too large (maximum of 5mb). ";
             $uploadOk = 0;
         }
         // Allow certain file formats
@@ -289,5 +345,16 @@ class Admin extends CI_Controller {
         
         $status['filename'] = $filename;
         return $status;
+    }
+    
+    public function GetWantedById()
+    {
+        $json_data = array();
+        $json_data['info'] = $this->model->GetWantedById($_POST['id']);
+        $json_data['info']['edit_id'] = $json_data['info']['id'];
+        $json_data['info']['submit'] = 'Update';
+        $json_data['success'] = TRUE;
+        echo json_encode($json_data);
+        exit;
     }
 }

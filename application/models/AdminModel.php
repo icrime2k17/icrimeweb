@@ -344,6 +344,89 @@ Class AdminModel extends CI_Model {
         }
     }
     
+    public function UpdateWanted($data)
+    {
+        try
+        {
+            extract($data);
+            $sql = "UPDATE wanted
+                    SET lastname = ?,
+                    firstname = ?,
+                    middlename = ?,
+                    region = ?,
+                    alias = ?,
+                    reward = ?,
+                    mcn = ?,
+                    mcdate = ?,
+                    ccn = ?,
+                    offenses = ?,
+                    court = ?,
+                    synopsis = ?,
+                    sex = ?,
+                    height = ?,
+                    weight = ?,
+                    eyes = ?,
+                    hair = ?,
+                    complexion = ?,
+                    other = ?,
+                    age = ?,
+                    birthdate = ?,
+                    birthplace = ?,
+                    citizenship = ?,
+                    father = ?,
+                    mother = ?,
+                    address = ?,
+                    civilstatus = ?,
+                    elementary = ?,
+                    secondary = ?,
+                    college = ?,
+                    sort = ?
+                    WHERE id = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array(
+                        $lastname,
+                        $firstname,
+                        $middlename,
+                        $region,
+                        $alias,
+                        $reward,
+                        $mcn,
+                        $mcdate,
+                        $ccn,
+                        $offenses,
+                        $court,
+                        $synopsis,
+                        $sex,
+                        $height,
+                        $weight,
+                        $eyes,
+                        $hair,
+                        $complexion,
+                        $other,
+                        $age,
+                        $birthdate,
+                        $birthplace,
+                        $citizenship,
+                        $father,
+                        $mother,
+                        $address,
+                        $civilstatus,
+                        $elementary,
+                        $secondary,
+                        $college,
+                        $sort,
+                        $edit_id
+                    ));
+            return $stmt;
+            
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
     public function SetWantedImage($id,$filename)
     {
         try
@@ -353,6 +436,22 @@ Class AdminModel extends CI_Model {
                 WHERE id = ?";
             $stmt = $this->pdo->query($sql,array($filename,$id));
             return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetWantedById($id)
+    {
+        try
+        {
+            $sql = "SELECT * FROM wanted WHERE id = ?";
+            $stmt = $this->pdo->query($sql,array($id));
+            $result = $stmt->result();
+            return (array) $result[0];
         } 
         catch (Exception $ex) 
         {
