@@ -249,7 +249,7 @@ Class AdminModel extends CI_Model {
     public function GetWantedList() {
         try
         {
-            $sql = "SELECT lastname,firstname,middlename,alias,region,offenses,reward FROM wanted 
+            $sql = "SELECT id,lastname,firstname,middlename,alias,region,offenses,reward FROM wanted 
                     WHERE enabled = 1
                     ORDER BY lastname,firstname";
             $stmt = $this->pdo->query($sql);
@@ -262,12 +262,12 @@ Class AdminModel extends CI_Model {
         }
     }
     
-    public function AddWanted()
+    public function AddWanted($data)
     {
         try
         {
             extract($data);
-            $sql = "INSERT INTO stations
+            $sql = "INSERT INTO wanted
                     SET lastname = ?,
                     firstname = ?,
                     middlename = ?,
@@ -333,9 +333,144 @@ Class AdminModel extends CI_Model {
                         $college,
                         $sort
                     ));
-            $id = $this->pdo->lastInsertId();
+            $id = $this->pdo->insert_id();
             return $id;
             
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function UpdateWanted($data)
+    {
+        try
+        {
+            extract($data);
+            $sql = "UPDATE wanted
+                    SET lastname = ?,
+                    firstname = ?,
+                    middlename = ?,
+                    region = ?,
+                    alias = ?,
+                    reward = ?,
+                    mcn = ?,
+                    mcdate = ?,
+                    ccn = ?,
+                    offenses = ?,
+                    court = ?,
+                    synopsis = ?,
+                    sex = ?,
+                    height = ?,
+                    weight = ?,
+                    eyes = ?,
+                    hair = ?,
+                    complexion = ?,
+                    other = ?,
+                    age = ?,
+                    birthdate = ?,
+                    birthplace = ?,
+                    citizenship = ?,
+                    father = ?,
+                    mother = ?,
+                    address = ?,
+                    civilstatus = ?,
+                    elementary = ?,
+                    secondary = ?,
+                    college = ?,
+                    sort = ?
+                    WHERE id = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array(
+                        $lastname,
+                        $firstname,
+                        $middlename,
+                        $region,
+                        $alias,
+                        $reward,
+                        $mcn,
+                        $mcdate,
+                        $ccn,
+                        $offenses,
+                        $court,
+                        $synopsis,
+                        $sex,
+                        $height,
+                        $weight,
+                        $eyes,
+                        $hair,
+                        $complexion,
+                        $other,
+                        $age,
+                        $birthdate,
+                        $birthplace,
+                        $citizenship,
+                        $father,
+                        $mother,
+                        $address,
+                        $civilstatus,
+                        $elementary,
+                        $secondary,
+                        $college,
+                        $sort,
+                        $edit_id
+                    ));
+            return $stmt;
+            
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function SetWantedImage($id,$filename)
+    {
+        try
+        {
+            $sql = "UPDATE wanted 
+                SET image = ?
+                WHERE id = ?";
+            $stmt = $this->pdo->query($sql,array($filename,$id));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetWantedById($id)
+    {
+        try
+        {
+            $sql = "SELECT * FROM wanted WHERE id = ?";
+            $stmt = $this->pdo->query($sql,array($id));
+            $result = $stmt->result();
+            return (array) $result[0];
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function DeleteWanted($id)
+    {
+        try
+        {
+            $sql = "UPDATE wanted
+                    SET enabled = 0
+                    WHERE id = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array($id));
+
+            return $stmt;
         } 
         catch (Exception $ex) 
         {

@@ -117,6 +117,23 @@ $(document).ready(function()
         
     });
     
+    $('.add-wanted').click(function(){
+        if(!$(this).hasClass('toggled'))
+        {
+            $(this).addClass('toggled');
+            $('.wanted-list-form').hide();
+            $('.wanted-form-holder').fadeIn();
+        }
+        else
+        {
+            $(this).removeClass('toggled');
+            $('.wanted-form-holder').hide();
+            $('.wanted-list-form').fadeIn();
+            $("#wantedform")[0].reset();
+            $('.btn-submit').val("Submit");
+        }
+    });
+    
     $("#stationform").submit(function(){
         var data = $(this).serialize();
         var lat = map.getCenter().lat();
@@ -164,7 +181,125 @@ $(document).ready(function()
        loading(); 
     });
 
+    $('.wanted-list').on("click",".edit_record",function(){
+        var id = $(this).attr("data-id");
+        LoadWantedEditMode(id);
+    });
+    
+    $('.wanted-list').on("click",'.delete_record',function(){
+        var id = $(this).attr('data-id');
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this record!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+          },
+          function(){
+                DeleteWanted(id);
+          });
+    });
 });
+
+var LoadWantedList = function()
+{
+    $.ajax({
+        url : '/admin/WantedListAjax',
+        method : 'POST',
+        data : null,
+        dataType : "json",
+        beforeSend : function(){
+            loading();
+        },
+        success : function(data){
+            if(data.success)
+            {
+                $("#tableBody").html(data.list);
+            }
+            else
+            {
+                swal("Error", "Error connecting to server.", "error");
+            }
+
+            dismissLoading();
+        },
+        error : function(){
+            dismissLoading();
+            swal("Error", "Error connecting to server.", "error");
+        }
+    });
+};
+
+var DeleteWanted = function(id)
+{
+    $.ajax({
+            url : '/admin/DeleteWanted',
+            method : 'POST',
+            data : {
+                id :id
+            },
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    LoadWantedList();
+                    swal("Deleted!", "Wanted has been deleted.", "success");
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+};
+
+var LoadWantedEditMode = function(id)
+{
+    var frm = $("#wantedform");
+    $.ajax({
+            url : '/admin/GetWantedById',
+            method : 'POST',
+            data : {
+                id :id
+            },
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    $.each(data.info, function(key, value){
+                        $('[name='+key+']', frm).val(value);
+                    });
+                    
+                    $('.add-wanted').trigger("click");
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+};
 
 var DeleteStation = function(id)
 {

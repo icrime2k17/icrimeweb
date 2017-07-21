@@ -1,5 +1,5 @@
-<h1>Wanted List</h1>
-<div class="col-xs-12 police-stations">
+<div class="col-xs-12 wanted-list-form">
+    <h1>Wanted List</h1>
     <table class="table table-striped table-hover">
     <thead>
       <tr>
@@ -8,15 +8,17 @@
         <th>Region</th>
         <th>Offenses</th>
         <th>Reward</th>
+        <th>Actions</th>
       </tr>
     </thead>
-    <tbody id="tableBody" class="stations-list">
+    <tbody id="tableBody" class="wanted-list">
       <?php echo $list; ?>
     </tbody>
   </table>
 </div>
 <div class="col-xs-12 wanted-form-holder">
-    <form id="wantedform" action="/admin/AddWanted" method="post" enctype="multipart/form-data">
+    <h1>Wanted Form</h1>
+    <form id="wantedform" action="/admin/processWanted" method="post" enctype="multipart/form-data">
         <div class="form-group col-sm-4">
             <label for="">Last name:</label>
             <input type="text" class="form-control input-sm" id="lastname" name="lastname" required>
@@ -35,10 +37,27 @@
         </div>
         <div class="form-group col-sm-4">
             <label for="">Region:</label>
-            <input type="text" list="region_list" class="form-control input-sm" id="region" name="region" required>
-            <datalist id="region_list">
-                <?php echo $region_list ?>
-            </datalist>
+            <select class="form-control input-sm" id="region" name="region" required>
+                <option value="">...</option>
+                <option value="NIR - Negros Island Region">NIR - Negros Island Region</option>
+                <option value="NCR - National Capital Region">NCR - National Capital Region</option>
+                <option value="CAR - Cordillera Administrative Region">CAR - Cordillera Administrative Region</option>
+                <option value="REGION I (Ilocos Region)">REGION I (Ilocos Region)</option>
+                <option value="REGION II (Cagayan Valley)">REGION II (Cagayan Valley)</option>
+                <option value="REGION III (Central Luzon)">REGION III (Central Luzon)</option>
+                <option value="REGION IV-A (CALABARZON)">REGION IV-A (CALABARZON)</option>
+                <option value="REGION IV-B MIMAROPA Region">REGION IV-B MIMAROPA Region</option>
+                <option value="REGION V (Bicol Region)REGION V (Bicol Region)">REGION V (Bicol Region)</option>
+                <option value="REGION VI (Western Visayas)">REGION VI (Western Visayas)</option>
+                <option value="REGION VII (Central Visayas)">REGION VII (Central Visayas)</option>
+                <option value="REGION VIII (Eastern Visayas)">REGION VIII (Eastern Visayas)</option>
+                <option value="REGION IX (Zamboanga Peninsula)">REGION IX (Zamboanga Peninsula)</option>
+                <option value="REGION X (Northern Mindanao)">REGION X (Northern Mindanao)</option>
+                <option value="REGION XI (Davao Region)">REGION XI (Davao Region)</option>
+                <option value="REGION XII (Soccsksargen)">REGION XII (Soccsksargen)</option>
+                <option value="REGION XIII (Caraga)">REGION XIII (Caraga)</option>
+                <option value="ARMM - Autonomous Region in Muslim Mindanao">ARMM - Autonomous Region in Muslim Mindanao</option>
+            </select>
         </div>
         <div class="form-group col-sm-4">
             <label for="">Reward:</label>
@@ -111,11 +130,11 @@
         </div>
         <div class="form-group col-sm-3">
             <label for="">Age:</label>
-            <input type="text" class="form-control input-sm" id="age" name="age">
+            <input type="number" class="form-control input-sm" id="age" name="age">
         </div>
         <div class="form-group col-sm-3">
             <label for="">Date of Birth:</label>
-            <input type="text" class="form-control input-sm" id="birthdate" name="birthdate">
+            <input type="date" class="form-control input-sm" id="birthdate" name="birthdate">
         </div>
         <div class="form-group col-sm-3">
             <label for="">Place of Birth:</label>
@@ -139,7 +158,13 @@
         </div>
         <div class="form-group col-sm-3">
             <label for="">Civil Status:</label>
-            <input type="text" class="form-control input-sm" id="civilstatus" name="civilstatus">
+            <select class="form-control input-sm" id="civilstatus" name="civilstatus">
+                <option value="">...</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Separated">Separated</option>
+                <option value="Widow">Widow</option>
+            </select>
         </div>
         <div class="col-sm-12">
             <h3>Educational Background</h3>
@@ -162,10 +187,18 @@
         </div>
         <div class="form-group col-sm-12">
             <input type="hidden" name="edit_id" id="edit_id">
-            <input name="submit" type="submit" class="btn btn-submit pull-right">
+            <input name="submit" type="submit" class="btn btn-submit pull-left">
         </div>
     </form>
 </div>
 <span class="floating-button add-wanted">
     <i class="fa fa-plus" aria-hidden="true"></i>
 </span>
+
+<script>
+    var showMessage = <?php echo $showMessage; ?>;
+    if(showMessage)
+    {
+        swal("<?php echo $title; ?>", "<?php echo $message; ?>", "<?php echo $type; ?>");
+    }
+</script>
