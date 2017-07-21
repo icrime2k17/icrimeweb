@@ -166,7 +166,7 @@
         </div>
         <div class="form-group col-sm-3">
             <label for="">Sort: <i>Position in Web and App view</i></label>
-            <input type="text" class="form-control input-sm" id="sort" name="sort">
+            <input type="number" class="form-control input-sm" id="sort" name="sort">
         </div>
         <div class="form-group col-sm-12">
             <input type="hidden" name="edit_id" id="edit_id">
