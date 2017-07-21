@@ -249,7 +249,10 @@ Class AdminModel extends CI_Model {
     public function GetWantedList() {
         try
         {
-            $sql = "SELECT id,lastname,firstname,middlename,alias,region,offenses,reward FROM wanted 
+            $sql = "SELECT w.id,w.lastname,w.firstname,w.middlename,w.alias,r.region,w.offenses,w.reward 
+                    FROM wanted as w
+                    LEFT JOIN region as r
+                    ON w.region = r.id
                     WHERE enabled = 1
                     ORDER BY lastname,firstname";
             $stmt = $this->pdo->query($sql);
@@ -478,6 +481,22 @@ Class AdminModel extends CI_Model {
             exit;
         }
     }
+    
+    public function GetRegions() {
+        try
+        {
+            $sql = "SELECT * FROM region
+                    ORDER BY region";
+            $stmt = $this->pdo->query($sql);
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+
 }
 
 ?> 

@@ -184,10 +184,23 @@ class Admin extends CI_Controller {
             $data['message'] = '';
             $data['type'] = '';
         }
+        
+        $data['region_list'] = $this->BuildRegions();
 
         $this->load->view('Admin/AdminHeader');
         $this->load->view('Admin/Wanted/Wanted',$data);
         $this->load->view('Admin/AdminFooter');
+    }
+    
+    public function BuildRegions()
+    {
+        $list = '';
+        $stmt = $this->model->GetRegions();
+        foreach ($stmt->result() as $row)
+        {
+            $list .= $this->load->view('Admin/Wanted/RegionList',$row,TRUE);
+        }
+        return $list;
     }
     
     public function ProcessWanted()
