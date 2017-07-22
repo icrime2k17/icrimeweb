@@ -12,12 +12,25 @@ class Admin extends CI_Controller {
         {
             session_start();
         }
+        
+        $this->load->library('AuthLogin');
+        if($GLOBALS['method'] != 'login')
+        {
+            if(!$this->authlogin->checkIfLogin('admin'))
+            {
+                header("location: /admin/login");
+            }
+        }
     }
+    
+    public function Login()
+    {
+        $this->load->view('Admin/Login');
+    }
+    
     public function index()
     {
-        $this->load->view('Admin/AdminHeader');
-        $this->load->view('Admin/Admin');
-        $this->load->view('Admin/AdminFooter');
+        $this->AppUsers();
     }
 
     public function AppUsers()

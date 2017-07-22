@@ -339,3 +339,46 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.login-holder
+{
+    width: 350px;
+    max-width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid #e6e6e6;
+}
+
+.login-holder .wrapper
+{
+    width: 225px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.login-holder img
+{
+    width: 50px;
+    margin: 10px;
+    float: left;
+}
+
+.login-title
+{
+    background: #2c3e50;
+}
+
+.login-title h3
+{
+    color: #fff;
+    margin: 22px 5px;
+    display: inline-block;
+}
+
+.login-inner
+{
+    padding: 20px;
+}
