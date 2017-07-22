@@ -18,7 +18,7 @@ class Admin extends CI_Controller {
         {
             if(!$this->authlogin->checkIfLogin('admin'))
             {
-                header("location: /admin/login");
+                redirect('/admin/login');
             }
         }
     }
@@ -40,13 +40,13 @@ class Admin extends CI_Controller {
                 $_SESSION['admin']['user_id'] = $user_data['id'];
                 $_SESSION['admin']['session_id'] = session_id();
                 $this->authlogin->SetSessionId($user_data['id'],session_id());
-                header("location:/admin");
+                redirect("/admin");
             }
             else
             {
                 $_SESSION['login_message']['status'] = FALSE;
                 $_SESSION['login_message']['message'] = 'Login Failed';
-                header("location:/admin/login");
+                redirect("/admin/login");
             }
         }
         else
@@ -71,7 +71,7 @@ class Admin extends CI_Controller {
     public function Logout()
     {
         unset($_SESSION['admin']);
-        header("location: /admin/login");
+        redirect("/admin/login");
     }
 
     public function index()
@@ -352,7 +352,7 @@ class Admin extends CI_Controller {
     public function Message($msg)
     {
         $_SESSION['message'] = $msg;
-        header("location: /admin/wantedList");
+        redirect("/admin/wantedList");
         exit;
     }
     
@@ -452,4 +452,12 @@ class Admin extends CI_Controller {
         echo json_encode($json_data);
         exit;
     }
+    
+    public function redirect($url)
+    {
+        echo '<meta http-equiv="refresh" content="0; URL='.$url.'">';
+        exit;
+    }
 }
+
+?>

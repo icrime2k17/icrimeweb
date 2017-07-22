@@ -518,5 +518,4 @@ Class AdminModel extends CI_Model {
     }
 
 }
-
-?> 
+?>

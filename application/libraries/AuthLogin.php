@@ -7,10 +7,6 @@ class AuthLogin {
     public function checkIfLogin($mode) 
     {
         $this->mode = $mode;
-        if(!session_id())
-        {
-            session_start();
-        }
         
         if($mode == 'admin')
         {
@@ -106,7 +102,4 @@ class AuthLogin {
             }
         }
     }
-}
-
-?>
-	
+}	
