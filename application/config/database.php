@@ -95,24 +95,51 @@ $db['default'] = array(
 	'save_queries' => TRUE
 );
 
-$db['pdo'] = array(
-    'dsn'   => 'mysql:host=localhost;dbname=icrime',
-    //'hostname' => 'localhost',
-    'username' => 'root',
-    'password' => '',
-    'database' => 'icrime',
-    'dbdriver' => 'pdo',
-    'dbprefix' => '',
-    'pconnect' => FALSE,
-    'db_debug' => (ENVIRONMENT !== 'production'),
-    'cache_on' => FALSE,
-    'cachedir' => '',
-    'char_set' => 'utf8',
-    'dbcollat' => 'utf8_general_ci',
-    'swap_pre' => '',
-    'encrypt' => FALSE,
-    'compress' => FALSE,
-    'stricton' => FALSE,
-    'failover' => array(),
-    'save_queries' => TRUE
-);
+if(IS_DEV)
+{
+    $db['pdo'] = array(
+        'dsn'   => 'mysql:host=localhost;dbname=icrime',
+        //'hostname' => 'localhost',
+        'username' => 'root',
+        'password' => '',
+        'database' => 'icrime',
+        'dbdriver' => 'pdo',
+        'dbprefix' => '',
+        'pconnect' => FALSE,
+        'db_debug' => (ENVIRONMENT !== 'production'),
+        'cache_on' => FALSE,
+        'cachedir' => '',
+        'char_set' => 'utf8',
+        'dbcollat' => 'utf8_general_ci',
+        'swap_pre' => '',
+        'encrypt' => FALSE,
+        'compress' => FALSE,
+        'stricton' => FALSE,
+        'failover' => array(),
+        'save_queries' => TRUE
+    );
+}
+else
+{
+    $db['pdo'] = array(
+        'dsn'   => 'mysql:host=localhost;dbname=icrime',
+        //'hostname' => 'localhost',
+        'username' => 'id2320038_icrime2k17',
+        'password' => '2k17icrime',
+        'database' => 'id2320038_icrime',
+        'dbdriver' => 'pdo',
+        'dbprefix' => '',
+        'pconnect' => FALSE,
+        'db_debug' => (ENVIRONMENT !== 'production'),
+        'cache_on' => FALSE,
+        'cachedir' => '',
+        'char_set' => 'utf8',
+        'dbcollat' => 'utf8_general_ci',
+        'swap_pre' => '',
+        'encrypt' => FALSE,
+        'compress' => FALSE,
+        'stricton' => FALSE,
+        'failover' => array(),
+        'save_queries' => TRUE
+    );
+}

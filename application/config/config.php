@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+define('IS_DEV', TRUE);
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -23,7 +25,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://icrime.dev.ph/';
+if(IS_DEV)
+{
+    $config['base_url'] = 'http://icrime.dev.ph/';
+}
+else
+{
+    $config['base_url'] = 'http://icrime2k17.000webhostapp.com/';
+}
 
 /*
 |--------------------------------------------------------------------------
