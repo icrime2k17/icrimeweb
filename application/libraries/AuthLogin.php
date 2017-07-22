@@ -26,8 +26,7 @@ class AuthLogin {
                                 AND enabled = 1";
                         $stmt = $CI->pdo->query($sql,array($user_id,$session_id));
                         $result = $stmt->result();
-                        $data =  (array) $result[0];
-                        if(count($data) > 0)
+                        if(count($result) > 0)
                         {
                             return TRUE;
                         }

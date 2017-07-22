@@ -18,7 +18,18 @@ class Admin extends CI_Controller {
         {
             if(!$this->authlogin->checkIfLogin('admin'))
             {
-                redirect('/admin/login');
+                if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') 
+                {
+                    $json_data = array();
+                    $json_data['success'] = FALSE;
+                    $json_data['message'] = "You are not logged in";
+                    echo json_encode($json_data);
+                    exit;
+                }
+                else
+                {
+                    redirect('/admin/login');
+                }
             }
         }
     }
