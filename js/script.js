@@ -11,69 +11,13 @@ $(document).ready(function()
     
     $('#app_user_form').submit(function(){
         var data = $(this).serialize();
-        $.ajax({
-            url : '/admin/AddAppUser',
-            method : 'POST',
-            data : data,
-            dataType : "json",
-            beforeSend : function(){
-                loading();
-            },
-            success : function(data){
-                if(data.success)
-                {
-                    $('#app_user_form')[0].reset();
-                    $("#add-app-user-modal").modal('hide');
-                    LoadAppUsers();
-                    swal("Good job!", "User successfully added!", "success");
-                }
-                else
-                {
-                    swal("Error", "Error connecting to server.", "error");
-                }
-                
-                dismissLoading();
-            },
-            error : function(){
-                dismissLoading();
-                swal("Error", "Error connecting to server.", "error");
-            }
-        });
-        
+        AddAppUser(data);
         return false;
     });
     
     $('#update_app_user_form').submit(function(){
         var data = $(this).serialize();
-        $.ajax({
-            url : '/admin/UpdateAppUser',
-            method : 'POST',
-            data : data,
-            dataType : "json",
-            beforeSend : function(){
-                loading();
-            },
-            success : function(data){
-                if(data.success)
-                {
-                    $('#update_app_user_form')[0].reset();
-                    $("#update-app-user-modal").modal('hide');
-                    LoadAppUsers();
-                    swal("Good job!", "User successfully updated!", "success");
-                }
-                else
-                {
-                    swal("Error", "Error connecting to server.", "error");
-                }
-                
-                dismissLoading();
-            },
-            error : function(){
-                dismissLoading();
-                swal("Error", "Error connecting to server.", "error");
-            }
-        });
-        
+        UpdateUser(data);
         return false;
     });
     
@@ -203,6 +147,70 @@ $(document).ready(function()
           });
     });
 });
+
+var UpdateUser = function(data)
+{
+    $.ajax({
+        url : '/admin/UpdateAppUser',
+        method : 'POST',
+        data : data,
+        dataType : "json",
+        beforeSend : function(){
+            loading();
+        },
+        success : function(data){
+            if(data.success)
+            {
+                $('#update_app_user_form')[0].reset();
+                $("#update-app-user-modal").modal('hide');
+                LoadAppUsers();
+                swal("Good job!", "User successfully updated!", "success");
+            }
+            else
+            {
+                swal("Error", "Error connecting to server.", "error");
+            }
+
+            dismissLoading();
+        },
+        error : function(){
+            dismissLoading();
+            swal("Error", "Error connecting to server.", "error");
+        }
+    });
+};
+
+var AddAppUser = function(data)
+{    
+    $.ajax({
+        url : '/admin/AddAppUser',
+        method : 'POST',
+        data : data,
+        dataType : "json",
+        beforeSend : function(){
+            loading();
+        },
+        success : function(data){
+            if(data.success)
+            {
+                $('#app_user_form')[0].reset();
+                $("#add-app-user-modal").modal('hide');
+                LoadAppUsers();
+                swal("Good job!", "User successfully added!", "success");
+            }
+            else
+            {
+                swal("Error", "Error connecting to server.", "error");
+            }
+
+            dismissLoading();
+        },
+        error : function(){
+            dismissLoading();
+            swal("Error", "Error connecting to server.", "error");
+        }
+    });
+};
 
 var LoadWantedList = function()
 {
@@ -518,6 +526,14 @@ var LoadAppUserEditMode = function(id)
                     $("#edit_lastname").val(data.info.lastname);
                     $("#edit_username").val(data.info.username);
                     $("#edit_position").val(data.info.position);
+                    if(data.info.is_admin == 1)
+                    {
+                        $("#is-admin-update").prop("checked",true);
+                    }
+                    else
+                    {
+                        $("#is-admin-update").prop("checked",false);
+                    }
                     $("#update-app-user-modal").modal();
                 }
                 else
