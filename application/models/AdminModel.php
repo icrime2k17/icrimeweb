@@ -26,7 +26,7 @@ Class AdminModel extends CI_Model {
     {
         try
         {
-            $sql = "SELECT id,firstname,lastname,position,username FROM app_users WHERE id = ?";
+            $sql = "SELECT id,firstname,lastname,position,username,is_admin FROM app_users WHERE id = ?";
             $stmt = $this->pdo->query($sql,array($id));
             $result = $stmt->result();
             return (array) $result[0];
@@ -42,15 +42,25 @@ Class AdminModel extends CI_Model {
         try
         {
             extract($data);
+            if(isset($is_admin) && $is_admin == 'on')
+            {
+                $is_admin = 1;
+            }
+            else
+            {
+                $is_admin = 0;
+            }
+            
             $password = sha1($password);
             $sql = "INSERT INTO app_users
                     SET username = ?,
                     password = ?,
                     lastname = ?,
                     firstname = ?,
-                    position = ?
+                    position = ?,
+                    is_admin = ?
                     ";
-            $stmt = $this->pdo->query($sql,array($username,$password,$lastname,$firstname,$position));
+            $stmt = $this->pdo->query($sql,array($username,$password,$lastname,$firstname,$position,$is_admin));
             return $stmt;
         } 
         catch (Exception $ex) 
@@ -83,16 +93,26 @@ Class AdminModel extends CI_Model {
         try
         {
             extract($data);
+            if(isset($is_admin) && $is_admin == 'on')
+            {
+                $is_admin = 1;
+            }
+            else
+            {
+                $is_admin = 0;
+            }
+            
             if(trim($password) == '')
             {
                 $sql = "UPDATE app_users
                         SET username = ?,
                         lastname = ?,
                         firstname = ?,
-                        position = ?
+                        position = ?,
+                        is_admin = ?
                         WHERE id = ?
                         ";
-                $stmt = $this->pdo->query($sql,array($username,$lastname,$firstname,$position,$edit_id));
+                $stmt = $this->pdo->query($sql,array($username,$lastname,$firstname,$position,$is_admin,$edit_id));
             }
             else 
             {

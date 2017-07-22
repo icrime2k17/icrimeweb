@@ -1,4 +1,4 @@
-<h1>App Users</h1>
+<h1>Users</h1>
 <div class="col-xs-12 users">
     <table class="table table-striped table-hover">
     <thead>
@@ -21,7 +21,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add App User</h4>
+          <h4 class="modal-title">Add User</h4>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -41,6 +41,7 @@
                             <option value="Brgy Chairman">Brgy Chairman</option>
                             <option value="Brgy Kagawad">Brgy Kagawad</option>
                             <option value="Police">Police</option>
+                            <option value="Web Administrator">Web Administrator</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -54,6 +55,13 @@
                     <div class="form-group">
                       <label for="pwd">Confirm Password:</label>
                       <input type="password" class="form-control input-sm" id="confirmpassword" name="confirmpassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Web Admin User:</label>
+                        <label class="switch">
+                            <input type="checkbox" name="is_admin">
+                            <span class="slider round"></span>
+                        </label>
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-submit pull-right">
@@ -91,6 +99,7 @@
                             <option value="Brgy Chairman">Brgy Chairman</option>
                             <option value="Brgy Kagawad">Brgy Kagawad</option>
                             <option value="Police">Police</option>
+                            <option value="Web Administrator">Web Administrator</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -104,6 +113,13 @@
                     <div class="form-group">
                       <label for="pwd">Confirm Password:</label>
                       <input type="password" class="form-control input-sm" id="edit_confirmpassword" name="confirmpassword">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Web Admin User:</label>
+                        <label class="switch">
+                            <input id="is-admin-update" type="checkbox" name="is_admin">
+                            <span class="slider round"></span>
+                        </label>
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-submit pull-right">
