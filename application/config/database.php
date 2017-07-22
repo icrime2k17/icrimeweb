@@ -122,7 +122,7 @@ if(IS_DEV)
 else
 {
     $db['pdo'] = array(
-        'dsn'   => 'mysql:host=localhost;dbname=icrime',
+        'dsn'   => 'mysql:host=localhost;dbname=id2320038_icrime',
         //'hostname' => 'localhost',
         'username' => 'id2320038_icrime2k17',
         'password' => '2k17icrime',
