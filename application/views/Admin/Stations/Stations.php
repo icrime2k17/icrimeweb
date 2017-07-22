@@ -48,7 +48,7 @@
             </div>
             <div class="form-group">
                 <input type="hidden" name="edit_id" id="edit_id">
-                <input name="submit" type="submit" class="btn btn-submit pull-right">
+                <input name="submit" type="submit" value="Submit" class="btn btn-submit pull-right">
             </div>
         </form>
     </div>
