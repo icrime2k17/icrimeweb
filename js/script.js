@@ -49,6 +49,7 @@ $(document).ready(function()
             $(this).addClass('toggled');
             $('.police-stations').hide();
             $('.map').addClass('show');
+            $('.police-form').html('Add Police Station');
         }
         else
         {
@@ -430,6 +431,7 @@ var LoadPoliceStationsEditMode = function(id)
                     map.setZoom(17);
                     
                     $('.add-station').trigger("click");
+                    $('.police-form').html('Update Police Station');
                 }
                 else
                 {

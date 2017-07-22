@@ -1,5 +1,5 @@
-<h1>Police Stations</h1>
 <div class="col-xs-12 police-stations">
+    <h1>Police Stations</h1>
     <table class="table table-striped table-hover">
     <thead>
       <tr>
@@ -16,6 +16,7 @@
   </table>
 </div>
 <div class="col-xs-12 map">
+    <h1 class="police-form">Add Police Station</h1>
     <div class="col-xs-3 stationformholder">
         <form id="stationform">
             <div class="form-group">
