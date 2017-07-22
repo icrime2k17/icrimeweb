@@ -34,7 +34,7 @@
                     <input type="password" class="form-control input-sm" id="password" name="password" required>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-submit pull-right">
+                    <input type="submit" value="Submit" class="btn btn-submit pull-right">
                 </div>
             </form>
         </div>

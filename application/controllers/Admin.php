@@ -25,9 +25,40 @@ class Admin extends CI_Controller {
     
     public function Login()
     {
-        $this->load->view('Admin/Login');
+        if(isset($_POST['username']) && isset($_POST['password']))
+        {
+            $user_data = null;
+            $stmt = $this->model->login($_POST['username'],$_POST['password']);
+            foreach($stmt->result() as $row)
+            {
+                $user_data = (array) $row;
+            }
+
+            if($user_data != null)
+            {
+                $_SESSION['admin']['login'] = TRUE;
+                $_SESSION['admin']['user_id'] = $user_data['id'];
+                $_SESSION['admin']['session_id'] = session_id();
+                $this->authlogin->SetSessionId($user_data['id'],session_id());
+                header("location:/admin");
+            }
+            else
+            {
+                $this->load->view('Admin/Login');
+            }
+        }
+        else
+        {
+            $this->load->view('Admin/Login');
+        }
     }
     
+    public function Logout()
+    {
+        unset($_SESSION['admin']);
+        header("location: /admin/login");
+    }
+
     public function index()
     {
         $this->AppUsers();
