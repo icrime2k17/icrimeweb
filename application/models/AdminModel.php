@@ -6,24 +6,6 @@ Class AdminModel extends CI_Model {
         $this->pdo = $this->load->database('pdo', true);
     }
     
-    public function login($username,$password) {
-        try
-        {
-            $password = sha1($password);
-            $sql = "SELECT * FROM app_users 
-                    WHERE username = ?
-                    AND password = ?
-                    AND enabled = 1";
-            $stmt = $this->pdo->query($sql,array($username,$password));
-            return $stmt;
-        } 
-        catch (Exception $ex) 
-        {
-            echo $ex;
-            exit;
-        }
-    }
-    
     public function GetAppUsers() {
         try
         {

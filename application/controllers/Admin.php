@@ -28,7 +28,7 @@ class Admin extends CI_Controller {
         if(isset($_POST['username']) && isset($_POST['password']))
         {
             $user_data = null;
-            $stmt = $this->model->login($_POST['username'],$_POST['password']);
+            $stmt = $this->authlogin->login($_POST['username'],$_POST['password']);
             foreach($stmt->result() as $row)
             {
                 $user_data = (array) $row;
@@ -44,12 +44,27 @@ class Admin extends CI_Controller {
             }
             else
             {
-                $this->load->view('Admin/Login');
+                $_SESSION['login_message']['status'] = FALSE;
+                $_SESSION['login_message']['message'] = 'Login Failed';
+                header("location:/admin/login");
             }
         }
         else
         {
-            $this->load->view('Admin/Login');
+            $data = array();
+            $data['show_message'] = 'false';
+            $data['message'] = ''; 
+            if(isset($_SESSION['login_message']))
+            {
+                if(!$_SESSION['login_message']['status'])
+                {
+                    $data['showMessage'] = 'true';
+                    $data['message'] = $_SESSION['login_message']['message'];
+                    unset($_SESSION['login_message']);
+                }
+            }
+            
+            $this->load->view('Admin/Login',$data);
         }
     }
     

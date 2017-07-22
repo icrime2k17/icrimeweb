@@ -62,6 +62,28 @@ class AuthLogin {
         }
     }
     
+    public function login($username,$password) {
+        try
+        {
+            $CI =& get_instance();
+            $CI->pdo = $CI->load->database('pdo', true);
+            
+            $password = sha1($password);
+            $sql = "SELECT * FROM app_users 
+                    WHERE username = ?
+                    AND password = ?
+                    AND is_admin = 1
+                    AND enabled = 1";
+            $stmt = $CI->pdo->query($sql,array($username,$password));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
     public function SetSessionId($id,$session_id) 
     {
         if($this->mode == 'admin')

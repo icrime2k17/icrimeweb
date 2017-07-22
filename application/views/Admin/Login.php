@@ -38,6 +38,13 @@
                 </div>
             </form>
         </div>
+        
+        <script>
+            var showMessage = <?php echo $showMessage; ?>;
+            if(showMessage)
+            {
+                swal("Oooopss...", "<?php echo $message; ?>", "error");
+            }
+        </script>
     </body>
-
 </html>
