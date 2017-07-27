@@ -79,6 +79,76 @@ $(document).ready(function()
         }
     });
     
+    $('.add-blotter').click(function(){
+        if(!$(this).hasClass('toggled'))
+        {
+            $(this).addClass('toggled');
+            $('.blotters').hide();
+            $('.map').addClass('show');
+            $('.blotter-form').html('Add Blotter');
+        }
+        else
+        {
+            $(this).removeClass('toggled');
+            $('.blotters').show();
+            $('.map').removeClass('show');
+            $("#stationform")[0].reset();
+            $('.btn-submit').val("Submit");
+        }
+        
+    });
+    
+    $(".main-container").on("click", ".add-suspect",function()
+    {
+        $(".suspect-data-container").append($("#suspect-form-template").html());
+        var ctr = 1;
+        $(".suspect-data-container").find(".form-caption").each(function(){
+            $(this).html("<div class='col-xs-12 caption-holder'><span class='caption'>SUSPECT "+ctr+"</span><span class='clear'>x</span></div>");
+            ctr++;
+        });
+    });
+    
+    $(".main-container").on("click", ".add-victim",function()
+    {
+        $(".victim-data-container").append($("#victim-form-template").html());
+        var ctr = 1;
+        $(".victim-data-container").find(".form-caption").each(function(){
+            $(this).html("<div class='col-xs-12 caption-holder'><span class='caption'>VICTIM "+ctr+"</span><span class='clear'>x</span>");
+            ctr++;
+        });
+    });
+    
+    $(".main-container").on("click", ".clear",function()
+    {
+        var element = $(this);
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this record!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+          },
+          function(){
+                $(element).parents(".data-form").remove();
+
+                var ctr = 1;
+                $(".suspect-data-container").find(".form-caption").each(function(){
+                    $(this).html("<div class='col-xs-12 caption-holder'><span class='caption'>SUSPECT "+ctr+"</span><span class='clear'>x</span></div>");
+                    ctr++;
+                });
+
+                var ctr = 1;
+                $(".victim-data-container").find(".form-caption").each(function(){
+                    $(this).html("<div class='col-xs-12 caption-holder'><span class='caption'>VICTIM "+ctr+"</span><span class='clear'>x</span>");
+                    ctr++;
+                });
+                
+                swal("Deleted!", "Record successfully removed.", "success");
+          });
+    });
+    
     $("#stationform").submit(function(){
         var data = $(this).serialize();
         var lat = map.getCenter().lat();

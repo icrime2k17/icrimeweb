@@ -174,7 +174,7 @@ body
     background: #e74c3c;
 }
 
-.btn-submit
+.btn-submit, .form-btn
 {
     border: 2px solid #2c3e50;
     background: #2c3e50;
@@ -187,7 +187,7 @@ body
     margin-top: 5px;
 }
 
-.btn-submit:hover, .btn-submit:focus
+.btn-submit:hover, .btn-submit:focus, .form-btn:hover, .form-btn:focus
 {
     color: #2c3e50;
     background: #fff;
@@ -381,4 +381,43 @@ input:checked + .slider:before {
 .login-inner
 {
     padding: 20px;
+}
+
+form-template
+{
+    display: none;
+}
+
+.no-gutter
+{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.suspect-data-container .caption, .victim-data-container .caption
+{
+    display: block;
+    padding: 10px;
+    background: #2c3e50;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.suspect-data-container .clear, .victim-data-container .clear
+{
+    position: absolute;
+    top: 0;
+    right: 15px;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+
+.caption-holder
+{
+    margin: 10px 0;
 }

@@ -516,6 +516,22 @@ Class AdminModel extends CI_Model {
             exit;
         }
     }
+    
+    public function GetBlotters() {
+        try
+        {
+            $sql = "SELECT * FROM blotter
+                    WHERE enabled = 1
+                    ORDER BY id DESC";
+            $stmt = $this->pdo->query($sql);
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 
 }
 ?>

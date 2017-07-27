@@ -469,6 +469,21 @@ class Admin extends CI_Controller {
         echo '<meta http-equiv="refresh" content="0; URL='.$url.'">';
         exit;
     }
+    
+    public function Blotters()
+    {
+        $data = array();
+        $data['list'] = '';
+        $stmt = $this->model->GetBlotters();
+        foreach($stmt->result() as $row)
+        {
+            $data['list'] .= $this->load->view('Admin/BlottersList',$row,TRUE);
+        }
+
+        $this->load->view('Admin/AdminHeader');
+        $this->load->view('Admin/Blotter/Blotters',$data);
+        $this->load->view('Admin/AdminFooter');
+    }
 }
 
 ?>
