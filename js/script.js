@@ -253,7 +253,11 @@ $(document).ready(function()
                 if(data.success)
                 {
                     $("#blotterform")[0].reset();
-                    //LoadBlotters();
+                    $(".suspect-data-container").html();
+                    $(".child-data-container").html();
+                    $(".victim-data-container").html();
+                    LoadBlotters();
+                    $('.add-blotter').trigger("click");
                     swal("Good job!", "Blotter successfully added!", "success");
                 }
                 else
@@ -705,6 +709,36 @@ var LoadAppUsers = function()
             }
         });
 };
+
+var LoadBlotters = function()
+{
+    $.ajax({
+            url : '/admin/blottersAjax',
+            method : 'POST',
+            data : null,
+            dataType : "json",
+            beforeSend : function(){
+                //loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    $("#tableBody").html(data.list);
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                //dismissLoading();
+            },
+            error : function(){
+                //dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+};
+
 
 var loading = function()
 {

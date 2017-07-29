@@ -485,6 +485,21 @@ class Admin extends CI_Controller {
         $this->load->view('Admin/AdminFooter');
     }
     
+    public function BlottersAjax()
+    {
+        $data = array();
+        $data['list'] = '';
+        $stmt = $this->model->GetBlotters();
+        foreach($stmt->result() as $row)
+        {
+            $data['list'] .= $this->load->view('Admin/Blotter/BlottersList',$row,TRUE);
+        }
+
+        $data['success'] = TRUE;
+        echo json_encode($data);
+        exit;
+    }
+    
     public function AddBlotter()
     {
         $json_data = array();
@@ -546,6 +561,7 @@ class Admin extends CI_Controller {
         }
         
         $blotter_id = $this->model->AddBlotter($blotter);
+        $this->model->UpdateBlotterEntryNumber($blotter_id,($blotter_id + BLOTTER_ENTRY_NUMBER_START));
         $reporting_inserted = $this->model->AddReporting($blotter_id,$reporting);
         
         foreach ($suspect_data as $suspect)

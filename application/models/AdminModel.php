@@ -570,6 +570,23 @@ Class AdminModel extends CI_Model {
         }
     }
     
+    public function UpdateBlotterEntryNumber($id,$number) {
+        try
+        {
+            $sql = "UPDATE blotter
+                    SET entry_number = ?
+                    WHERE id = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array($number,$id));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
     public function AddReporting($blotter_id,$data) {
         try
         {
