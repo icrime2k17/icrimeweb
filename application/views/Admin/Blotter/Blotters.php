@@ -10,7 +10,7 @@
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody id="tableBody" class="stations-list">
+    <tbody id="tableBody" class="blotters-list">
       <?php echo $list; ?>
     </tbody>
   </table>

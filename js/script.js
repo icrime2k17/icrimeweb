@@ -208,6 +208,23 @@ $(document).ready(function()
           });
     });
     
+    $('.blotters-list').on("click",'.delete_record',function(){
+        var id = $(this).attr('data-id');
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this record!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+          },
+          function(){
+                DeleteBlotter(id);
+          });
+    });
+    
     $("#wantedform").submit(function(){
        loading(); 
     });
@@ -276,6 +293,38 @@ $(document).ready(function()
         return false;
     });
 });
+
+var DeleteBlotter = function(id)
+{
+    $.ajax({
+            url : '/admin/DeleteBlotter',
+            method : 'POST',
+            data : {
+                id :id
+            },
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    LoadBlotters();
+                    swal("Deleted!", "Blotter has been deleted.", "success");
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+};
 
 var UpdateUser = function(data)
 {

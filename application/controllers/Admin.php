@@ -592,6 +592,14 @@ class Admin extends CI_Controller {
         echo json_encode($json_data);
         exit;
     }
+    
+    public function DeleteBlotter()
+    {
+        $json_data = array();
+        $json_data['success'] = $this->model->DeleteBlotter($_POST['id']);
+        echo json_encode($json_data);
+        exit;
+    }
 }
 
 ?>
