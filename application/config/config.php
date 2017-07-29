@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 define('IS_DEV', TRUE);
+define('BLOTTER_ENTRY_NUMBER_START', 1000);
 
 /*
 |--------------------------------------------------------------------------

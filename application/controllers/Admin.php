@@ -477,12 +477,104 @@ class Admin extends CI_Controller {
         $stmt = $this->model->GetBlotters();
         foreach($stmt->result() as $row)
         {
-            $data['list'] .= $this->load->view('Admin/BlottersList',$row,TRUE);
+            $data['list'] .= $this->load->view('Admin/Blotter/BlottersList',$row,TRUE);
         }
 
         $this->load->view('Admin/AdminHeader');
         $this->load->view('Admin/Blotter/Blotters',$data);
         $this->load->view('Admin/AdminFooter');
+    }
+    
+    public function AddBlotter()
+    {
+        $json_data = array();
+        $blotter = array();
+        $reporting = array();
+        $suspect = array();
+        $child_in_conflict = array();
+        $victim = array();
+        $suspect_data = array();
+        $child_in_conflict_data = array();
+        $victim_data = array();
+        foreach($_POST as $key => $value)
+        {
+            $prefix = substr($key,0,2);
+            if($prefix == 'r_')
+            {
+                $reporting[$key] = $value;
+            }
+            else if($prefix == 's_')
+            {
+                $suspect[$key] = $value;
+            }
+            else if($prefix == 'c_')
+            {
+                $child_in_conflict[$key] = $value;
+            }
+            else if($prefix == 'v_')
+            {
+                $victim[$key] = $value;
+            }
+            else
+            {
+                $blotter[$key] = $value;
+            }
+        }
+        
+        foreach ($suspect as $key => $value)
+        {
+            foreach ($value as $index => $input)
+            {
+                $suspect_data[$index][$key] =  $input;
+            }
+        }
+        
+        foreach ($child_in_conflict as $key => $value)
+        {
+            foreach ($value as $index => $input)
+            {
+                $child_in_conflict_data[$index][$key] =  $input;
+            }
+        }
+        
+        foreach ($victim as $key => $value)
+        {
+            foreach ($value as $index => $input)
+            {
+                $victim_data[$index][$key] =  $input;
+            }
+        }
+        
+        $blotter_id = $this->model->AddBlotter($blotter);
+        $reporting_inserted = $this->model->AddReporting($blotter_id,$reporting);
+        
+        foreach ($suspect_data as $suspect)
+        {
+            $inserted = $this->model->AddSuspect($blotter_id,$suspect);
+        }
+        
+        foreach ($child_in_conflict_data as $child_in_conflict)
+        {
+            $inserted = $this->model->AddChildInConflict($blotter_id,$child_in_conflict);
+        }
+        
+        foreach ($victim_data as $victim)
+        {
+            $inserted = $this->model->AddVictim($blotter_id,$victim);
+        }
+        
+        if($blotter_id > 0)
+        {
+            $json_data['success'] = TRUE;
+        }
+        else
+        {
+            $json_data['success'] = FALSE;
+            $json_data['message'] = "Failed to save the blotter";
+        }
+        
+        echo json_encode($json_data);
+        exit;
     }
 }
 

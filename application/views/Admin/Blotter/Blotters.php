@@ -15,9 +15,9 @@
     </tbody>
   </table>
 </div>
-<div class="col-xs-12 map">
+<div class="col-xs-12 blotter-form-map">
     <h1 class="blotter-form">Add Blotter</h1>
-    <div class="col-xs-12 stationformholder">
+    <div class="col-xs-12 blotterformholder">
         <form id="blotterform">
             <div class="form-group col-sm-4">
                 <label>Type of incident:</label>
@@ -96,7 +96,7 @@
             </div>
             <div class="form-group col-sm-3">
                 <label>Place of birth:</label>
-                <input type="text" class="form-control input-sm" id="r_birthplace" name="r_birthplace" required>
+                <input type="text" class="form-control input-sm" id="r_birth_place" name="r_birth_place" required>
             </div>
             <div class="form-group col-sm-3">
                 <label>Home phone:</label>
@@ -150,11 +150,11 @@
                 <label>Highest educational attainment:</label>
                 <input type="text" class="form-control input-sm" id="r_hea" name="r_hea">
             </div>
-            <div class="form-group col-sm-3">
+            <div class="form-group col-sm-2">
                 <label>Occupation:</label>
                 <input type="text" class="form-control input-sm" id="r_occupation" name="r_occupation">
             </div>
-            <div class="form-group col-sm-3">
+            <div class="form-group col-sm-2">
                 <label>Ids presented:</label>
                 <input type="text" class="form-control input-sm" id="r_id_presented" name="r_id_presented" required>
             </div>
@@ -162,39 +162,67 @@
                 <label>Email:</label>
                 <input type="email" class="form-control input-sm" id="r_email" name="r_email">
             </div>
+            <div class="form-group col-sm-2">
+                <label>Is victim?</label>
+                <label class="switch">
+                    <input id="r_is_victim" type="checkbox" name="r_is_victim">
+                    <span class="slider round"></span>
+                </label>
+            </div>
 <!--            Suspect Form-->
             <div class="col-sm-12">
                 <h3>ITEM "B" SUSPECT DATA</h3>
             </div>
-            <div class="col-xs-12 no-gutter suspect-data-container">
+            <div class="col-xs-12 no-gutter suspect-data-container data-container">
             </div>
             <div class="col-xs-12">
                 <button type="button" class="btn form-btn add-suspect">
-                    Add suspect
+                    <i class="fa fa-plus" aria-hidden="true"></i> Add suspect
                 </button>
             </div>
-            
+            <!--Child in conflict-->
+            <div class="col-xs-12 no-gutter child-data-container data-container">
+            </div>
+            <div class="col-xs-12">
+                <button type="button" class="btn form-btn add-child">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Add child in conflict with the law
+                </button>
+            </div>
 <!--            Victim Form-->
             <div class="col-sm-12">
                 <h3>ITEM "C" VICTIM DATA</h3>
             </div>
-            <div class="col-xs-12 no-gutter victim-data-container">
+            <div class="col-xs-12 no-gutter victim-data-container data-container">
             </div>
             <div class="col-xs-12">
                 <button type="button" class="btn form-btn add-victim">
-                    Add victim
+                    <i class="fa fa-plus" aria-hidden="true"></i> Add victim
                 </button>
+            </div>
+
+            <div class="col-sm-12">
+                <h3>ITEM "D" NARRATIVE OF THE INCIDENT</h3>
+            </div>
+            <div class="form-group col-sm-12">
+                <label>ENTER IN DETAIL THE NARRATIVE OF THE INCIDENT OR EVENT, ANSWERING THE WHO, WHAT, WHEN, WHERE, WHY AND HOW OF REPORTING:</label>
+                <textarea class="form-control input-sm" rows="15" name="narrative" required></textarea>
+            </div>
+            
+            <div class="col-sm-12">
+                <h3>PIN TO MAP</h3>
+            </div>
+            <div class="col-xs-12 map-holder">
+                <div id="map" class="col-xs-12"></div>
+                <input type="text" id="search" class="form-control">
             </div>
             
             <div class="form-group col-sm-12">
                 <input type="hidden" name="edit_id" id="edit_id">
-                <input name="submit" type="submit" value="Submit" class="btn btn-submit pull-right">
+                <input name="submit" type="submit" value="Submit Blotter" class="btn btn-submit pull-left">
             </div>
+            <br>
+            <br>
         </form>
-    </div>
-    <div class="col-xs-9 map-holder">
-        <div id="map" class="col-xs-12"></div>
-        <input type="text" id="search" class="form-control">
     </div>
 </div>
 <span class="floating-button add-blotter">
@@ -211,7 +239,7 @@
         </div>
         <div class="form-group col-sm-3">
             <label>First name:</label>
-            <input type="text" class="form-control input-sm" name="s_fname" required>
+            <input type="text" class="form-control input-sm" name="s_fname[]" required>
         </div>
         <div class="form-group col-sm-3">
             <label>Middle name:</label>
@@ -255,7 +283,7 @@
         </div>
         <div class="form-group col-sm-3">
             <label>Place of birth:</label>
-            <input type="text" class="form-control input-sm" name="s_birthplace[]">
+            <input type="text" class="form-control input-sm" name="s_birth_place[]">
         </div>
         <div class="form-group col-sm-3">
             <label>Home phone:</label>
@@ -309,18 +337,92 @@
             <label>Highest educational attainment:</label>
             <input type="text" class="form-control input-sm" name="s_hea[]">
         </div>
-        <div class="form-group col-sm-3">
+        <div class="form-group col-sm-2">
             <label>Occupation:</label>
             <input type="text" class="form-control input-sm" name="s_occupation[]">
         </div>
-        <div class="form-group col-sm-3">
+        <div class="form-group col-sm-2">
             <label>Work address:</label>
             <input type="text" class="form-control input-sm" name="s_work_address[]">
+        </div>
+        <div class="form-group col-sm-2">
+            <label>Relation to victim:</label>
+            <input type="text" class="form-control input-sm" name="s_rtv[]">
         </div>
         <div class="form-group col-sm-3">
             <label>Email:</label>
             <input type="email" class="form-control input-sm" name="s_email[]">
         </div>
+        <div class="form-group col-sm-3">
+            <label>Is AFP/PNP personnel?</label>
+            <label class="switch">
+                <input id="s_is_officer" type="checkbox" name="s_is_officer[]">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Rank:</label>
+            <input type="text" class="form-control input-sm" name="s_rank[]">
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Unit assigned:</label>
+            <input type="text" class="form-control input-sm" name="s_unit_assigned[]">
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Group Affiliation:</label>
+            <input type="text" class="form-control input-sm" name="s_group[]">
+        </div>
+        <div class="form-group col-sm-3">
+            <label>With previous criminal record?</label>
+            <label class="switch">
+                <input id="s_is_wpcr" type="checkbox" name="s_is_wpcr[]">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Criminal records:</label>
+            <input type="text" class="form-control input-sm" name="s_criminal_records[]">
+        </div>
+        <div class="form-group col-sm-2">
+            <label>Status of prev. case:</label>
+            <input type="text" class="form-control input-sm" name="s_sopc[]">
+        </div>
+        <div class="form-group col-sm-2">
+            <label>Height:</label>
+            <input type="text" class="form-control input-sm" name="s_height[]">
+        </div>
+        <div class="form-group col-sm-2">
+            <label>Weight:</label>
+            <input type="text" class="form-control input-sm" name="s_weight[]">
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Eye color:</label>
+            <input type="text" class="form-control input-sm" name="s_eye_color[]">
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Eye description:</label>
+            <input type="text" class="form-control input-sm" name="s_eye_desc[]">
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Hair color:</label>
+            <input type="text" class="form-control input-sm" name="s_hair_color[]">
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Hair description:</label>
+            <input type="text" class="form-control input-sm" name="s_hair_desc[]">
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Under the influence?</label>
+            <label class="switch">
+                <input id="s_is_uti" type="checkbox" name="s_is_uti[]">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Under the influence of:</label>
+            <input type="text" class="form-control input-sm" name="s_influence[]">
+        </div>
+        
     </div>
 </form-template>
 
@@ -334,7 +436,7 @@
         </div>
         <div class="form-group col-sm-3">
             <label>First name:</label>
-            <input type="text" class="form-control input-sm" name="v_fname" required>
+            <input type="text" class="form-control input-sm" name="v_fname[]" required>
         </div>
         <div class="form-group col-sm-3">
             <label>Middle name:</label>
@@ -378,7 +480,7 @@
         </div>
         <div class="form-group col-sm-3">
             <label>Place of birth:</label>
-            <input type="text" class="form-control input-sm" name="v_birthplace[]">
+            <input type="text" class="form-control input-sm" name="v_birth_place[]">
         </div>
         <div class="form-group col-sm-3">
             <label>Home phone:</label>
@@ -446,6 +548,38 @@
         </div>
     </div>
 </form-template>
+
+<form-template id="child-form-template">
+    <div class="col-xs-12 no-gutter child-data-form data-form">
+        <div class="col-xs-12 form-caption no-gutter">
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Name of guardian:</label>
+            <input type="text" class="form-control input-sm" name="c_g_name[]" required>
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Guradian Address:</label>
+            <input type="text" class="form-control input-sm" name="c_g_address[]" required>
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Home phone:</label>
+            <input type="text" class="form-control input-sm" name="c_phone[]">
+        </div>
+        <div class="form-group col-sm-3">
+            <label>Mobile number:</label>
+            <input type="text" class="form-control input-sm" name="c_mobile[]">
+        </div>
+        <div class="form-group col-sm-12">
+            <label>Diversion mechanism:</label>
+            <textarea class="form-control input-sm" rows="5" name="c_diversion_mechanism[]"></textarea>
+        </div>
+        <div class="form-group col-sm-12">
+            <label>Distinguishing features:</label>
+            <textarea class="form-control input-sm" rows="10" name="c_distinguishing_features[]" required></textarea>
+        </div>
+    </div>
+</form-template>
+
 
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBt7c-kXucRO6GyORCLgGT2_GNzDuiZ4mk&callback=initMap">

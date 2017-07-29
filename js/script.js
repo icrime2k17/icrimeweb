@@ -84,15 +84,15 @@ $(document).ready(function()
         {
             $(this).addClass('toggled');
             $('.blotters').hide();
-            $('.map').addClass('show');
+            $('.blotter-form-map').addClass('show');
             $('.blotter-form').html('Add Blotter');
         }
         else
         {
             $(this).removeClass('toggled');
             $('.blotters').show();
-            $('.map').removeClass('show');
-            $("#stationform")[0].reset();
+            $('.blotter-form-map').removeClass('show');
+            $("#blotterform")[0].reset();
             $('.btn-submit').val("Submit");
         }
         
@@ -114,6 +114,16 @@ $(document).ready(function()
         var ctr = 1;
         $(".victim-data-container").find(".form-caption").each(function(){
             $(this).html("<div class='col-xs-12 caption-holder'><span class='caption'>VICTIM "+ctr+"</span><span class='clear'>x</span>");
+            ctr++;
+        });
+    });
+    
+    $(".main-container").on("click", ".add-child",function()
+    {
+        $(".child-data-container").append($("#child-form-template").html());
+        var ctr = 1;
+        $(".child-data-container").find(".form-caption").each(function(){
+            $(this).html("<div class='col-xs-12 caption-holder'><span class='caption'>CHILD IN CONFLICT WITH THE LAW "+ctr+"</span><span class='clear'>x</span>");
             ctr++;
         });
     });
@@ -142,6 +152,12 @@ $(document).ready(function()
                 var ctr = 1;
                 $(".victim-data-container").find(".form-caption").each(function(){
                     $(this).html("<div class='col-xs-12 caption-holder'><span class='caption'>VICTIM "+ctr+"</span><span class='clear'>x</span>");
+                    ctr++;
+                });
+                
+                var ctr = 1;
+                $(".child-data-container").find(".form-caption").each(function(){
+                    $(this).html("<div class='col-xs-12 caption-holder'><span class='caption'>CHILD IN CONFLICT WITH THE LAW "+ctr+"</span><span class='clear'>x</span>");
                     ctr++;
                 });
                 
@@ -216,6 +232,44 @@ $(document).ready(function()
           function(){
                 DeleteWanted(id);
           });
+    });
+    
+    $("#blotterform").submit(function(){
+        var data = $("#blotterform").serialize();
+        var lat = map.getCenter().lat();
+        var long = map.getCenter().lng();
+        data += '&lat='+lat;
+        data += '&long='+long;
+        
+        $.ajax({
+            url : '/admin/AddBlotter',
+            method : 'POST',
+            data : data,
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    $("#blotterform")[0].reset();
+                    //LoadBlotters();
+                    swal("Good job!", "Blotter successfully added!", "success");
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+        
+        return false;
     });
 });
 

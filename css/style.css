@@ -238,7 +238,7 @@ body
     height: 500px;
 }
 
-.map #search
+.map-holder #search
 {
     position: absolute;
     width: 50%;
@@ -283,10 +283,10 @@ body
 
 /* The switch - the box around the slider */
 .switch {
-  position: relative;
-  display: block;
-  width: 60px;
-  height: 34px;
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 24px;
 }
 
 /* Hide default HTML checkbox */
@@ -308,8 +308,8 @@ body
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 16px;
+  width: 16px;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -394,7 +394,7 @@ form-template
     padding-right: 0;
 }
 
-.suspect-data-container .caption, .victim-data-container .caption
+.data-container .caption, .data-container .caption
 {
     display: block;
     padding: 10px;
@@ -404,7 +404,7 @@ form-template
     font-size: 16px;
 }
 
-.suspect-data-container .clear, .victim-data-container .clear
+.data-container .clear, .data-container .clear
 {
     position: absolute;
     top: 0;
@@ -420,4 +420,37 @@ form-template
 .caption-holder
 {
     margin: 10px 0;
+}
+
+.form-btn
+{
+    margin-top: 5px;
+}
+
+.form-btn i
+{
+    margin-right: 5px;
+}
+
+textarea
+{
+    resize: none;
+}
+
+.blotter-form-map
+{
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.blotter-form-map.show
+{
+    height: auto;
+    visibility: visible;
+}
+
+.blotter-form-map .map-holder
+{
+    padding-right: 15px;
 }
