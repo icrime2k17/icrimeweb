@@ -989,6 +989,22 @@ Class AdminModel extends CI_Model {
             exit;
         }
     }
+    
+    public function GetChildByBlotterId($id)
+    {
+        try
+        {
+            $sql = "SELECT * FROM child_in_conflict WHERE blotter_id = ?";
+            $stmt = $this->pdo->query($sql,array($id));
+            $result = $stmt->result();
+            return $result;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 
 }
 ?>

@@ -1,4 +1,4 @@
-<div class="col-xs-12 no-gutter suspect-data-form data-form">
+<div class="col-xs-12 no-gutter victim-data-form data-form">
     <input type="hidden" name="v_edit_id[]" value="<?php echo $id; ?>">
     <div class="col-xs-12 form-caption no-gutter">
         <div class='col-xs-12 caption-holder'><span class='caption'>VICTIM <?php echo $ctr; ?></span><span class='clear'>x</span></div>

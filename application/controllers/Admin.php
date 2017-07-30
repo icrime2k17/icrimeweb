@@ -668,6 +668,19 @@ class Admin extends CI_Controller {
             $ctr++;
         }
         
+        //child in conflict with the law data
+        $child_data = $this->model->GetChildByBlotterId($_POST['id']);
+        $json_data['child_data_list'] = array();
+        $ctr = 1;
+        foreach ($child_data as $key => $row)
+        {
+            $row->ctr = $ctr;
+            
+            $childView = $this->load->view('Admin/Blotter/ChildTemplate',$row,TRUE);
+            array_push($json_data['child_data_list'], $childView);
+            $ctr++;
+        }
+        
         $json_data['success'] = TRUE;
         echo json_encode($json_data);
         exit;

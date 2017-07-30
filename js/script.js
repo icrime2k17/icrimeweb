@@ -835,6 +835,12 @@ var LoadBlotterEditMode = function(id)
                         $(".victim-data-container").append(row);
                     });
                     
+                    //Rendering Victim data
+                    $(".child-data-container").html('');
+                    $.each(data.child_data_list, function(key, row){
+                        $(".child-data-container").append(row);
+                    });
+                    
                     try
                     {
                         map.setCenter({
