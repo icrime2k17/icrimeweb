@@ -282,7 +282,7 @@ $(document).ready(function()
         data += '&long='+long;
         
         var mode =$(".btn-submit").val();
-        if(mode == 'Submit')
+        if(mode == 'Submit Blotter')
         {
             $.ajax({
                 url : '/admin/AddBlotter',
