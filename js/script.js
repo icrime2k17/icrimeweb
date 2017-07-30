@@ -86,13 +86,16 @@ $(document).ready(function()
             $('.blotters').hide();
             $('.blotter-form-map').addClass('show');
             $('.blotter-form').html('Add Blotter');
+            $(".suspect-data-container").html('');
+            $(".child-data-container").html('');
+            $(".victim-data-container").html('');
         }
         else
         {
             $("#blotterform")[0].reset();
-            $(".suspect-data-container").html();
-            $(".child-data-container").html();
-            $(".victim-data-container").html();
+            $(".suspect-data-container").html('');
+            $(".child-data-container").html('');
+            $(".victim-data-container").html('');
             $('.btn-submit').val("Submit");
             $(this).removeClass('toggled');
             $('.blotters').show();
@@ -854,6 +857,7 @@ var LoadBlotterEditMode = function(id)
             success : function(data){
                 if(data.success)
                 {
+                    $('.add-blotter').trigger("click");
                     //Rendering of Blotter data
                     $.each(data.info, function(key, value){
                         $('[name='+key+']', frm).val(value);
@@ -901,8 +905,6 @@ var LoadBlotterEditMode = function(id)
                     }
                     
                     map.setZoom(17);
-                    
-                    $('.add-blotter').trigger("click");
                     $('.blotter-form').html('Update Blotter');
                 }
                 else
