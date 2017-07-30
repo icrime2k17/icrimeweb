@@ -616,8 +616,8 @@ class Admin extends CI_Controller {
             $json_data['reporting']['r_'.$key] = $value;
         }
         
+        //suspect data
         $suspects_data = $this->model->GetSuspectsByBlotterId($_POST['id']);
-        $json_data['suspect_ids'] = array();
         $json_data['suspect_data_list'] = array();
         $ctr = 1;
         foreach ($suspects_data as $key => $row)
@@ -652,6 +652,19 @@ class Admin extends CI_Controller {
             
             $suspectView = $this->load->view('Admin/Blotter/SuspectTemplate',$row,TRUE);
             array_push($json_data['suspect_data_list'], $suspectView);
+            $ctr++;
+        }
+        
+        //victim data
+        $victim_data = $this->model->GetVictimByBlotterId($_POST['id']);
+        $json_data['victim_data_list'] = array();
+        $ctr = 1;
+        foreach ($victim_data as $key => $row)
+        {
+            $row->ctr = $ctr;
+            
+            $victimView = $this->load->view('Admin/Blotter/VictimTemplate',$row,TRUE);
+            array_push($json_data['victim_data_list'], $victimView);
             $ctr++;
         }
         

@@ -973,6 +973,22 @@ Class AdminModel extends CI_Model {
             exit;
         }
     }
+    
+    public function GetVictimByBlotterId($id)
+    {
+        try
+        {
+            $sql = "SELECT * FROM victim WHERE blotter_id = ?";
+            $stmt = $this->pdo->query($sql,array($id));
+            $result = $stmt->result();
+            return $result;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 
 }
 ?>
