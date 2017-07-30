@@ -266,33 +266,67 @@ $(document).ready(function()
         data += '&lat='+lat;
         data += '&long='+long;
         
-        $.ajax({
-            url : '/admin/AddBlotter',
-            method : 'POST',
-            data : data,
-            dataType : "json",
-            beforeSend : function(){
-                loading();
-            },
-            success : function(data){
-                if(data.success)
-                {
-                    LoadBlotters();
-                    $('.add-blotter').trigger("click");
-                    swal("Good job!", "Blotter successfully added!", "success");
-                }
-                else
-                {
+        var mode =$(".btn-submit").val();
+        if(mode == 'Submit')
+        {
+            $.ajax({
+                url : '/admin/AddBlotter',
+                method : 'POST',
+                data : data,
+                dataType : "json",
+                beforeSend : function(){
+                    loading();
+                },
+                success : function(data){
+                    if(data.success)
+                    {
+                        LoadBlotters();
+                        $('.add-blotter').trigger("click");
+                        swal("Good job!", "Blotter successfully added!", "success");
+                    }
+                    else
+                    {
+                        swal("Error", "Error connecting to server.", "error");
+                    }
+
+                    dismissLoading();
+                },
+                error : function(){
+                    dismissLoading();
                     swal("Error", "Error connecting to server.", "error");
                 }
+            });
+        }
+        else if(mode == 'Update Blotter')
+        {
+            $.ajax({
+                url : '/admin/UpdateBlotter',
+                method : 'POST',
+                data : data,
+                dataType : "json",
+                beforeSend : function(){
+                    loading();
+                },
+                success : function(data){
+                    if(data.success)
+                    {
+                        LoadBlotters();
+                        $('.add-blotter').trigger("click");
+                        swal("Good job!", "Blotter successfully updated!", "success");
+                    }
+                    else
+                    {
+                        swal("Error", "Error connecting to server.", "error");
+                    }
 
-                dismissLoading();
-            },
-            error : function(){
-                dismissLoading();
-                swal("Error", "Error connecting to server.", "error");
-            }
-        });
+                    dismissLoading();
+                },
+                error : function(){
+                    dismissLoading();
+                    swal("Error", "Error connecting to server.", "error");
+                }
+            });
+        }
         
         return false;
     });

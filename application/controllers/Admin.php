@@ -593,6 +593,98 @@ class Admin extends CI_Controller {
         exit;
     }
     
+    public function UpdateBlotter()
+    {
+        $json_data = array();
+        $blotter = array();
+        $reporting = array();
+        $suspect = array();
+        $child_in_conflict = array();
+        $victim = array();
+        $suspect_data = array();
+        $child_in_conflict_data = array();
+        $victim_data = array();
+        foreach($_POST as $key => $value)
+        {
+            $prefix = substr($key,0,2);
+            if($prefix == 'r_')
+            {
+                $reporting[$key] = $value;
+            }
+            else if($prefix == 's_')
+            {
+                $suspect[$key] = $value;
+            }
+            else if($prefix == 'c_')
+            {
+                $child_in_conflict[$key] = $value;
+            }
+            else if($prefix == 'v_')
+            {
+                $victim[$key] = $value;
+            }
+            else
+            {
+                $blotter[$key] = $value;
+            }
+        }
+        
+        foreach ($suspect as $key => $value)
+        {
+            foreach ($value as $index => $input)
+            {
+                $suspect_data[$index][$key] =  $input;
+            }
+        }
+        
+        foreach ($child_in_conflict as $key => $value)
+        {
+            foreach ($value as $index => $input)
+            {
+                $child_in_conflict_data[$index][$key] =  $input;
+            }
+        }
+        
+        foreach ($victim as $key => $value)
+        {
+            foreach ($value as $index => $input)
+            {
+                $victim_data[$index][$key] =  $input;
+            }
+        }
+        $blotter_id = $_POST['edit_id'];
+        $updated = $this->model->UpdateBlotter($blotter_id,$blotter);
+        $reporting_updated = $this->model->UpdateReporting($blotter_id,$reporting);
+        
+        foreach ($suspect_data as $suspect)
+        {
+            $updated = $this->model->UpdateSuspect($suspect);
+        }
+        
+        foreach ($child_in_conflict_data as $child_in_conflict)
+        {
+            $updated = $this->model->UpdateChildInConflict($child_in_conflict);
+        }
+        
+        foreach ($victim_data as $victim)
+        {
+            $updated = $this->model->UpdateVictim($victim);
+        }
+        
+        if($updated)
+        {
+            $json_data['success'] = TRUE;
+        }
+        else
+        {
+            $json_data['success'] = FALSE;
+            $json_data['message'] = "Failed to save the blotter";
+        }
+        
+        echo json_encode($json_data);
+        exit;
+    }
+    
     public function DeleteBlotter()
     {
         $json_data = array();
