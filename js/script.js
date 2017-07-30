@@ -89,11 +89,14 @@ $(document).ready(function()
         }
         else
         {
+            $("#blotterform")[0].reset();
+            $(".suspect-data-container").html();
+            $(".child-data-container").html();
+            $(".victim-data-container").html();
+            $('.btn-submit').val("Submit");
             $(this).removeClass('toggled');
             $('.blotters').show();
             $('.blotter-form-map').removeClass('show');
-            $("#blotterform")[0].reset();
-            $('.btn-submit').val("Submit");
         }
         
     });
@@ -225,6 +228,11 @@ $(document).ready(function()
           });
     });
     
+    $('.blotters-list').on("click",".edit_record",function(){
+        var id = $(this).attr("data-id");
+        LoadBlotterEditMode(id);
+    });
+    
     $("#wantedform").submit(function(){
        loading(); 
     });
@@ -269,10 +277,6 @@ $(document).ready(function()
             success : function(data){
                 if(data.success)
                 {
-                    $("#blotterform")[0].reset();
-                    $(".suspect-data-container").html();
-                    $(".child-data-container").html();
-                    $(".victim-data-container").html();
                     LoadBlotters();
                     $('.add-blotter').trigger("click");
                     swal("Good job!", "Blotter successfully added!", "success");
@@ -788,6 +792,74 @@ var LoadBlotters = function()
         });
 };
 
+var LoadBlotterEditMode = function(id)
+{
+    var frm = $("#blotterform");
+    $.ajax({
+            url : '/admin/GetBlotterById',
+            method : 'POST',
+            data : {
+                id :id
+            },
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    //Rendering of Blotter data
+                    $.each(data.info, function(key, value){
+                        $('[name='+key+']', frm).val(value);
+                    });
+                    
+                    //Rendering Reporting person data
+                    $.each(data.reporting, function(key, value){
+                        $('[name='+key+']', frm).val(value);
+                    });
+                    
+                    if(data.reporting.r_is_victim == 1)
+                    {
+                        $("#r_is_victim").prop("checked",true);
+                    }
+                    
+                    //Rendering Suspects data
+                    $(".suspect-data-container").html('');
+                    $.each(data.suspect_data_list, function(key, row){
+                        $(".suspect-data-container").append(row);
+                    });
+                    
+                    try
+                    {
+                        map.setCenter({
+                            lat:parseFloat(data.info.g_lat),
+                            lng:parseFloat(data.info.g_long)
+                        });
+                    }
+                    catch(err) 
+                    {
+                        swal("Error", "Trouble loading the map. Check your internet connection.", "error");
+                        dismissLoading();
+                    }
+                    
+                    map.setZoom(17);
+                    
+                    $('.add-blotter').trigger("click");
+                    $('.blotter-form').html('Update Blotter');
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+};
 
 var loading = function()
 {

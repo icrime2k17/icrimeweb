@@ -233,6 +233,7 @@
     <div class="col-xs-12 no-gutter suspect-data-form data-form">
         <div class="col-xs-12 form-caption no-gutter">
         </div>
+        <input type="hidden" name="s_edit_id[]" value="0">
         <div class="form-group col-sm-3">
             <label>Last name:</label>
             <input type="text" class="form-control input-sm" name="s_lname[]" required>
@@ -430,6 +431,7 @@
     <div class="col-xs-12 no-gutter victim-data-form data-form">
         <div class="col-xs-12 form-caption no-gutter">
         </div>
+        <input type="hidden" name="v_edit_id[]" value="0">
         <div class="form-group col-sm-3">
             <label>Last name:</label>
             <input type="text" class="form-control input-sm" name="v_lname[]" required>
@@ -553,6 +555,7 @@
     <div class="col-xs-12 no-gutter child-data-form data-form">
         <div class="col-xs-12 form-caption no-gutter">
         </div>
+        <input type="hidden" name="c_edit_id[]" value="0">
         <div class="form-group col-sm-3">
             <label>Name of guardian:</label>
             <input type="text" class="form-control input-sm" name="c_g_name[]" required>

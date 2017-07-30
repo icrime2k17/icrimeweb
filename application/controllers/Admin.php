@@ -600,6 +600,65 @@ class Admin extends CI_Controller {
         echo json_encode($json_data);
         exit;
     }
+    
+    public function GetBlotterById()
+    {
+        $json_data = array();
+        $json_data['info'] = $this->model->GetBlotterById($_POST['id']);
+        $json_data['info']['edit_id'] = $json_data['info']['id'];
+        $json_data['info']['submit'] = 'Update Blotter';
+        $json_data['info']['type_of_incident'] = $json_data['info']['incident'];
+        
+        $json_data['reporting'] = array();
+        $reporting_data = $this->model->GetReporterByBlotterId($_POST['id']);
+        foreach ($reporting_data as $key => $value)
+        {
+            $json_data['reporting']['r_'.$key] = $value;
+        }
+        
+        $suspects_data = $this->model->GetSuspectsByBlotterId($_POST['id']);
+        $json_data['suspect_ids'] = array();
+        $json_data['suspect_data_list'] = array();
+        $ctr = 1;
+        foreach ($suspects_data as $key => $row)
+        {
+            $row->ctr = $ctr;
+            if($row->is_officer == 1)
+            {
+                $row->officer_checked = 'checked';
+            }
+            else
+            {
+                $row->officer_checked = '';
+            }
+            
+            if($row->is_wpcr == 1)
+            {
+                $row->wpcr_checked = 'checked';
+            }
+            else
+            {
+                $row->wpcr_checked = '';
+            }
+            
+            if($row->is_uti == 1)
+            {
+                $row->influence_checked = 'checked';
+            }
+            else
+            {
+                $row->influence_checked = '';
+            }
+            
+            $suspectView = $this->load->view('Admin/Blotter/SuspectTemplate',$row,TRUE);
+            array_push($json_data['suspect_data_list'], $suspectView);
+            $ctr++;
+        }
+        
+        $json_data['success'] = TRUE;
+        echo json_encode($json_data);
+        exit;
+    }
 }
 
 ?>

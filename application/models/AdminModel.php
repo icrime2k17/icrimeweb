@@ -925,6 +925,54 @@ Class AdminModel extends CI_Model {
             exit;
         }
     }
+    
+    public function GetBlotterById($id)
+    {
+        try
+        {
+            $sql = "SELECT * FROM blotter WHERE id = ?";
+            $stmt = $this->pdo->query($sql,array($id));
+            $result = $stmt->result();
+            return (array) $result[0];
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetReporterByBlotterId($id)
+    {
+        try
+        {
+            $sql = "SELECT * FROM reporting WHERE blotter_id = ?";
+            $stmt = $this->pdo->query($sql,array($id));
+            $result = $stmt->result();
+            return (array) $result[0];
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetSuspectsByBlotterId($id)
+    {
+        try
+        {
+            $sql = "SELECT * FROM suspect WHERE blotter_id = ?";
+            $stmt = $this->pdo->query($sql,array($id));
+            $result = $stmt->result();
+            return $result;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 
 }
 ?>
