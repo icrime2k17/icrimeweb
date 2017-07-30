@@ -1362,6 +1362,24 @@ Class AdminModel extends CI_Model {
             exit;
         }
     }
+    
+    public function GenericDelete($id,$table)
+    {
+        try
+        {
+            $sql = "DELETE FROM $table
+                    WHERE id = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array($id));
+
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 
 }
 ?>

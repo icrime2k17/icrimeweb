@@ -1,4 +1,4 @@
-<div class="col-xs-12 no-gutter suspect-data-form data-form">
+<div class="col-xs-12 no-gutter suspect-data-form data-form inDb" data-id="<?php echo $id; ?>" data-table='suspect'>
     <input type="hidden" name="s_edit_id[]" value="<?php echo $id; ?>">
     <div class="col-xs-12 form-caption no-gutter">
         <div class='col-xs-12 caption-holder'><span class='caption'>SUSPECT <?php echo $ctr; ?></span><span class='clear'>x</span></div>

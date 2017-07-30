@@ -1,4 +1,4 @@
-<div class="col-xs-12 no-gutter child-data-form data-form">
+<div class="col-xs-12 no-gutter child-data-form data-form inDb" data-id="<?php echo $id; ?>" data-table='child_in_conflict'>
     <input type="hidden" name="c_edit_id[]" value="<?php echo $id; ?>">
     <div class="col-xs-12 form-caption no-gutter">
         <div class='col-xs-12 caption-holder'><span class='caption'>CHILD IN CONFLICT WITH THE LAW <?php echo $ctr; ?></span><span class='clear'>x</span></div>

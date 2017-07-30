@@ -141,9 +141,23 @@ $(document).ready(function()
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
           },
           function(){
+                if($(element).parents(".data-form").hasClass("inDb"))
+                {
+                    var id = $(element).parents(".data-form").attr("data-id");
+                    var table = $(element).parents(".data-form").attr("data-table");
+                    GenericDelete(id,table);
+                }
+                else
+                {
+                    setTimeout(function(){
+                        swal("Deleted!", "Record successfully removed.", "success");
+                    },500);
+                }
+                
                 $(element).parents(".data-form").remove();
 
                 var ctr = 1;
@@ -157,14 +171,12 @@ $(document).ready(function()
                     $(this).html("<div class='col-xs-12 caption-holder'><span class='caption'>VICTIM "+ctr+"</span><span class='clear'>x</span>");
                     ctr++;
                 });
-                
+
                 var ctr = 1;
                 $(".child-data-container").find(".form-caption").each(function(){
                     $(this).html("<div class='col-xs-12 caption-holder'><span class='caption'>CHILD IN CONFLICT WITH THE LAW "+ctr+"</span><span class='clear'>x</span>");
                     ctr++;
                 });
-                
-                swal("Deleted!", "Record successfully removed.", "success");
           });
     });
     
@@ -915,4 +927,32 @@ var loading = function()
 var dismissLoading = function()
 {
     $('.loader').slideUp();
+};
+
+var GenericDelete = function(id,table)
+{
+    $.ajax({
+            url : '/admin/GenericDelete',
+            method : 'POST',
+            data : {
+                id : id,
+                table : table
+            },
+            dataType : "json",
+            beforeSend : function(){
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    swal("Good job!", "Record successfully deleted.", "success");
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+            },
+            error : function(){
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
 };

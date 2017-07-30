@@ -658,17 +658,38 @@ class Admin extends CI_Controller {
         
         foreach ($suspect_data as $suspect)
         {
-            $updated = $this->model->UpdateSuspect($suspect);
+            if($suspect['s_edit_id'] == 0)
+            {
+                $inserted = $this->model->AddSuspect($blotter_id,$suspect);
+            }
+            else
+            {
+                $updated = $this->model->UpdateSuspect($suspect);
+            }
         }
         
         foreach ($child_in_conflict_data as $child_in_conflict)
         {
-            $updated = $this->model->UpdateChildInConflict($child_in_conflict);
+            if($child_in_conflict['c_edit_id'] == 0)
+            {
+                $inserted = $this->model->AddChildInConflict($blotter_id,$child_in_conflict);
+            }
+            else
+            {
+                $updated = $this->model->UpdateChildInConflict($child_in_conflict);
+            }
         }
         
         foreach ($victim_data as $victim)
         {
-            $updated = $this->model->UpdateVictim($victim);
+            if($victim['v_edit_id'] == 0)
+            {
+                $inserted = $this->model->AddVictim($blotter_id,$victim);
+            }
+            else
+            {
+                $updated = $this->model->UpdateVictim($victim);
+            }
         }
         
         if($updated)
@@ -774,6 +795,14 @@ class Admin extends CI_Controller {
         }
         
         $json_data['success'] = TRUE;
+        echo json_encode($json_data);
+        exit;
+    }
+    
+    public function GenericDelete()
+    {
+        $json_data = array();
+        $json_data['success'] = $this->model->GenericDelete($_POST['id'],$_POST['table']);
         echo json_encode($json_data);
         exit;
     }
