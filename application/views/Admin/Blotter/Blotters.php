@@ -15,13 +15,18 @@
     </tbody>
   </table>
 </div>
+
+<datalist id="crimes">
+  <?php echo $crimes_list ?>
+</datalist>
+
 <div class="col-xs-12 blotter-form-map">
     <h1 class="blotter-form">Add Blotter</h1>
     <div class="col-xs-12 blotterformholder">
         <form id="blotterform" method="post">
             <div class="form-group col-sm-4">
                 <label>Type of incident:</label>
-                <input type="text" class="form-control input-sm" id="type_of_incident" name="type_of_incident" required>
+                <input type="text" class="form-control input-sm" id="type_of_incident" name="type_of_incident" list="crimes" required>
             </div>
             <div class="form-group col-sm-4">
                 <label>Date reported:</label>

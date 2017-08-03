@@ -479,12 +479,26 @@ class Admin extends CI_Controller {
         {
             $data['list'] .= $this->load->view('Admin/Blotter/BlottersList',$row,TRUE);
         }
+        
+        $data['crimes_list'] = $this->BuildCrimesList();
 
         $this->load->view('Admin/AdminHeader');
         $this->load->view('Admin/Blotter/Blotters',$data);
         $this->load->view('Admin/AdminFooter');
     }
     
+    public function BuildCrimesList()
+    {
+        $options = '';
+        $stmt = $this->model->GetCrimes();
+        foreach($stmt->result() as $row)
+        {
+            $options .= $this->load->view('Admin/Crime/CrimeList',$row,TRUE);
+        }
+        
+        return $options;
+    }
+
     public function BlottersAjax()
     {
         $data = array();
