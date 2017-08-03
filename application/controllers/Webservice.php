@@ -100,4 +100,10 @@ class Webservice extends CI_Controller {
         echo json_encode($json_data);
         exit;
     }
+    
+    public function UploadFromCam()
+    {
+        $file = $_GET['filename'].'.jpg';
+        move_uploaded_file($_FILES["file"]["tmp_name"], FCPATH.'images/reports/'.$file);
+    }
 }
