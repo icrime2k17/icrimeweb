@@ -106,4 +106,11 @@ class Webservice extends CI_Controller {
         $file = $_GET['filename'].'.jpg';
         move_uploaded_file($_FILES["file"]["tmp_name"], FCPATH.'images/reports/'.$file);
     }
+    
+    public function SubmitReport()
+    {
+        $json_data = array();
+        json_encode($json_data);
+        exit;
+    }
 }
