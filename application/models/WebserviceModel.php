@@ -75,12 +75,12 @@ Class WebserviceModel extends CI_Model {
     {
         try
         {
-            $sql = "SELECT w.id,w.lastname,w.firstname,w.middlename,w.alias,r.region,w.offenses,w.reward 
+            $sql = "SELECT w.id,w.lastname,w.firstname,w.middlename,w.alias,r.region,w.offenses,w.reward,w.image 
                     FROM wanted as w
                     LEFT JOIN region as r
                     ON w.region = r.id
                     WHERE enabled = 1
-                    ORDER BY lastname,firstname";
+                    ORDER BY sort,lastname,firstname";
             $stmt = $this->pdo->query($sql);
             return $stmt;
         } 

@@ -83,6 +83,16 @@ class Webservice extends CI_Controller {
         $stmt = $this->model->GetWantedList();
         foreach($stmt->result() as $row)
         {
+            $img = FCPATH."images/uploads/".$row->image;
+            if(!file_exists($img) || (trim($row->image) == ''))
+            {
+                $row->image = 'img/wanted_default.png';
+            }
+            else
+            {
+                $row->image = 'http://'.$_SERVER['HTTP_HOST'].'/images/uploads/'.$row->image;
+            }
+            
             array_push($json_data['list'], $row);
         }
         
