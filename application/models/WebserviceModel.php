@@ -55,6 +55,22 @@ Class WebserviceModel extends CI_Model {
         }
     }
     
+    public function GetBlotters()
+    {
+        try
+        {
+            $sql = "SELECT * FROM blotter 
+                    WHERE enabled = 1";
+            $stmt = $this->pdo->query($sql);
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
     public function GetWantedList()
     {
         try

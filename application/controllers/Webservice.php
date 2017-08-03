@@ -59,6 +59,23 @@ class Webservice extends CI_Controller {
         exit;
     }
     
+    public function GetBlotters()
+    {
+        $json_data = array();
+        $json_data['list'] = array();
+        $stmt = $this->model->GetBlotters();
+        foreach($stmt->result() as $row)
+        {
+            $row->date_of_incident = date("M d o", strtotime($row->date_of_incident));
+            $row->time_of_incident = date("h:i a", strtotime($row->time_of_incident));
+            
+            array_push($json_data['list'], $row);
+        }
+        $json_data['success'] = TRUE;
+        echo json_encode($json_data);
+        exit;
+    }
+    
     public function GetWanteds()
     {
         $json_data = array();
