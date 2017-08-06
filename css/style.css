@@ -238,6 +238,12 @@ body
     height: 500px;
 }
 
+#mapView
+{
+    position: relative;
+    height: 500px;
+}
+
 .map-holder #search
 {
     position: absolute;

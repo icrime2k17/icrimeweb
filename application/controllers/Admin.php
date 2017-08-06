@@ -820,6 +820,47 @@ class Admin extends CI_Controller {
         echo json_encode($json_data);
         exit;
     }
+    
+    public function CrimeReports()
+    {
+        $data = array();
+        $data['list'] = '';
+        $stmt = $this->model->GetCrimeReports();
+        foreach($stmt->result() as $row)
+        {
+            $data['list'] .= $this->load->view('Admin/CrimeReports/CrimeReportsList',$row,TRUE);
+        }
+
+        $this->load->view('Admin/AdminHeader');
+        $this->load->view('Admin/CrimeReports/CrimeReports',$data);
+        $this->load->view('Admin/AdminFooter');
+    }
+    
+    public function CrimeReportView()
+    {
+        if(isset($GLOBALS['params'][0]))
+        {
+            $id = $GLOBALS['params'][0];
+            $data = $this->model->GetCrimeReportById($id);
+            $img = FCPATH."images/reports/".$data->image;
+            if(file_exists($img) && (trim($data->image) != ''))
+            {
+                $data->image = '<img style="max-width:300px;" src="/images/reports/'.$data->image.'">';
+            }
+            else
+            {
+                $data->image = '<i>No image...</i>';
+            }
+            
+            $this->load->view('Admin/AdminHeader');
+            $this->load->view('Admin/CrimeReports/CrimeReportsView',$data);
+            $this->load->view('Admin/AdminFooter');
+        }
+        else
+        {
+            redirect('/admin');
+        }
+    }
 }
 
 ?>
