@@ -90,6 +90,28 @@ Class WebserviceModel extends CI_Model {
             exit;
         }
     }
+    
+    public function SubmitReport($data)
+    {
+        try
+        {
+            extract($data);
+            $sql = "INSERT INTO crime_reports
+                    SET crime = ?,
+                    details = ?,
+                    g_lat = ?,
+                    g_long = ?,
+                    address = ?,
+                    image = ?";
+            $stmt = $this->pdo->query($sql,array($crime,$details,$g_lat,$g_long,$address,$image));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 
 }
 

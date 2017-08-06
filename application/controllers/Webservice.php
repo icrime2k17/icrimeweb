@@ -110,7 +110,13 @@ class Webservice extends CI_Controller {
     public function SubmitReport()
     {
         $json_data = array();
-        json_encode($json_data);
+        if(trim($_POST['image']) != '')
+        {
+            $_POST['image'] = $_POST['image'].'.jpg';
+        }
+        
+        $json_data['success'] = $this->model->SubmitReport($_POST);
+        echo json_encode($json_data);
         exit;
     }
 }
