@@ -1,89 +1,99 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
+<!DOCTYPE html> 
+<html lang = "en"> 
+    <head> 
+       <meta charset = "utf-8"> 
+       <title>iCrime</title> 
+       <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/bootstrap.min.css">
+       <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">-->
+       <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/frontstyle.css">
+       <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/frontstylemediaquery.css">
+       <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto+Condensed" rel="stylesheet">
+       <script type = 'text/javascript' src = "<?php echo base_url();?>js/jquery-1.11.3.js"></script>
+       <script type = 'text/javascript' src = "<?php echo base_url();?>js/bootstrap.min.js"></script>
+       <script type = 'text/javascript' src = "<?php echo base_url();?>js/jquery.scrollify.min.js"></script>
+       <script type = 'text/javascript' src = "<?php echo base_url();?>js/scrollreveal.min.js"></script>
+       <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.7.2/d3.min.js"></script>
+       <script type = 'text/javascript' src = "<?php echo base_url();?>js/d3pie.min.js"></script>
+       <script type = 'text/javascript' src = "<?php echo base_url();?>js/frontscript.js"></script>
 
-	<style type="text/css">
-
-	::selection { background-color: #E13300; color: white; }
-	::-moz-selection { background-color: #E13300; color: white; }
-
-	body {
-		background-color: #fff;
-		margin: 40px;
-		font: 13px/20px normal Helvetica, Arial, sans-serif;
-		color: #4F5155;
-	}
-
-	a {
-		color: #003399;
-		background-color: transparent;
-		font-weight: normal;
-	}
-
-	h1 {
-		color: #444;
-		background-color: transparent;
-		border-bottom: 1px solid #D0D0D0;
-		font-size: 19px;
-		font-weight: normal;
-		margin: 0 0 14px 0;
-		padding: 14px 15px 10px 15px;
-	}
-
-	code {
-		font-family: Consolas, Monaco, Courier New, Courier, monospace;
-		font-size: 12px;
-		background-color: #f9f9f9;
-		border: 1px solid #D0D0D0;
-		color: #002166;
-		display: block;
-		margin: 14px 0 14px 0;
-		padding: 12px 10px 12px 10px;
-	}
-
-	#body {
-		margin: 0 15px 0 15px;
-	}
-
-	p.footer {
-		text-align: right;
-		font-size: 11px;
-		border-top: 1px solid #D0D0D0;
-		line-height: 32px;
-		padding: 0 10px 0 10px;
-		margin: 20px 0 0 0;
-	}
-
-	#container {
-		margin: 10px;
-		border: 1px solid #D0D0D0;
-		box-shadow: 0 0 8px #D0D0D0;
-	}
-	</style>
-</head>
-<body>
-
-<div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
-
-	<div id="body">
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
-
-		<p>If you would like to edit this page you'll find it located at:</p>
-		<code>application/views/welcome_message.php</code>
-
-		<p>The corresponding controller for this page is found at:</p>
-		<code>application/controllers/Welcome.php</code>
-
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
-	</div>
-
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-</div>
-
-</body>
+    </head>
+    <body>
+        <div class="main-section section-home" data-section-name="home">
+            <div class="toner">
+            </div>
+            <div class="welcome-text">
+                <span class="welcome-big reveal700">
+                    iCrime
+                </span>
+                <span class="welcome-small reveal1000">
+                    Your online Crime watch App...
+                </span>
+            </div>
+        </div>
+        <div class="main-section section-analysis" data-section-name="analysis">
+            <div class="toner">
+            </div>
+            <div class="header-text reveal1000">
+                <span class="welcome-big">
+                    Crime Analysis
+                </span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-7">
+                <div id="myPie" class="reveal1000">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-5">
+                <div class="sub-header-text reveal1200">
+                    <div class="no-gutter form-group-lg col-xs-12">
+                        <label>Sort by</label>
+                        <select class="form-control" id="sort_selector">
+                            <option value="1">Per Day</option>
+                            <option value="2">Per Week</option>
+                            <option value="3" selected>Per Month</option>
+                            <option value="4">Per Year</option>
+                        </select>
+                    </div>
+                    <div class="no-gutter form-group-lg col-xs-12 month-holder">
+                        <label>Month</label>
+                        <select class="form-control" id="month_selector">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div class="no-gutter form-group-lg col-xs-12 year-holder">
+                        <label>Year</label>
+                        <select class="form-control" id="year_selector">
+                            <?php echo $years; ?>
+                        </select>
+                    </div>
+                    <div class="no-gutter form-group-lg col-xs-12 day-holder">
+                        <label>Day</label>
+                        <input type="date" class="form-control" id="day_selector">
+                    </div>
+                    <div class="no-gutter form-group-lg col-xs-12 week-holder">
+                        <label>Week</label>
+                        <input type="week" class="form-control" id="week_selector">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var current_month = parseInt("<?php echo $current_month; ?>");
+            $("#month_selector").val(current_month);
+            $(".day-holder").hide();
+            $(".week-holder").hide();
+            $(".month-holder").show();
+            $(".year-holder").show();
+        </script>
+    </body>
 </html>

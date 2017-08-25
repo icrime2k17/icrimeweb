@@ -1,0 +1,130 @@
+h1
+{
+    margin-bottom: 15px;
+    font-family: 'Oswald', sans-serif;
+    color: #243852;
+}
+
+h3
+{
+    font-family: 'Oswald', sans-serif;
+    color: #243852;
+}
+
+body
+{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.welcome-text
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.welcome-text span
+{
+    display: block;
+    text-align: center;
+    color: #fff;
+}
+
+.welcome-text .welcome-big
+{
+    font-family: 'Oswald', sans-serif;
+    font-size: 100px;
+}
+
+.welcome-text .welcome-small
+{
+    font-size: 36px;
+}
+
+.main-section
+{
+    min-height: 100vh;
+    height: auto !important;
+}
+
+.section-home
+{
+    background: url(/images/bg1.jpg) center center no-repeat;
+    background-size: cover;
+    background-color: rgb(24, 37, 107);
+    background-blend-mode: multiply;
+}
+
+.section-home .toner
+{
+    background: rgba(2, 6, 58, 0.5);
+}
+
+.section-analysis
+{
+    background: url(/images/bg2.jpg) center center no-repeat;
+    background-size: cover;
+    background-color: rgb(112, 112, 113);
+    background-blend-mode: multiply;
+}
+
+.header-text
+{
+    padding: 20px;
+    text-align: center;
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 80px;
+    color: #fff;
+}
+
+.sub-header-text
+{
+    padding: 20px;
+    text-align: left;
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 40px;
+    color: #fff;
+}
+
+.sub-header-text input, .sub-header-text select
+{
+    background: none !important;
+    color: #fff !important;
+    border: 2px solid;
+    border-radius: 0 !important;
+}
+
+.form-group-lg .form-control
+{
+    padding: 5px 16px !important;
+}
+
+.sub-header-text select option
+{
+    background: #000;
+}
+
+#myPie svg
+{
+    margin: 0 auto;
+    display: block;
+}
+
+#myPie svg text
+{
+    fill: #fff !important;
+}
+
+.no-gutter
+{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.hideme
+{
+    display: none;
+}
