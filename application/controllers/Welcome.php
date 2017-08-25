@@ -42,7 +42,30 @@ class Welcome extends CI_Controller {
         $date_from = date('Y-m-d',strtotime($_POST['year'].'-'.$_POST['month'].'-1'));
         $date_to = date("Y-m-t", strtotime($date_from));
         $json_data = array();
-        $content = $this->model->GetCrimeAnalysisByMonth($date_from,$date_to);
+        $content = $this->model->GetCrimeAnalysisByDateRange($date_from,$date_to);
+        $json_data['content'] = $content->result();
+        $json_data['success'] = TRUE;
+        echo json_encode($json_data);
+        exit;
+    }
+    
+    public function GetCrimeAnalysisByYear()
+    {
+        $date_from = date('Y-m-d',strtotime($_POST['year'].'-01-1'));
+        $date_to = date('Y-m-d',strtotime($_POST['year'].'-12-31'));
+        $json_data = array();
+        $content = $this->model->GetCrimeAnalysisByDateRange($date_from,$date_to);
+        $json_data['content'] = $content->result();
+        $json_data['success'] = TRUE;
+        echo json_encode($json_data);
+        exit;
+    }
+    
+    public function GetCrimeAnalysisByDay()
+    {
+        $day = $_POST['day'];
+        $json_data = array();
+        $content = $this->model->GetCrimeAnalysisByDay($day);
         $json_data['content'] = $content->result();
         $json_data['success'] = TRUE;
         echo json_encode($json_data);

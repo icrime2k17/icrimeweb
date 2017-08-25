@@ -7,6 +7,7 @@
        <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">-->
        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/frontstyle.css">
        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/frontstylemediaquery.css">
+       <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/sweetalert.css">
        <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto+Condensed" rel="stylesheet">
        <script type = 'text/javascript' src = "<?php echo base_url();?>js/jquery-1.11.3.js"></script>
        <script type = 'text/javascript' src = "<?php echo base_url();?>js/bootstrap.min.js"></script>
@@ -14,6 +15,7 @@
        <script type = 'text/javascript' src = "<?php echo base_url();?>js/scrollreveal.min.js"></script>
        <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.7.2/d3.min.js"></script>
        <script type = 'text/javascript' src = "<?php echo base_url();?>js/d3pie.min.js"></script>
+       <script type = 'text/javascript' src = "<?php echo base_url();?>js/sweetalert.min.js"></script>
        <script type = 'text/javascript' src = "<?php echo base_url();?>js/frontscript.js"></script>
 
     </head>
@@ -41,6 +43,7 @@
             <div class="col-xs-12 col-sm-12 col-md-7">
                 <div id="myPie" class="reveal1000">
                 </div>
+                <span class="no-data-found">No data found...</span>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-5">
                 <div class="sub-header-text reveal1200">
@@ -83,6 +86,9 @@
                     <div class="no-gutter form-group-lg col-xs-12 week-holder">
                         <label>Week</label>
                         <input type="week" class="form-control" id="week_selector">
+                    </div>
+                    <div class="no-gutter form-group-lg col-xs-12">
+                        <button type="button" class="form-control" id="show_results">SHOW RESULTS</button>
                     </div>
                 </div>
             </div>

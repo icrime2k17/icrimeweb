@@ -127,6 +127,7 @@ $(document).ready(function(){
         if(sorter == 1)
         {
             //day
+            RenderPieByDay();
         }
         else if(sorter == 2)
         {
@@ -140,7 +141,7 @@ $(document).ready(function(){
         else if(sorter == 4)
         {
             //year
-            
+            RenderPieByYear();
         }
     });
 });
@@ -177,6 +178,126 @@ var RenderPieByMonth = function()
         data : {
             month : $("#month_selector").val(),
             year : $("#year_selector").val()
+        },
+        dataType : "json",
+        beforeSend : function(){
+        },
+        success : function(data){
+            if(data.success)
+            {
+                var valid_pie = false;
+                $.each(data.content,function(key,value){
+                    var int_value = parseInt(value['value']);
+                    data.content[key]['value'] = int_value;
+                    if(int_value > 0)
+                    {
+                        valid_pie = true;
+                    }
+                });
+                
+                if(valid_pie)
+                {
+                    $(".no-data-found").css("display","none");
+                    $("#myPie").css("display","block");
+                    if(pie == null)
+                    {
+                        window.pie = new d3pie("myPie", {
+                                header: {
+                                },
+                                data: {
+                                        content: data.content
+                                }
+                        });
+                    }
+                    else
+                    {
+                        pie.updateProp("data.content", data.content);
+                    }
+                }
+                else
+                {
+                   $(".no-data-found").css("display","block");
+                   $("#myPie").css("display","none");
+                }
+            }
+            else
+            {
+                swal("Error", "Error connecting to server.", "error");
+            }
+        },
+        error : function(){
+            swal("Error", "Error connecting to server.", "error");
+        }
+    });
+};
+
+var RenderPieByYear = function()
+{
+    $.ajax({
+        url : '/welcome/GetCrimeAnalysisByYear',
+        method : 'POST',
+        data : {
+            year : $("#year_selector").val()
+        },
+        dataType : "json",
+        beforeSend : function(){
+        },
+        success : function(data){
+            if(data.success)
+            {
+                var valid_pie = false;
+                $.each(data.content,function(key,value){
+                    var int_value = parseInt(value['value']);
+                    data.content[key]['value'] = int_value;
+                    if(int_value > 0)
+                    {
+                        valid_pie = true;
+                    }
+                });
+                
+                if(valid_pie)
+                {
+                    $(".no-data-found").css("display","none");
+                    $("#myPie").css("display","block");
+                    if(pie == null)
+                    {
+                        window.pie = new d3pie("myPie", {
+                                header: {
+                                },
+                                data: {
+                                        content: data.content
+                                }
+                        });
+                    }
+                    else
+                    {
+                        pie.updateProp("data.content", data.content);
+                    }
+                }
+                else
+                {
+                   $(".no-data-found").css("display","block");
+                   $("#myPie").css("display","none");
+                }
+            }
+            else
+            {
+                swal("Error", "Error connecting to server.", "error");
+            }
+        },
+        error : function(){
+            swal("Error", "Error connecting to server.", "error");
+        }
+    });
+};
+
+var RenderPieByDay = function()
+{
+    $.ajax({
+        url : '/welcome/GetCrimeAnalysisByDay',
+        method : 'POST',
+        data : {
+            day : $("#day_selector").val()
         },
         dataType : "json",
         beforeSend : function(){
