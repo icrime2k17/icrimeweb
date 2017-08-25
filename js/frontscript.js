@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+window.pie = null;
 $(document).ready(function(){
     window.sr = ScrollReveal();
     sr.reveal('.reveal',{
@@ -40,16 +41,52 @@ $(document).ready(function(){
         reset : true
     });
     
-    var pie = new d3pie("myPie", {
-            header: {
-            },
-            data: {
-                    content: [
-                            { label: "JavaScript", value: 11},
-                            { label: "Ruby", value: 0},
-                            { label: "Java", value: 0},
-                    ]
+    $.ajax({
+        url : '/welcome/GetCrimeAnalysisByMonth',
+        method : 'POST',
+        data : {
+            month : $("#month_selector").val(),
+            year : $("#year_selector").val()
+        },
+        dataType : "json",
+        beforeSend : function(){
+        },
+        success : function(data){
+            if(data.success)
+            {
+                var valid_pie = false;
+                $.each(data.content,function(key,value){
+                    var int_value = parseInt(value['value'])
+                    data.content[key]['value'] = int_value;
+                    if(int_value > 0)
+                    {
+                        valid_pie = true;
+                    }
+                });
+                
+                if(valid_pie)
+                {
+                    pie = new d3pie("myPie", {
+                            header: {
+                            },
+                            data: {
+                                    content: data.content
+                            }
+                    });
+                }
+                else
+                {
+                   $(".no-data-found").css("display","block");
+                }
             }
+            else
+            {
+                swal("Error", "Error connecting to server.", "error");
+            }
+        },
+        error : function(){
+            swal("Error", "Error connecting to server.", "error");
+        }
     });
     
     //sorting
@@ -84,6 +121,28 @@ $(document).ready(function(){
             $(".year-holder").show();
         }
     });
+    
+    $("#show_results").click(function(){
+        var sorter = $("#sort_selector").val();
+        if(sorter == 1)
+        {
+            //day
+        }
+        else if(sorter == 2)
+        {
+            //week
+        }
+        else if(sorter == 3)
+        {
+            //month
+            RenderPieByMonth();
+        }
+        else if(sorter == 4)
+        {
+            //year
+            
+        }
+    });
 });
 
 $(function() {
@@ -110,3 +169,63 @@ $.scrollify({
     afterRender:function() {}
 });
 
+var RenderPieByMonth = function()
+{
+    $.ajax({
+        url : '/welcome/GetCrimeAnalysisByMonth',
+        method : 'POST',
+        data : {
+            month : $("#month_selector").val(),
+            year : $("#year_selector").val()
+        },
+        dataType : "json",
+        beforeSend : function(){
+        },
+        success : function(data){
+            if(data.success)
+            {
+                var valid_pie = false;
+                $.each(data.content,function(key,value){
+                    var int_value = parseInt(value['value'])
+                    data.content[key]['value'] = int_value;
+                    if(int_value > 0)
+                    {
+                        valid_pie = true;
+                    }
+                });
+                
+                if(valid_pie)
+                {
+                    $(".no-data-found").css("display","none");
+                    $("#myPie").css("display","block");
+                    if(pie == null)
+                    {
+                        window.pie = new d3pie("myPie", {
+                                header: {
+                                },
+                                data: {
+                                        content: data.content
+                                }
+                        });
+                    }
+                    else
+                    {
+                        pie.updateProp("data.content", data.content);
+                    }
+                }
+                else
+                {
+                   $(".no-data-found").css("display","block");
+                   $("#myPie").css("display","none");
+                }
+            }
+            else
+            {
+                swal("Error", "Error connecting to server.", "error");
+            }
+        },
+        error : function(){
+            swal("Error", "Error connecting to server.", "error");
+        }
+    });
+};

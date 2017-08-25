@@ -89,6 +89,16 @@ body
     color: #fff;
 }
 
+.no-data-found
+{
+    padding: 150px 20px;
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+    color: #fff;
+    display: none;
+}
+
 .sub-header-text input, .sub-header-text select
 {
     background: none !important;
@@ -127,4 +137,18 @@ body
 .hideme
 {
     display: none;
+}
+
+#show_results
+{
+    border-radius: 0;
+    color: #000;
+    margin-top: 10px;
+}
+
+#show_results:hover
+{
+    border-color: #2c3e50;
+    background: #2c3e50;
+    color: #fff;
 }

@@ -36,4 +36,16 @@ class Welcome extends CI_Controller {
         }
         return $options;
     }
+    
+    public function GetCrimeAnalysisByMonth()
+    {
+        $date_from = date('Y-m-d',strtotime($_POST['year'].'-'.$_POST['month'].'-1'));
+        $date_to = date("Y-m-t", strtotime($date_from));
+        $json_data = array();
+        $content = $this->model->GetCrimeAnalysisByMonth($date_from,$date_to);
+        $json_data['content'] = $content->result();
+        $json_data['success'] = TRUE;
+        echo json_encode($json_data);
+        exit;
+    }
 }
