@@ -145,6 +145,11 @@ $(document).ready(function(){
             RenderPieByYear();
         }
     });
+    
+    $(".owl-carousel").owlCarousel({
+                    items: 4,
+                    stagePadding: 50
+                });
 });
 
 $(function() {

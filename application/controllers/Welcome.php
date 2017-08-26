@@ -15,6 +15,7 @@ class Welcome extends CI_Controller {
         $data = array();
         $data['current_month'] = date('m');
         $data['years'] = $this->BuildBlotterYears();
+        $data['wanted_list'] = $this->BuildWantedList();
         $this->load->view('welcome_message',$data);
     }
     
@@ -88,5 +89,27 @@ class Welcome extends CI_Controller {
         $json_data['success'] = TRUE;
         echo json_encode($json_data);
         exit;
+    }
+    
+    public function BuildWantedList()
+    {
+        $wanted_list = '';
+        $list = $this->model->GetWantedList();
+        foreach ($list->result() as $row)
+        {
+            $img = FCPATH."images/uploads/".$row->image;
+            if(!file_exists($img) || (trim($row->image) == ''))
+            {
+                $row->image = '/images/wanted_default.png';
+            }
+            else
+            {
+                $row->image = '/images/uploads/'.$row->image;
+            }
+            
+            $wanted_list .= $this->load->view('HomePage/Wantedlist',$row,TRUE);
+        }
+        
+        return $wanted_list;
     }
 }

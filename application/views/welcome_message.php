@@ -8,6 +8,7 @@
        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/frontstyle.css">
        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/frontstylemediaquery.css">
        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/sweetalert.css">
+       <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/carousel.css">
        <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto+Condensed" rel="stylesheet">
        <script type = 'text/javascript' src = "<?php echo base_url();?>js/jquery-1.11.3.js"></script>
        <script type = 'text/javascript' src = "<?php echo base_url();?>js/bootstrap.min.js"></script>
@@ -15,6 +16,7 @@
        <script type = 'text/javascript' src = "<?php echo base_url();?>js/scrollreveal.min.js"></script>
        <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.7.2/d3.min.js"></script>
        <script type = 'text/javascript' src = "<?php echo base_url();?>js/d3pie.min.js"></script>
+       <script type = 'text/javascript' src = "<?php echo base_url();?>js/carousel.js"></script>
        <script type = 'text/javascript' src = "<?php echo base_url();?>js/sweetalert.min.js"></script>
        <script type = 'text/javascript' src = "<?php echo base_url();?>js/frontscript.js"></script>
 
@@ -90,6 +92,20 @@
                     <div class="no-gutter form-group-lg col-xs-12">
                         <button type="button" class="form-control" id="show_results">SHOW RESULTS</button>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-section section-wanted" data-section-name="wantedlist">
+            <div class="toner">
+            </div>
+            <div class="header-text reveal1000">
+                <span class="welcome-big">
+                    Wanted List
+                </span>
+            </div>
+            <div class="col-xs-12 no-gutter slide-show-view">
+                <div class="owl-carousel owl-theme col-xs-12">
+                    <?php echo $wanted_list; ?>
                 </div>
             </div>
         </div>

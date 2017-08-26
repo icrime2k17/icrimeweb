@@ -69,6 +69,14 @@ body
     background-blend-mode: multiply;
 }
 
+.section-wanted
+{
+    background: url(/images/bg3.jpg) center center no-repeat;
+    background-size: cover;
+    background-color: rgb(112, 112, 113);
+    background-blend-mode: multiply;
+}
+
 .header-text
 {
     padding: 20px;
@@ -151,4 +159,35 @@ body
     border-color: #2c3e50;
     background: #2c3e50;
     color: #fff;
+}
+
+.owl-item
+{
+    padding: 20px 15px;
+}
+
+.owl-item .item
+{
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    width: 100%;
+}
+
+.owl-item .item span
+{
+    display: block;
+}
+
+.w-image
+{
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.owl-item
+{
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: auto !important;
 }
