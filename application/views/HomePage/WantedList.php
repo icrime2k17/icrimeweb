@@ -1,4 +1,4 @@
-<div class="item" data-id="<?php echo $id; ?>">
+<div class="item reveal1000" data-id="<?php echo $id; ?>">
     <div class="w-image" style="background: url(<?php echo $image; ?>) center center no-repeat; background-size: contain;">
     </div>
     <span class="w-name">
