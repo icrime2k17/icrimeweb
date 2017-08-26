@@ -171,6 +171,8 @@ body
     background: rgba(255, 255, 255, 0.9);
     padding: 20px;
     width: 100%;
+    height: 400px;
+    overflow: auto;
 }
 
 .owl-item .item span
