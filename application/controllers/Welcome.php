@@ -107,7 +107,7 @@ class Welcome extends CI_Controller {
                 $row->image = '/images/uploads/'.$row->image;
             }
             
-            $wanted_list .= $this->load->view('HomePage/Wantedlist',$row,TRUE);
+            $wanted_list .= $this->load->view('HomePage/WantedList',$row,TRUE);
         }
         
         return $wanted_list;
