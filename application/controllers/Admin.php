@@ -813,6 +813,86 @@ class Admin extends CI_Controller {
         exit;
     }
     
+    public function PrintBlotter()
+    {
+        $id = $GLOBALS['params'][0];
+        $json_data = array();
+        $json_data['info'] = $this->model->GetBlotterById($id);
+        $json_data['info']['entry_number'] = $json_data['info']['id'];
+        $json_data['info']['type_of_incident'] = $json_data['info']['incident'];
+        
+        $json_data['reporting'] = array();
+        $reporting_data = $this->model->GetReporterByBlotterId($id);
+        $json_data['reporting_view'] = $this->load->view('Admin/Blotter/PrintView/ReportingTemplate',$reporting_data,TRUE);
+        
+        //suspect data
+        $suspects_data = $this->model->GetSuspectsByBlotterId($id);
+        $json_data['suspect_data_list'] = '';
+        $ctr = 1;
+        foreach ($suspects_data as $key => $row)
+        {
+            $row->ctr = $ctr;
+            if($row->is_officer == 1)
+            {
+                $row->officer_checked = 'Yes';
+            }
+            else
+            {
+                $row->officer_checked = 'No';
+            }
+            
+            if($row->is_wpcr == 1)
+            {
+                $row->wpcr_checked = 'Yes';
+            }
+            else
+            {
+                $row->wpcr_checked = 'No';
+            }
+            
+            if($row->is_uti == 1)
+            {
+                $row->influence_checked = 'Yes';
+            }
+            else
+            {
+                $row->influence_checked = 'No';
+            }
+            
+            $suspectView = $this->load->view('Admin/Blotter/PrintView/SuspectTemplate',$row,TRUE);
+            $json_data['suspect_data_list'] .= $suspectView;
+            $ctr++;
+        }
+        
+        //victim data
+        $victim_data = $this->model->GetVictimByBlotterId($id);
+        $json_data['victim_data_list'] = '';
+        $ctr = 1;
+        foreach ($victim_data as $key => $row)
+        {
+            $row->ctr = $ctr;
+            
+            $victimView = $this->load->view('Admin/Blotter/PrintView/VictimTemplate',$row,TRUE);
+            $json_data['victim_data_list'] .= $victimView;
+            $ctr++;
+        }
+        
+        //child in conflict with the law data
+        $child_data = $this->model->GetChildByBlotterId($id);
+        $json_data['child_data_list'] = '';
+        $ctr = 1;
+        foreach ($child_data as $key => $row)
+        {
+            $row->ctr = $ctr;
+            
+            $childView = $this->load->view('Admin/Blotter/PrintView/ChildTemplate',$row,TRUE);
+            $json_data['child_data_list'] .= $childView;
+            $ctr++;
+        }
+        
+        $this->load->view('Admin/Blotter/PrintView/Index',$json_data);
+    }
+    
     public function GenericDelete()
     {
         $json_data = array();

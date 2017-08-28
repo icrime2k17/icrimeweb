@@ -243,6 +243,11 @@ $(document).ready(function()
         LoadBlotterEditMode(id);
     });
     
+    $('.blotters-list').on("click",".print_record",function(){
+        var id = $(this).attr("data-id");
+        window.location.href = '/admin/PrintBlotter/'+id;
+    });
+    
     $("#wantedform").submit(function(){
        loading(); 
     });
