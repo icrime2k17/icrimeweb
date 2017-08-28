@@ -1430,6 +1430,23 @@ Class AdminModel extends CI_Model {
             exit;
         }
     }
+    
+    public function GetBlotterYears() {
+        try
+        {
+            $sql = "SELECT DISTINCT(YEAR(date_of_incident)) as years 
+                    FROM blotter 
+                    WHERE enabled = 1 
+                    ORDER BY years DESC";
+            $stmt = $this->pdo->query($sql);
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 
 }
 ?>

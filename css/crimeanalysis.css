@@ -84,7 +84,6 @@ body
     display: block;
     font-family: 'Oswald', sans-serif;
     font-size: 80px;
-    color: #fff;
 }
 
 .sub-header-text
@@ -94,7 +93,6 @@ body
     display: block;
     font-family: 'Oswald', sans-serif;
     font-size: 40px;
-    color: #fff;
 }
 
 .no-data-found
@@ -103,14 +101,12 @@ body
     text-align: center;
     font-family: 'Oswald', sans-serif;
     font-size: 30px;
-    color: #fff;
     display: none;
+    transition: 0.5s;
 }
 
 .sub-header-text input, .sub-header-text select
 {
-    background: none !important;
-    color: #fff !important;
     border: 2px solid;
     border-radius: 0 !important;
 }
@@ -118,11 +114,6 @@ body
 .form-group-lg .form-control
 {
     padding: 5px 16px !important;
-}
-
-.sub-header-text select option
-{
-    background: #000;
 }
 
 #myPie svg
@@ -133,7 +124,6 @@ body
 
 #myPie svg text
 {
-    fill: #fff !important;
     font-size: 16px !important;
 }
 
@@ -150,16 +140,18 @@ body
 
 #show_results
 {
+    background: #2c3e50;
+    border: 2px solid #2c3e50;
     border-radius: 0;
-    color: #000;
+    color: #fff;
     margin-top: 10px;
+    transition: 0.5s;
 }
 
 #show_results:hover
 {
-    border-color: #2c3e50;
-    background: #2c3e50;
-    color: #fff;
+    background : #fff;
+    color: #2c3e50;
 }
 
 .owl-item
@@ -193,4 +185,9 @@ body
     display: -ms-flexbox;
     display: flex;
     height: auto !important;
+}
+
+#tabular-view
+{
+    display: none;
 }

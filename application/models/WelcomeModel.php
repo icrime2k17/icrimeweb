@@ -28,7 +28,8 @@ Class WelcomeModel extends CI_Model {
         {
             $sql = "SELECT c.crime as label,(SELECT COUNT(id) FROM blotter WHERE incident = c.crime
                     AND (date_of_incident >= ? AND date_of_incident <= ?)) as value 
-                    FROM crimes as c";
+                    FROM crimes as c
+                    ORDER BY c.crime";
             $stmt = $this->pdo->query($sql,array($date_from,$date_to));
             return $stmt;
         } 
@@ -44,7 +45,8 @@ Class WelcomeModel extends CI_Model {
         {
             $sql = "SELECT c.crime as label,(SELECT COUNT(id) FROM blotter WHERE incident = c.crime
                     AND date_of_incident = ?) as value 
-                    FROM crimes as c";
+                    FROM crimes as c
+                    ORDER BY c.crime";
             $stmt = $this->pdo->query($sql,array($day));
             return $stmt;
         } 

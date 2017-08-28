@@ -87,7 +87,7 @@ class Admin extends CI_Controller {
 
     public function index()
     {
-        $this->AppUsers();
+        $this->CrimeAnalysis();
     }
 
     public function AppUsers()
@@ -860,6 +860,35 @@ class Admin extends CI_Controller {
         {
             redirect('/admin');
         }
+    }
+    
+    public function CrimeAnalysis()
+    {
+        $data = array();
+        $data['current_month'] = date('m');
+        $data['years'] = $this->BuildBlotterYears();
+        $this->load->view('Admin/AdminHeader');
+        $this->load->view('Admin/CrimeAnalysis/CrimeAnalysisIndex',$data);
+        $this->load->view('Admin/AdminFooter');
+    }
+    
+    public function BuildBlotterYears()
+    {
+        $options = '<option value="">Select Year</option>';
+        $current_year = date('Y');
+        $years = $this->model->GetBlotterYears();
+        foreach ($years->result() as $y)
+        {
+            if($current_year == $y->years)
+            {
+                $options .= '<option value="'.$y->years.'" selected>'.$y->years.'</option>';
+            }
+            else
+            {
+                $options .= '<option value="'.$y->years.'">'.$y->years.'</option>';
+            }
+        }
+        return $options;
     }
 }
 
