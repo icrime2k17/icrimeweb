@@ -112,7 +112,63 @@ Class WebserviceModel extends CI_Model {
             exit;
         }
     }
-
+    
+    public function Register($data)
+    {
+        try
+        {
+            extract($data);
+            $password = sha1($password);
+            $sql = "INSERT INTO app_users
+                    SET lastname = ?,
+                    firstname = ?,
+                    address = ?,
+                    mobile = ?,
+                    username = ?,
+                    password = ?,
+                    enabled = 1,
+                    is_citizen  = 1
+                    ";
+            $stmt = $this->pdo->query($sql,array($lastname,$firstname,$address,$mobile,$username,$password));
+            $id = $this->pdo->insert_id();
+            return $id;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function CheckIfUsernameExist($username)
+    {
+        try
+        {
+            $sql = "SELECT id from app_users where username = ?";
+            $stmt = $this->pdo->query($sql,array($username));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function CheckIfNumberExist($number)
+    {
+        try
+        {
+            $sql = "SELECT id from app_users where mobile = ?";
+            $stmt = $this->pdo->query($sql,array($number));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 }
 
 ?> 

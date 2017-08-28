@@ -119,4 +119,65 @@ class Webservice extends CI_Controller {
         echo json_encode($json_data);
         exit;
     }
+    
+    public function Register()
+    {
+        $json_data = array();
+        if($this->isUsernameAvailable($_POST['username']))
+        {
+            if($this->isNumberAvailable($_POST['mobile']))
+            {
+                $id = $this->model->Register($_POST);
+                $json_data['id'] = $id;
+                $json_data['type'] = 'c';
+                if($id > 0)
+                {
+                    $json_data['success'] = TRUE;
+                }
+                else
+                {
+                    $json_data['success'] = FALSE;
+                    $json_data['message'] = "Error in inserting to the database";
+                }
+            }
+            else
+            {
+                $json_data['success'] = FALSE;
+                $json_data['message'] = "Mobile number is already in used.";
+            }
+        }
+        else
+        {
+            $json_data['success'] = FALSE;
+            $json_data['message'] = "Username is already in used.";
+        }
+        echo json_encode($json_data);
+        exit;
+    }
+    
+    public function isUsernameAvailable($username)
+    {
+        $is_exist = $this->model->CheckIfUsernameExist($username);
+        if(!empty($is_exist->result()))
+        {
+            return FALSE;
+        }
+        else
+        {
+            return TRUE;
+        }
+    }
+    
+    public function isNumberAvailable($username)
+    {
+        $is_exist = $this->model->CheckIfNumberExist($username);
+        if(!empty($is_exist->result()))
+        {
+            return FALSE;
+        }
+        else
+        {
+            return TRUE;
+        }
+    }
 }
