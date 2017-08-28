@@ -27,6 +27,15 @@ class Webservice extends CI_Controller {
             $stmt = $this->model->AuthenticateUser($username,$password);
             if(count($stmt) > 0)
             {
+                if($stmt[0]->is_citizen == 1)
+                {
+                    $json_data['type'] = 'c';
+                }
+                else
+                {
+                    $json_data['type'] = 'a';
+                }
+                $json_data['id'] = $stmt[0]->id;
                 $json_data['success'] = TRUE;
             }
             else

@@ -27,7 +27,7 @@ Class WebserviceModel extends CI_Model {
     {
         try
         {
-            $sql = "SELECT id FROM app_users where username = ? and password = ?";
+            $sql = "SELECT id,is_citizen FROM app_users where username = ? and password = ?";
             $stmt = $this->pdo->query($sql,array($username,$password));
             return $stmt->result();
         } 
