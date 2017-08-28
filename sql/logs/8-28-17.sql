@@ -1,0 +1,1 @@
+ALTER TABLE `app_users` ADD `mobile` VARCHAR(15) NOT NULL AFTER `firstname`, ADD `address` VARCHAR(125) NOT NULL AFTER `mobile`;
