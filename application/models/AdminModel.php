@@ -1419,10 +1419,69 @@ Class AdminModel extends CI_Model {
     {
         try
         {
-            $sql = "SELECT * FROM crime_reports
-                    WHERE id = ?";
+            $sql = "SELECT cr.*, 
+                    CONCAT(au.firstname,' ',au.lastname) as user_name, 
+                    au.mobile as user_mobile,
+                    au.address as user_address
+                    FROM crime_reports as cr
+                    INNER JOIN app_users as au
+                    ON au.id = cr.user_id
+                    WHERE cr.id = ?";
             $stmt = $this->pdo->query($sql,array($id));
             return $stmt->result()[0];
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function SetFlag($id,$value) {
+        try
+        {
+            $sql = "UPDATE crime_reports
+                    SET is_flag = ?
+                    WHERE id = ?";
+            $stmt = $this->pdo->query($sql,array($value,$id));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function AddComment($data) {
+        try
+        {
+            extract($data);
+            $date_added = date('Y-m-d H:i:s');
+            $sql = "INSERT INTO crime_report_comments
+                    SET crime_report_id = ?,
+                    user_id = ?,
+                    comment = ?,
+                    date_added = ?";
+            $stmt = $this->pdo->query($sql,array($id,$user_id,$comment,$date_added));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetCommentsById($id) {
+        try
+        {
+            $sql = "SELECT crc.*, CONCAT(au.firstname,' ',au.lastname) as user_name FROM crime_report_comments as crc
+                    INNER JOIN app_users as au
+                    ON au.id = crc.user_id
+                    WHERE crc.crime_report_id = ?";
+            $stmt = $this->pdo->query($sql,array($id));
+            return $stmt;
         } 
         catch (Exception $ex) 
         {

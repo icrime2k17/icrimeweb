@@ -96,14 +96,18 @@ Class WebserviceModel extends CI_Model {
         try
         {
             extract($data);
+            $date_reported = date("Y-m-d H:i:s");
             $sql = "INSERT INTO crime_reports
                     SET crime = ?,
+                    user_id = ?,
                     details = ?,
                     g_lat = ?,
                     g_long = ?,
                     address = ?,
-                    image = ?";
-            $stmt = $this->pdo->query($sql,array($crime,$details,$g_lat,$g_long,$address,$image));
+                    image = ?,
+                    date_reported = ?,
+                    is_flag = 1";
+            $stmt = $this->pdo->query($sql,array($crime,$user_id,$details,$g_lat,$g_long,$address,$image,$date_reported));
             return $stmt;
         } 
         catch (Exception $ex) 

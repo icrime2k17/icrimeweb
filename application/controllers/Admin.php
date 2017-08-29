@@ -908,6 +908,15 @@ class Admin extends CI_Controller {
         $stmt = $this->model->GetCrimeReports();
         foreach($stmt->result() as $row)
         {
+            if($row->is_flag == 1)
+            {
+                $row->flag = '<i style="color: #e74c3c;" class="fa fa-flag" aria-hidden="true"></i>';
+            }
+            else
+            {
+                $row->flag = '';
+            }
+            
             $data['list'] .= $this->load->view('Admin/CrimeReports/CrimeReportsList',$row,TRUE);
         }
 
@@ -921,6 +930,7 @@ class Admin extends CI_Controller {
         if(isset($GLOBALS['params'][0]))
         {
             $id = $GLOBALS['params'][0];
+            $this->model->SetFlag($id,0);
             $data = $this->model->GetCrimeReportById($id);
             $img = FCPATH."images/reports/".$data->image;
             if(file_exists($img) && (trim($data->image) != ''))
@@ -969,6 +979,30 @@ class Admin extends CI_Controller {
             }
         }
         return $options;
+    }
+    
+    public function AddComment()
+    {
+        $_POST['user_id'] = $_SESSION['admin']['user_id'];
+        $json_data = array();
+        $json_data['success'] = $this->model->AddComment($_POST);
+        echo json_encode($json_data);
+        exit;
+    }
+    
+    public function GetComments()
+    {
+        $id = $_POST['id'];
+        $json_data = array();
+        $json_data['success'] = TRUE;
+        $json_data['comments'] = '';
+        $stmt = $this->model->GetCommentsById($id);
+        foreach($stmt->result() as $row)
+        {
+            $json_data['comments'] .= $this->load->view('Admin/CrimeReports/CommentList',$row,TRUE);
+        }
+        echo json_encode($json_data);
+        exit;
     }
 }
 

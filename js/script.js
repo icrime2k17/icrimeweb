@@ -345,6 +345,40 @@ $(document).ready(function()
         
         return false;
     });
+    
+    $(".comment-submit").click(function(){
+       var comment = $("#comment").val();
+       var id = $("#crime_report_id").val();
+       if(comment.trim() != '')
+       {
+           $("#comment").val('');
+           $.ajax({
+                url : '/admin/AddComment',
+                method : 'POST',
+                data : {
+                    id : id,
+                    comment : comment
+                },
+                dataType : "json",
+                beforeSend : function(){
+                },
+                success : function(data){
+                    if(data.success)
+                    {
+                        RenderComments();
+                    }
+                    else
+                    {
+                        swal("Error", "Error connecting to server.", "error");
+                    }
+                },
+                error : function(){
+                    dismissLoading();
+                    swal("Error", "Error connecting to server.", "error");
+                }
+            });
+       }
+    });
 });
 
 var DeleteBlotter = function(id)
@@ -947,6 +981,33 @@ var GenericDelete = function(id,table)
                 if(data.success)
                 {
                     swal("Good job!", "Record successfully deleted.", "success");
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+            },
+            error : function(){
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+};
+
+var RenderComments = function()
+{
+    $.ajax({
+            url : '/admin/GetComments',
+            method : 'POST',
+            data : {
+                id : $("#crime_report_id").val()
+            },
+            dataType : "json",
+            beforeSend : function(){
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    $("#comments_list").html(data.comments);
                 }
                 else
                 {
