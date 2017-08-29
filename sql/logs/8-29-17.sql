@@ -1,0 +1,1 @@
+ALTER TABLE `crime_reports` ADD `user_id` INT NOT NULL AFTER `crime`;
