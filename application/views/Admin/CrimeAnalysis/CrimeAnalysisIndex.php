@@ -448,6 +448,7 @@
             
             var RenderTabularView = function(data)
             {
+                $("#tabular-view").css("display","block");
                 $("#tbl-tabular-view tbody").html();
                 var TabularView = '';
                 $.each(data,function(key,value){
