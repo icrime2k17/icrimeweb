@@ -4,7 +4,10 @@
        <script type = 'text/javascript' src = "<?php echo base_url();?>js/d3pie.min.js"></script>
         <div class="main-section" data-section-name="analysis">
             <h1>Crime Analysis</h1>
-            <div class="col-xs-12 col-sm-12 col-md-7">
+            <div class="pull-right">
+                <img id="print-report" src="/images/print.svg" style=" width: 30px;cursor: pointer;">
+            </div>
+            <div id="print_div" class="col-xs-12 col-sm-12 col-md-7">
                 <div id="myPie" class="reveal1000">
                 </div>
                 <div id="tabular-view" class="col-xs-12">
@@ -187,7 +190,28 @@
                         RenderPieByYear();
                     }
                 });
+                
+                $("#print-report").click(function(){
+                    printDiv();
+                });
             });
+            
+            function printDiv() 
+            {
+
+                var divToPrint=document.getElementById('print_div');
+
+                var newWin=window.open('','Print-Window');
+
+                newWin.document.open();
+
+                newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+
+                newWin.document.close();
+
+                setTimeout(function(){newWin.close();},10);
+
+            }
             
             var RenderPieByMonth = function()
             {
