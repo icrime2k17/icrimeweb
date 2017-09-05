@@ -122,11 +122,6 @@ body
     display: block;
 }
 
-#myPie svg text
-{
-    font-size: 16px !important;
-}
-
 .no-gutter
 {
     padding-left: 0;
