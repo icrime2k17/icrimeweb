@@ -189,4 +189,28 @@ class Webservice extends CI_Controller {
             return TRUE;
         }
     }
+    
+    public function GetReportHistory()
+    {
+        $id = $_POST['id'];
+        $json_data = array();
+        $json_data['list'] = array();
+        $stmt = $this->model->GetReportHistoryByUser($id);
+        foreach ($stmt->result() as $row)
+        {
+            $row->date_reported = date("M d o", strtotime($row->date_reported));
+            array_push($json_data['list'], $row);
+        }
+        if(!empty($json_data['list']))
+        {
+            $json_data['success'] = TRUE;
+        }
+        else
+        {
+            $json_data['success'] = FALSE;
+            $json_data['message'] = "No history found.";
+        }
+        echo json_encode($json_data);
+        exit;
+    }
 }

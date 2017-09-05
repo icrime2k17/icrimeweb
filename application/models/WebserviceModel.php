@@ -1,7 +1,5 @@
 <?php
-//$sql = "INSERT INTO users(username,password) values(?,?)";
-//        $this->pdo->query($sql, array('jethrotest', 'acosta'));
-        
+
 Class WebserviceModel extends CI_Model {
 
     Public function __construct() {
@@ -165,6 +163,26 @@ Class WebserviceModel extends CI_Model {
         {
             $sql = "SELECT id from app_users where mobile = ?";
             $stmt = $this->pdo->query($sql,array($number));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetReportHistoryByUser($id)
+    {
+        try
+        {
+            $sql = "SELECT cr.*, count(crc.crime_report_id) as comment_count 
+                    FROM crime_reports as cr 
+                    LEFT JOIN crime_report_comments as crc 
+                    ON cr.id = crc.crime_report_id 
+                    WHERE cr.user_id = ?
+                    GROUP BY cr.id";
+            $stmt = $this->pdo->query($sql,array($id));
             return $stmt;
         } 
         catch (Exception $ex) 
