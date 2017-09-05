@@ -181,8 +181,46 @@ Class WebserviceModel extends CI_Model {
                     LEFT JOIN crime_report_comments as crc 
                     ON cr.id = crc.crime_report_id 
                     WHERE cr.user_id = ?
-                    GROUP BY cr.id";
+                    GROUP BY cr.id
+                    ORDER BY cr.id DESC";
             $stmt = $this->pdo->query($sql,array($id));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetCommentsById($id) {
+        try
+        {
+            $sql = "SELECT crc.*, CONCAT(au.firstname,' ',au.lastname) as user_name FROM crime_report_comments as crc
+                    INNER JOIN app_users as au
+                    ON au.id = crc.user_id
+                    WHERE crc.crime_report_id = ?";
+            $stmt = $this->pdo->query($sql,array($id));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+     public function AddComment($data) {
+        try
+        {
+            extract($data);
+            $date_added = date('Y-m-d H:i:s');
+            $sql = "INSERT INTO crime_report_comments
+                    SET crime_report_id = ?,
+                    user_id = ?,
+                    comment = ?,
+                    date_added = ?";
+            $stmt = $this->pdo->query($sql,array($id,$user_id,$comment,$date_added));
             return $stmt;
         } 
         catch (Exception $ex) 

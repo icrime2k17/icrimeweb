@@ -199,6 +199,17 @@ class Webservice extends CI_Controller {
         foreach ($stmt->result() as $row)
         {
             $row->date_reported = date("M d o", strtotime($row->date_reported));
+            
+            $img = FCPATH."images/reports/".$row->image;
+            if(!file_exists($img) || (trim($row->image) == ''))
+            {
+                $row->image = '';
+            }
+            else
+            {
+                $row->image = 'http://'.$_SERVER['HTTP_HOST'].'/images/reports/'.$row->image;
+            }
+            
             array_push($json_data['list'], $row);
         }
         if(!empty($json_data['list']))
@@ -210,6 +221,30 @@ class Webservice extends CI_Controller {
             $json_data['success'] = FALSE;
             $json_data['message'] = "No history found.";
         }
+        echo json_encode($json_data);
+        exit;
+    }
+    
+    public function GetReportComments()
+    {
+        $id = $_POST['id'];
+        $json_data = array();
+        $json_data['success'] = TRUE;
+        $json_data['comments'] = array();
+        $stmt = $this->model->GetCommentsById($id);
+        foreach($stmt->result() as $row)
+        {
+            $row->date_added = date("M d o", strtotime($row->date_added));
+            array_push($json_data['comments'],$row);
+        }
+        echo json_encode($json_data);
+        exit;
+    }
+    
+    public function PostComment()
+    {
+        $json_data = array();
+        $json_data['success'] = $this->model->AddComment($_POST);
         echo json_encode($json_data);
         exit;
     }
