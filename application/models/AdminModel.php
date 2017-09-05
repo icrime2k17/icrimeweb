@@ -1479,7 +1479,8 @@ Class AdminModel extends CI_Model {
             $sql = "SELECT crc.*, CONCAT(au.firstname,' ',au.lastname) as user_name FROM crime_report_comments as crc
                     INNER JOIN app_users as au
                     ON au.id = crc.user_id
-                    WHERE crc.crime_report_id = ?";
+                    WHERE crc.crime_report_id = ?
+                    ORDER BY crc.id";
             $stmt = $this->pdo->query($sql,array($id));
             return $stmt;
         } 
