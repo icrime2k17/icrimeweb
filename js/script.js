@@ -1008,6 +1008,7 @@ var RenderComments = function()
                 if(data.success)
                 {
                     $("#comments_list").html(data.comments);
+                    setTimeout(RenderComments(),5000);
                 }
                 else
                 {
