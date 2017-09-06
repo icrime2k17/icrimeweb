@@ -1,4 +1,4 @@
-
+<!--</body>-->
        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/crimeanalysis.css">
        <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.7.2/d3.min.js"></script>
        <script type = 'text/javascript' src = "<?php echo base_url();?>js/d3pie.min.js"></script>
