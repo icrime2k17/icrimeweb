@@ -142,11 +142,58 @@ Class WebserviceModel extends CI_Model {
         }
     }
     
-    public function CheckIfUsernameExist($username)
+    public function UpdateAccount($data)
     {
         try
         {
-            $sql = "SELECT id from app_users where username = ?";
+            extract($data);
+            if(trim($password) != '')
+            {
+                $password = sha1($password);
+                $sql = "UPDATE app_users
+                        SET lastname = ?,
+                        firstname = ?,
+                        address = ?,
+                        mobile = ?,
+                        username = ?,
+                        password = ?
+                        WHERE id = ?
+                        ";
+                $stmt = $this->pdo->query($sql,array($lastname,$firstname,$address,$mobile,$username,$password,$id));
+                return $stmt;
+            }
+            else
+            {
+                $sql = "UPDATE app_users
+                        SET lastname = ?,
+                        firstname = ?,
+                        address = ?,
+                        mobile = ?,
+                        username = ?
+                        ";
+                $stmt = $this->pdo->query($sql,array($lastname,$firstname,$address,$mobile,$username));
+                return $stmt;
+            }
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function CheckIfUsernameExist($username,$id)
+    {
+        try
+        {
+            $additional_query = '';
+            if($id != null)
+            {
+                $additional_query = "AND id != $id AND enabled = 1";
+            }
+            $sql = "SELECT id from app_users 
+                    where username = ?
+                    $additional_query";
             $stmt = $this->pdo->query($sql,array($username));
             return $stmt;
         } 
@@ -157,11 +204,18 @@ Class WebserviceModel extends CI_Model {
         }
     }
     
-    public function CheckIfNumberExist($number)
+    public function CheckIfNumberExist($number,$id)
     {
         try
         {
-            $sql = "SELECT id from app_users where mobile = ?";
+            $additional_query = '';
+            if($id != null)
+            {
+                $additional_query = "AND id != $id AND enabled = 1";
+            }
+            $sql = "SELECT id from app_users 
+                    where mobile = ?
+                    $additional_query";
             $stmt = $this->pdo->query($sql,array($number));
             return $stmt;
         } 
@@ -211,7 +265,7 @@ Class WebserviceModel extends CI_Model {
         }
     }
     
-     public function AddComment($data) {
+    public function AddComment($data) {
         try
         {
             extract($data);
@@ -223,6 +277,22 @@ Class WebserviceModel extends CI_Model {
                     date_added = ?";
             $stmt = $this->pdo->query($sql,array($id,$user_id,$comment,$date_added));
             return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetUserById($id)
+    {
+        try
+        {
+            $sql = "SELECT id,firstname,lastname,mobile,address,username FROM app_users WHERE id = ?";
+            $stmt = $this->pdo->query($sql,array($id));
+            $result = $stmt->result();
+            return (array) $result[0];
         } 
         catch (Exception $ex) 
         {

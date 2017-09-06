@@ -164,9 +164,42 @@ class Webservice extends CI_Controller {
         exit;
     }
     
-    public function isUsernameAvailable($username)
+    public function UpdateAccount()
     {
-        $is_exist = $this->model->CheckIfUsernameExist($username);
+        $json_data = array();
+        if($this->isUsernameAvailable($_POST['username'],$_POST['id']))
+        {
+            if($this->isNumberAvailable($_POST['mobile'],$_POST['id']))
+            {
+                $updated = $this->model->UpdateAccount($_POST);
+                if($updated)
+                {
+                    $json_data['success'] = TRUE;
+                }
+                else
+                {
+                    $json_data['success'] = FALSE;
+                    $json_data['message'] = "Error in inserting to the database";
+                }
+            }
+            else
+            {
+                $json_data['success'] = FALSE;
+                $json_data['message'] = "Mobile number is already in used.";
+            }
+        }
+        else
+        {
+            $json_data['success'] = FALSE;
+            $json_data['message'] = "Username is already in used.";
+        }
+        echo json_encode($json_data);
+        exit;
+    }
+    
+    public function isUsernameAvailable($username,$id = null)
+    {
+        $is_exist = $this->model->CheckIfUsernameExist($username,$id);
         if(!empty($is_exist->result()))
         {
             return FALSE;
@@ -177,9 +210,9 @@ class Webservice extends CI_Controller {
         }
     }
     
-    public function isNumberAvailable($username)
+    public function isNumberAvailable($mobile,$id = null)
     {
-        $is_exist = $this->model->CheckIfNumberExist($username);
+        $is_exist = $this->model->CheckIfNumberExist($mobile, $id);
         if(!empty($is_exist->result()))
         {
             return FALSE;
@@ -245,6 +278,16 @@ class Webservice extends CI_Controller {
     {
         $json_data = array();
         $json_data['success'] = $this->model->AddComment($_POST);
+        echo json_encode($json_data);
+        exit;
+    }
+    
+    public function GetUserById()
+    {
+        $id = $_POST['id'];
+        $json_data = array();
+        $json_data['info'] = $this->model->GetUserById($id);
+        $json_data['success'] = TRUE;
         echo json_encode($json_data);
         exit;
     }
