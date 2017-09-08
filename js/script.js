@@ -245,7 +245,8 @@ $(document).ready(function()
     
     $('.blotters-list').on("click",".print_record",function(){
         var id = $(this).attr("data-id");
-        window.location.href = '/admin/PrintBlotter/'+id;
+        //window.location.href = '/admin/PrintBlotter/'+id;
+        window.open('/admin/PrintBlotter/'+id,'_blank','Print-Window');
     });
     
     $("#wantedform").submit(function(){
