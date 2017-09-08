@@ -46,20 +46,20 @@ class Welcome extends CI_Controller {
         $content = $this->model->GetCrimeAnalysisByDateRange($date_from,$date_to);
         $json_data['content'] = $content->result();
         $json_data['success'] = TRUE;
-        $json_data['caption'] = "From " . date("M d o", strtotime($date_from)) . ' To ' . date("M d o", strtotime($date_to));
+        $json_data['caption'] = "From " . date("M d Y", strtotime($date_from)) . ' To ' . date("M d Y", strtotime($date_to));
         echo json_encode($json_data);
         exit;
     }
     
     public function GetCrimeAnalysisByYear()
     {
-        $date_from = date('Y-m-d',strtotime($_POST['year'].'-01-1'));
+        $date_from = date('Y-m-d',strtotime($_POST['year'].'-1-1'));
         $date_to = date('Y-m-d',strtotime($_POST['year'].'-12-31'));
         $json_data = array();
         $content = $this->model->GetCrimeAnalysisByDateRange($date_from,$date_to);
         $json_data['content'] = $content->result();
         $json_data['success'] = TRUE;
-        $json_data['caption'] = "From " . date("M d o", strtotime($date_from)) . ' To ' . date("M d o", strtotime($date_to));
+        $json_data['caption'] = "From " . date("M d Y", strtotime($date_from)) . ' To ' . date("M d Y", strtotime($date_to));
         echo json_encode($json_data);
         exit;
     }
@@ -78,7 +78,7 @@ class Welcome extends CI_Controller {
         $content = $this->model->GetCrimeAnalysisByDateRange($date_from,$date_to);
         $json_data['content'] = $content->result();
         $json_data['success'] = TRUE;
-        $json_data['caption'] = "From " . date("M d o", strtotime($date_from)) . ' To ' . date("M d o", strtotime($date_to));
+        $json_data['caption'] = "From " . date("M d Y", strtotime($date_from)) . ' To ' . date("M d Y", strtotime($date_to));
         echo json_encode($json_data);
         exit;
     }
@@ -90,7 +90,7 @@ class Welcome extends CI_Controller {
         $content = $this->model->GetCrimeAnalysisByDay($day);
         $json_data['content'] = $content->result();
         $json_data['success'] = TRUE;
-        $json_data['caption'] = "Date: " . date("M d o", strtotime($day));
+        $json_data['caption'] = "Date: " . date("M d Y", strtotime($day));
         echo json_encode($json_data);
         exit;
     }
