@@ -286,7 +286,7 @@ Class AdminModel extends CI_Model {
         }
     }
     
-    public function GetWantedList() {
+    public function GetWantedList($from,$max) {
         try
         {
             $sql = "SELECT w.id,w.lastname,w.firstname,w.middlename,w.alias,r.region,w.offenses,w.reward 
@@ -294,8 +294,9 @@ Class AdminModel extends CI_Model {
                     LEFT JOIN region as r
                     ON w.region = r.id
                     WHERE enabled = 1
-                    ORDER BY lastname,firstname";
-            $stmt = $this->pdo->query($sql);
+                    ORDER BY lastname,firstname
+                    LIMIT ?,?";
+            $stmt = $this->pdo->query($sql,array($from * $max, $max));
             return $stmt;
         } 
         catch (Exception $ex) 
@@ -1443,6 +1444,23 @@ Class AdminModel extends CI_Model {
         try
         {
             $sql = "SELECT count(id) as total FROM crime_reports
+                    WHERE enabled = 1";
+            $stmt = $this->pdo->query($sql);
+            $result = $stmt->result();
+            return $result[0]->total;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetWantedTotal()
+    {
+        try
+        {
+            $sql = "SELECT count(id) as total FROM wanted
                     WHERE enabled = 1";
             $stmt = $this->pdo->query($sql);
             $result = $stmt->result();

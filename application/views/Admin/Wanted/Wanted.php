@@ -15,6 +15,9 @@
       <?php echo $list; ?>
     </tbody>
   </table>
+    <div class="col-xs-12">
+        <?php echo $pagination ?>
+    </div>
 </div>
 <div class="col-xs-12 wanted-form-holder">
     <h1>Wanted Form</h1>

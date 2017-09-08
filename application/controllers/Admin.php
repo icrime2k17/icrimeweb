@@ -252,7 +252,19 @@ class Admin extends CI_Controller {
     {
         $data = array();
         $data['list'] = '';
-        $stmt = $this->model->GetWantedList();
+        
+        if(isset($_GET['page']))
+        {
+            $from = $_GET['page'] - 1;
+        }
+        else
+        {
+            $from = 0;
+        }
+        
+        $max = 10;
+        
+        $stmt = $this->model->GetWantedList($from,$max);
         foreach($stmt->result() as $row)
         {
             $data['list'] .= $this->load->view('Admin/Wanted/WantedList',$row,TRUE);
@@ -274,6 +286,11 @@ class Admin extends CI_Controller {
         
         $data['region_list'] = $this->BuildRegions();
 
+        $active = $from + 1;
+        $link = '/admin/wantedList/';
+        $total = $this->model->GetWantedTotal();
+        $data['pagination'] = $this->BuildPagination($active,$total,$max,$link);
+        
         $this->load->view('Admin/AdminHeader');
         $this->load->view('Admin/Wanted/Wanted',$data);
         $this->load->view('Admin/AdminFooter');
