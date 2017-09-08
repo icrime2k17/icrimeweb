@@ -46,6 +46,7 @@ class Welcome extends CI_Controller {
         $content = $this->model->GetCrimeAnalysisByDateRange($date_from,$date_to);
         $json_data['content'] = $content->result();
         $json_data['success'] = TRUE;
+        $json_data['caption'] = "From " . date("M d o", strtotime($date_from)) . ' To ' . date("M d o", strtotime($date_to));
         echo json_encode($json_data);
         exit;
     }
@@ -58,6 +59,7 @@ class Welcome extends CI_Controller {
         $content = $this->model->GetCrimeAnalysisByDateRange($date_from,$date_to);
         $json_data['content'] = $content->result();
         $json_data['success'] = TRUE;
+        $json_data['caption'] = "From " . date("M d o", strtotime($date_from)) . ' To ' . date("M d o", strtotime($date_to));
         echo json_encode($json_data);
         exit;
     }
@@ -76,6 +78,7 @@ class Welcome extends CI_Controller {
         $content = $this->model->GetCrimeAnalysisByDateRange($date_from,$date_to);
         $json_data['content'] = $content->result();
         $json_data['success'] = TRUE;
+        $json_data['caption'] = "From " . date("M d o", strtotime($date_from)) . ' To ' . date("M d o", strtotime($date_to));
         echo json_encode($json_data);
         exit;
     }
@@ -87,6 +90,7 @@ class Welcome extends CI_Controller {
         $content = $this->model->GetCrimeAnalysisByDay($day);
         $json_data['content'] = $content->result();
         $json_data['success'] = TRUE;
+        $json_data['caption'] = "Date: " . date("M d o", strtotime($day));
         echo json_encode($json_data);
         exit;
     }

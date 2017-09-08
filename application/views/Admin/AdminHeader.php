@@ -25,7 +25,7 @@
                 </svg>
             </div>
         </div>
-        <nav class="navbar navbar-fixed-top">
+        <nav class="navbar navbar-fixed-top no-print">
             <div class="container-fluid">
               <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -44,7 +44,7 @@
               </div>
             </div>
         </nav>
-        <div class="left-nav col-xs-2">
+        <div class="left-nav col-xs-2 no-print">
             <ul class="nav modules">
                 <li class="active"><a href="/admin/crimeAnalysis"><i class="fa fa-pie-chart" aria-hidden="true"></i>Crime Analysis</a></li>
                 <li><a href="/admin/blotters"><i class="fa fa-indent" aria-hidden="true"></i></i>Blotters</a></li>
@@ -56,6 +56,6 @@
                 </li>
             </ul>
         </div>
-        <div class="col-xs-10">
+        <div class="col-xs-10 print-body">
             <div class="container">
                 <div class="main-container">
