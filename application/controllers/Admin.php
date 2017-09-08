@@ -908,7 +908,19 @@ class Admin extends CI_Controller {
     {
         $data = array();
         $data['list'] = '';
-        $stmt = $this->model->GetCrimeReports();
+        
+        if(isset($_GET['page']))
+        {
+            $from = $_GET['page'] - 1;
+        }
+        else
+        {
+            $from = 0;
+        }
+        
+        $max = 10;
+        
+        $stmt = $this->model->GetCrimeReports($from,$max);
         foreach($stmt->result() as $row)
         {
             if($row->is_flag == 1)
@@ -922,6 +934,11 @@ class Admin extends CI_Controller {
             
             $data['list'] .= $this->load->view('Admin/CrimeReports/CrimeReportsList',$row,TRUE);
         }
+        
+        $active = $from + 1;
+        $link = '/admin/crimeReports/';
+        $total = $this->model->GetCrimeReportTotal();
+        $data['pagination'] = $this->BuildPagination($active,$total,$max,$link);
 
         $this->load->view('Admin/AdminHeader');
         $this->load->view('Admin/CrimeReports/CrimeReports',$data);
@@ -1006,6 +1023,35 @@ class Admin extends CI_Controller {
         }
         echo json_encode($json_data);
         exit;
+    }
+    
+    public function BuildPagination($active,$total,$max,$link)
+    {
+        $data = array();
+        $data['list'] = '';
+        $rem = $total % $max;
+        $total_page = ($total - $rem) / $max;
+        if($rem > 0)
+        {
+            $total_page += 1;
+        }
+        
+        for($i = 1; $i <= $total_page; $i++)
+        {
+            $page = array();
+            $page['page'] = $i;
+            $page['link'] = $link;
+            if($active == $i)
+            {
+                $page['class'] = 'active';
+            }
+            else
+            {
+                $page['class'] = '';
+            }
+            $data['list'] .= $this->load->view('Pagination/ListItem',$page,TRUE);
+        }
+        return $this->load->view('Pagination/Index',$data,TRUE);
     }
 }
 
