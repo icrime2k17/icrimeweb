@@ -367,4 +367,52 @@ class Webservice extends CI_Controller {
         echo json_encode($json_data);
         exit;
     }
+    
+    public function SubmitBlotter()
+    {
+        $json_data = array();
+        $blotter = array();
+        $reporting = array();
+        $suspect = array();
+        $child_in_conflict = array();
+        $victim = array();
+        $suspect_data = array();
+        $child_in_conflict_data = array();
+        $victim_data = array();
+        foreach($_POST as $key => $value)
+        {
+            $prefix = substr($key,0,2);
+            if($prefix == 'r_')
+            {
+                $reporting[$key] = $value;
+            }
+            else if($prefix == 's_')
+            {
+                $suspect[$key] = $value;
+            }
+            else if($prefix == 'c_')
+            {
+                $child_in_conflict[$key] = $value;
+            }
+            else if($prefix == 'v_')
+            {
+                $victim[$key] = $value;
+            }
+            else
+            {
+                $blotter[$key] = $value;
+            }
+        }
+        
+        $blotter_id = $this->model->AddBlotter($blotter);
+        $this->model->UpdateBlotterEntryNumber($blotter_id,($blotter_id + BLOTTER_ENTRY_NUMBER_START));
+        $this->model->AddReporting($blotter_id,$reporting);
+        $this->model->AddSuspect($blotter_id,$suspect);
+        $this->model->AddChildInConflict($blotter_id,$child_in_conflict);
+        $this->model->AddVictim($blotter_id,$victim);
+        
+        $json_data['success'] = TRUE;
+        echo json_encode($json_data);
+        exit;
+    }
 }

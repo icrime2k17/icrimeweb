@@ -352,6 +352,381 @@ Class WebserviceModel extends CI_Model {
             exit;
         }
     }
+    
+    public function AddBlotter($data) {
+        try
+        {
+            extract($data);
+            $sql = "INSERT INTO blotter
+                    SET incident = ?,
+                    date_reported = ?,
+                    time_reported = ?,
+                    date_of_incident = ?,
+                    time_of_incident = ?,
+                    narrative = ?,
+                    place_of_incident = ?,
+                    g_lat = ?,
+                    g_long = ?,
+                    enabled = 1
+                    ";
+            $stmt = $this->pdo->query($sql,array(
+                    $incident,
+                    $date_reported,
+                    $time_reported,
+                    $date_of_incident,
+                    $time_of_incident,
+                    $narrative,
+                    $place_of_incident,
+                    '',
+                    ''
+            ));
+            $id = $this->pdo->insert_id();
+            return $id;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function UpdateBlotterEntryNumber($id,$number) {
+        try
+        {
+            $sql = "UPDATE blotter
+                    SET entry_number = ?
+                    WHERE id = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array($number,$id));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function AddReporting($blotter_id,$data) {
+        try
+        {
+            extract($data);
+            if(isset($r_is_victim))
+            {
+                $r_is_victim = 1;
+            }
+            else
+            {
+                $r_is_victim = 0;
+            }
+            
+            $sql = "INSERT INTO reporting
+                    SET blotter_id = ?,
+                    lname = ?,
+                    fname = ?,
+                    mname = ?,
+                    qualifier = ?,
+                    nickname = ?,
+                    citizenship = ?,
+                    sex = ?,
+                    status = ?,
+                    birth_date = ?,
+                    age = ?,
+                    birth_place = ?,
+                    phone = ?,
+                    mobile = ?,
+                    c_address = ?,
+                    c_village = ?,
+                    c_brgy = ?,
+                    c_city = ?,
+                    c_province = ?,
+                    o_address = ?,
+                    o_village = ?,
+                    o_brgy = ?,
+                    o_city = ?,
+                    o_province = ?,
+                    hea = ?,
+                    occupation = ?,
+                    id_presented = ?,
+                    email = ?,
+                    is_victim = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array(
+                    $blotter_id,
+                    $r_lname,
+                    $r_fname,
+                    '',
+                    '',
+                    '',
+                    '',
+                    $r_sex,
+                    $r_status,
+                    '',
+                    $r_age,
+                    '',
+                    '',
+                    $r_mobile,
+                    $r_address,
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    $r_is_victim
+            ));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function AddSuspect($blotter_id,$data) {
+        try
+        {
+            extract($data);
+            if(isset($s_is_officer))
+            {
+                $s_is_officer = 1;
+            }
+            else
+            {
+                $s_is_officer = 0;
+            }
+            
+            if(isset($s_is_wpcr))
+            {
+                $s_is_wpcr = 1;
+            }
+            else
+            {
+                $s_is_wpcr = 0;
+            }
+            
+            if(isset($s_is_under))
+            {
+                $s_is_uti = 1;
+            }
+            else
+            {
+                $s_is_uti = 0;
+            }
+            
+            $sql = "INSERT INTO suspect
+                    SET blotter_id = ?,
+                    lname = ?,
+                    fname = ?,
+                    mname = ?,
+                    qualifier = ?,
+                    nickname = ?,
+                    citizenship = ?,
+                    sex = ?,
+                    status = ?,
+                    birth_date = ?,
+                    age = ?,
+                    birth_place = ?,
+                    phone = ?,
+                    mobile = ?,
+                    c_address = ?,
+                    c_village = ?,
+                    c_brgy = ?,
+                    c_city = ?,
+                    c_province = ?,
+                    o_address = ?,
+                    o_village = ?,
+                    o_brgy = ?,
+                    o_city = ?,
+                    o_province = ?,
+                    hea = ?,
+                    occupation = ?,
+                    work_address = ?,
+                    rtv = ?,
+                    email = ?,
+                    is_officer = ?,
+                    rank = ?,
+                    unit_assigned = ?,
+                    group_affiliation = ?,
+                    is_wpcr = ?,
+                    criminal_records = ?,
+                    sopc = ?,
+                    height = ?,
+                    weight = ?,
+                    eye_color = ?,
+                    eye_desc = ?,
+                    hair_color = ?,
+                    hair_desc = ?,
+                    is_uti = ?,
+                    influence = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array(
+                    $blotter_id,
+                    $s_lname,
+                    $s_fname,
+                    '',
+                    '',
+                    '',
+                    '',
+                    $s_sex,
+                    $s_status,
+                    '',
+                    $s_age,
+                    '',
+                    '',
+                    $s_mobile,
+                    $s_address,
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    $s_is_officer,
+                    '',
+                    '',
+                    '',
+                    $s_is_wpcr,
+                    '',
+                    '',
+                    '',
+                    '',
+                    $s_eye_color,
+                    $s_eye_desc,
+                    $s_hair_color,
+                    $s_hair_desc,
+                    $s_is_uti,
+                    $s_under_of
+            ));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function AddChildInConflict($blotter_id,$data) {
+        try
+        {
+            extract($data);
+            $sql = "INSERT INTO child_in_conflict
+                    SET blotter_id = ?,
+                    g_name = ?,
+                    g_address = ?,
+                    g_phone = ?,
+                    g_mobile = ?,
+                    diversion_mechanism = ?,
+                    distinguishing_features = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array(
+                    $blotter_id,
+                    $c_name_of_guardian,
+                    $c_guardian_address,
+                    '',
+                    $c_mobile,
+                    $c_diversion,
+                    $c_dist_features
+            ));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function AddVictim($blotter_id,$data) {
+        try
+        {
+            extract($data);
+            $sql = "INSERT INTO victim
+                    SET blotter_id = ?,
+                    lname = ?,
+                    fname = ?,
+                    mname = ?,
+                    qualifier = ?,
+                    nickname = ?,
+                    citizenship = ?,
+                    sex = ?,
+                    status = ?,
+                    birth_date = ?,
+                    age = ?,
+                    birth_place = ?,
+                    phone = ?,
+                    mobile = ?,
+                    c_address = ?,
+                    c_village = ?,
+                    c_brgy = ?,
+                    c_city = ?,
+                    c_province = ?,
+                    o_address = ?,
+                    o_village = ?,
+                    o_brgy = ?,
+                    o_city = ?,
+                    o_province = ?,
+                    hea = ?,
+                    occupation = ?,
+                    work_address = ?,
+                    email = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array(
+                    $blotter_id,
+                    $v_lname,
+                    $v_fname,
+                    '',
+                    '',
+                    '',
+                    '',
+                    $v_sex,
+                    $v_status,
+                    '',
+                    $v_age,
+                    '',
+                    '',
+                    $v_mobile,
+                    $v_address,
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    ''
+            ));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
 }
 
 ?> 
