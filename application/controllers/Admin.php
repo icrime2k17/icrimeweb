@@ -474,13 +474,30 @@ class Admin extends CI_Controller {
     {
         $data = array();
         $data['list'] = '';
-        $stmt = $this->model->GetBlotters();
+        
+        if(isset($_GET['page']))
+        {
+            $from = $_GET['page'] - 1;
+        }
+        else
+        {
+            $from = 0;
+        }
+        
+        $max = 10;
+        
+        $stmt = $this->model->GetBlotters($from,$max);
         foreach($stmt->result() as $row)
         {
             $data['list'] .= $this->load->view('Admin/Blotter/BlottersList',$row,TRUE);
         }
         
         $data['crimes_list'] = $this->BuildCrimesList();
+        
+        $active = $from + 1;
+        $link = '/admin/blotters/';
+        $total = $this->model->GetBlotterTotal();
+        $data['pagination'] = $this->BuildPagination($active,$total,$max,$link);
 
         $this->load->view('Admin/AdminHeader');
         $this->load->view('Admin/Blotter/Blotters',$data);

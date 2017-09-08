@@ -536,13 +536,14 @@ Class AdminModel extends CI_Model {
         }
     }
     
-    public function GetBlotters() {
+    public function GetBlotters($from,$max) {
         try
         {
             $sql = "SELECT * FROM blotter
                     WHERE enabled = 1
-                    ORDER BY id DESC";
-            $stmt = $this->pdo->query($sql);
+                    ORDER BY id DESC
+                    LIMIT ?,?";
+            $stmt = $this->pdo->query($sql,array($from * $max,$max));
             return $stmt;
         } 
         catch (Exception $ex) 
@@ -1441,6 +1442,23 @@ Class AdminModel extends CI_Model {
         try
         {
             $sql = "SELECT count(id) as total FROM crime_reports
+                    WHERE enabled = 1";
+            $stmt = $this->pdo->query($sql);
+            $result = $stmt->result();
+            return $result[0]->total;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetBlotterTotal()
+    {
+        try
+        {
+            $sql = "SELECT count(id) as total FROM blotter
                     WHERE enabled = 1";
             $stmt = $this->pdo->query($sql);
             $result = $stmt->result();
