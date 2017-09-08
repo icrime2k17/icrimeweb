@@ -170,8 +170,9 @@ Class WebserviceModel extends CI_Model {
                         address = ?,
                         mobile = ?,
                         username = ?
+                        WHERE id = ?
                         ";
-                $stmt = $this->pdo->query($sql,array($lastname,$firstname,$address,$mobile,$username));
+                $stmt = $this->pdo->query($sql,array($lastname,$firstname,$address,$mobile,$username,$id));
                 return $stmt;
             }
         } 
