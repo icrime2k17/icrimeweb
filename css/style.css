@@ -465,3 +465,8 @@ textarea
 {
     margin-bottom: 30px;
 }
+
+.txt-centered
+{
+    text-align: center;
+}

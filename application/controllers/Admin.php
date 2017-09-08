@@ -818,8 +818,11 @@ class Admin extends CI_Controller {
         $id = $GLOBALS['params'][0];
         $json_data = array();
         $json_data['info'] = $this->model->GetBlotterById($id);
-        $json_data['info']['entry_number'] = $json_data['info']['id'];
+        $json_data['info']['entry_number'] = $json_data['info']['id'] + BLOTTER_ENTRY_NUMBER_START;
         $json_data['info']['type_of_incident'] = $json_data['info']['incident'];
+        
+        $json_data['info']['date_reported'] = date("M d o", strtotime($json_data['info']['date_reported']));
+        $json_data['info']['date_of_incident'] = date("M d o", strtotime($json_data['info']['date_of_incident']));
         
         $json_data['reporting'] = array();
         $reporting_data = $this->model->GetReporterByBlotterId($id);

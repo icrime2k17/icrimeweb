@@ -162,11 +162,11 @@
         <label>Criminal records:</label>
         <?php echo $criminal_records; ?>
     </div>
-    <div class="form-group col-xs-2">
+    <div class="form-group col-xs-3">
         <label>Status of prev. case:</label>
         <?php echo $sopc; ?>
     </div>
-    <div class="form-group col-xs-2">
+    <div class="form-group col-xs-1">
         <label>Height:</label>
         <?php echo $height; ?>
     </div>
