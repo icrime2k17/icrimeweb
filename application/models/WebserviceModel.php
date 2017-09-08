@@ -377,8 +377,8 @@ Class WebserviceModel extends CI_Model {
                     $time_of_incident,
                     $narrative,
                     $place_of_incident,
-                    '',
-                    ''
+                    $g_lat,
+                    $g_lng
             ));
             $id = $this->pdo->insert_id();
             return $id;
