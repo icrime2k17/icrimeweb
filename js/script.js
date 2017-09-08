@@ -38,6 +38,23 @@ $(document).ready(function()
           });
     });
     
+    $('#tableBody').on("click",'.delete-crime-report',function(){
+        var id = $(this).attr('data-id');
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this record!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+          },
+          function(){
+                DeleteCrimeReport(id);
+          });
+    });
+    
     $('.add-station').click(function(){
         if(!$(this).hasClass('toggled'))
         {
@@ -758,6 +775,44 @@ var DeleteAppUser = function(id)
                 {
                     LoadAppUsers();
                     swal("Deleted!", "User has been deleted.", "success");
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
+            }
+        });
+};
+
+var DeleteCrimeReport = function(id)
+{
+    $.ajax({
+            url : '/admin/DeleteCrimeReport',
+            method : 'POST',
+            data : {
+                id :id
+            },
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    swal({
+                        title : "Deleted!",
+                        text : "Report has been deleted.", 
+                        type : "success"
+                        },
+                        function(){
+                            window.location.reload();
+                        });
                 }
                 else
                 {

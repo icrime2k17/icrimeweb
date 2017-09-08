@@ -1025,6 +1025,14 @@ class Admin extends CI_Controller {
         exit;
     }
     
+    public function DeleteCrimeReport()
+    {
+        $json_data = array();
+        $json_data['success'] = $this->model->DeleteCrimeReport($_POST['id']);
+        echo json_encode($json_data);
+        exit;
+    }
+    
     public function BuildPagination($active,$total,$max,$link)
     {
         $data = array();

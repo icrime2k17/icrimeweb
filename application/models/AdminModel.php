@@ -266,6 +266,25 @@ Class AdminModel extends CI_Model {
         }
     }
     
+    public function DeleteCrimeReport($id)
+    {
+        try
+        {
+            $sql = "UPDATE crime_reports
+                    SET enabled = 0
+                    WHERE id = ?
+                    ";
+            $stmt = $this->pdo->query($sql,array($id));
+
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
     public function GetWantedList() {
         try
         {
@@ -1403,6 +1422,7 @@ Class AdminModel extends CI_Model {
         try
         {
             $sql = "SELECT * FROM crime_reports
+                    WHERE enabled = 1
                     ORDER BY id DESC
                     LIMIT ?,?";
             $stmt = $this->pdo->query($sql,array($from*$max,$max));
