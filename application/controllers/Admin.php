@@ -157,14 +157,31 @@ class Admin extends CI_Controller {
     {
         $data = array();
         $data['list'] = '';
-        $stmt = $this->model->GetStations();
+        
+        if(isset($_GET['page']))
+        {
+            $from = $_GET['page'] - 1;
+        }
+        else
+        {
+            $from = 0;
+        }
+        
+        $max = 10;
+        
+        $stmt = $this->model->GetStations($from,$max);
         foreach($stmt->result() as $row)
         {
             $data['list'] .= $this->load->view('Admin/Stations/StationsList',$row,TRUE);
         }
 
         $data['district_list'] = $this->BuildDistrictList();
-
+        
+        $active = $from + 1;
+        $link = '/admin/stations/';
+        $total = $this->model->GetStationsTotal();
+        $data['pagination'] = $this->BuildPagination($active,$total,$max,$link);
+        
         $this->load->view('Admin/AdminHeader');
         $this->load->view('Admin/Stations/Stations',$data);
         $this->load->view('Admin/AdminFooter');

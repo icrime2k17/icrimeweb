@@ -14,6 +14,9 @@
       <?php echo $list; ?>
     </tbody>
   </table>
+    <div class="col-xs-12">
+        <?php echo $pagination ?>
+    </div>
 </div>
 <div class="col-xs-12 map">
     <h1 class="police-form">Add Police Station</h1>
