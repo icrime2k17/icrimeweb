@@ -1,6 +1,13 @@
 <div class="col-xs-12">
-    <h1>Crime Report</h1>
-    <table class="table table-striped table-hover">
+    <h1 class="inline-header">Crime Report</h1>
+    <div class="pull-right">
+        <a href="/admin/blotters/?report_id=<?php echo $id; ?>">
+            <button class="btn btn-info">
+                CREATE BLOTTER
+            </button>
+        </a>
+    </div>
+    <table class="table table-striped table-hover" style="margin-top: 10px;">
       <tr>
         <td>Crime</td>
         <td><?php echo $crime; ?></td>

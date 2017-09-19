@@ -508,6 +508,7 @@ class Admin extends CI_Controller {
     {
         $data = array();
         $data['list'] = '';
+        $data['extras']= '';
         
         if(isset($_GET['page']))
         {
@@ -524,6 +525,11 @@ class Admin extends CI_Controller {
         foreach($stmt->result() as $row)
         {
             $data['list'] .= $this->load->view('Admin/Blotter/BlottersList',$row,TRUE);
+        }
+        
+        if(isset($_GET['report_id']))
+        {
+            $data['extras'] = $this->load->view('Admin/Blotter/ReportExtra',array("report_id" => $_GET['report_id']),TRUE);
         }
         
         $data['crimes_list'] = $this->BuildCrimesList();
@@ -1111,6 +1117,21 @@ class Admin extends CI_Controller {
             $data['list'] .= $this->load->view('Pagination/ListItem',$page,TRUE);
         }
         return $this->load->view('Pagination/Index',$data,TRUE);
+    }
+    
+    public function GetCrimeReportById()
+    {
+        $id = $_POST['id'];
+        $json_data = array();
+        $json_data['info'] = $this->model->GetCrimeReportById($id);
+        if($json_data['info'])
+        {
+            $json_data['info']->date = date("Y-m-d",strtotime($json_data['info']->date_reported));
+            $json_data['info']->time = date("h:i:s",strtotime($json_data['info']->date_reported));
+        }
+        $json_data['success'] = TRUE;
+        echo json_encode($json_data);
+        exit;
     }
 }
 

@@ -213,7 +213,7 @@
             </div>
             <div class="form-group col-sm-12">
                 <label>ENTER IN DETAIL THE NARRATIVE OF THE INCIDENT OR EVENT, ANSWERING THE WHO, WHAT, WHEN, WHERE, WHY AND HOW OF REPORTING:</label>
-                <textarea class="form-control input-sm" rows="15" name="narrative" required></textarea>
+                <textarea class="form-control input-sm" rows="15" id="narrative" name="narrative" required></textarea>
             </div>
             
             <div class="col-sm-12">
@@ -595,6 +595,8 @@
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBt7c-kXucRO6GyORCLgGT2_GNzDuiZ4mk&callback=initMap">
 </script>
+
+<?php echo $extras; ?>
 
 <script>
 function initMap() {
