@@ -1260,6 +1260,33 @@ class Admin extends CI_Controller {
         echo json_encode($json_data);
         exit;
     }
+    
+    public function SearchCrimeReport()
+    {
+        $json_data = array();
+        $json_data['list'] = '';
+        $stmt = $this->model->GetCrimeReportsSearch($_POST['key']);
+        foreach($stmt->result() as $row)
+        {
+            if($row->is_flag == 1)
+            {
+                $row->flag = '<i style="color: #e74c3c;" class="fa fa-flag" aria-hidden="true"></i>';
+            }
+            else
+            {
+                $row->flag = '';
+            }
+            
+            $json_data['list'] .= $this->load->view('Admin/CrimeReports/CrimeReportsList',$row,TRUE);
+        }
+        if(trim($json_data['list']) == '')
+        {
+            $json_data['list'] = "<tr><td colspan='5'>No result found...</td></tr>";
+        }
+        $json_data['success'] = TRUE;
+        echo json_encode($json_data);
+        exit;
+    }
 }
 
 ?>

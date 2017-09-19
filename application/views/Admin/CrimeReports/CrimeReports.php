@@ -1,5 +1,8 @@
 <div class="col-xs-12 blotters">
-    <h1>Crime Reports</h1>
+    <h1 class="inline-header">Crime Reports</h1>
+    <div class="pull-right">
+        <input type="text" class="form-control" placeholder="Search" id="search-crime-report" style="width: 250px;">
+    </div>
     <table class="table table-striped table-hover">
         <thead>
           <tr>

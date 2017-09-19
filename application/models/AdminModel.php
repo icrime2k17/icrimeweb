@@ -1476,6 +1476,30 @@ Class AdminModel extends CI_Model {
         }
     }
     
+    public function GetCrimeReportsSearch($key)
+    {
+        try
+        {
+            $key = "%$key%";
+            $sql = "SELECT * FROM crime_reports
+                    WHERE enabled = 1
+                    AND (
+                        crime like ?
+                        OR address like ?
+                        OR details like ?
+                    )
+                    ";
+            $stmt = $this->pdo->query($sql,array($key,$key,$key));
+
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
     public function GetCrimeReportTotal()
     {
         try

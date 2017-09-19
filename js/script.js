@@ -1,5 +1,15 @@
+window.timeoutId = 0;
+
 $(document).ready(function()
 {
+    $("#search-crime-report").keyup(function(){
+        var key = $(this).val();
+        clearTimeout(timeoutId); 
+        timeoutId = setTimeout(function() {
+            SearchCrimeReport(key);
+        },500);
+    });
+    
     $(".offences-list").on("click",".edit_record",function(){
         var id = $(this).attr('data-id');
         $("#edit_id").val(id);
@@ -1285,4 +1295,36 @@ var DeleteOffense = function(id)
                 swal("Error", "Error connecting to server.", "error");
             }
         });
+};
+
+var SearchCrimeReport = function(key)
+{
+    if(key.trim() != '')
+    {
+        $(".pagination").hide();
+        $.ajax({
+                url : '/admin/SearchCrimeReport',
+                method : 'POST',
+                data : {
+                    key : key
+                },
+                dataType : "json",
+                beforeSend : function(){
+                },
+                success : function(data){
+                    if(data.success)
+                    {
+                        $("#tableBody").html(data.list);
+                    }
+                    else
+                    {
+                        swal("Error", "Error connecting to server.", "error");
+                    }
+
+                },
+                error : function(){
+                    swal("Error", "Error connecting to server.", "error");
+                }
+            });
+    }
 };
