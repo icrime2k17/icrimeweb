@@ -1425,8 +1425,28 @@ Class AdminModel extends CI_Model {
         try
         {
             $sql = "SELECT * FROM crimes
+                    WHERE enabled = 1
                     ORDER BY crime";
             $stmt = $this->pdo->query($sql);
+
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetCrimesRange($from,$max)
+    {
+        try
+        {
+            $sql = "SELECT * FROM crimes
+                    WHERE enabled = 1
+                    ORDER BY crime ASC
+                    LIMIT ?,?";
+            $stmt = $this->pdo->query($sql,array($from * $max,$max));
 
             return $stmt;
         } 
@@ -1495,6 +1515,23 @@ Class AdminModel extends CI_Model {
         try
         {
             $sql = "SELECT count(id) as total FROM stations
+                    WHERE enabled = 1";
+            $stmt = $this->pdo->query($sql);
+            $result = $stmt->result();
+            return $result[0]->total;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetOffencesTotal()
+    {
+        try
+        {
+            $sql = "SELECT count(id) as total FROM crimes
                     WHERE enabled = 1";
             $stmt = $this->pdo->query($sql);
             $result = $stmt->result();
@@ -1616,6 +1653,23 @@ Class AdminModel extends CI_Model {
             exit;
         }
     }
-
+    
+    public function SaveOffense($data)
+    {
+        try
+        {
+            extract($data);
+            $sql = "INSERT INTO crimes
+                    SET crime = ?,
+                    type = ?";
+            $stmt = $this->pdo->query($sql,array($crime,$type));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 }
 ?>

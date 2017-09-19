@@ -1161,6 +1161,55 @@ class Admin extends CI_Controller {
         echo json_encode($json_data);
         exit;
     }
+    
+    public function Offences()
+    {
+        $data = array();
+        $data['list'] = '';
+        
+        if(isset($_GET['page']))
+        {
+            $from = $_GET['page'] - 1;
+        }
+        else
+        {
+            $from = 0;
+        }
+        
+        $max = 10;
+        
+        $stmt = $this->model->GetCrimesRange($from,$max);
+        foreach($stmt->result() as $row)
+        {
+            switch($row->type)
+            {
+                case 1:
+                    $row->type = 'Major';
+                    break;
+                case 2:
+                    $row->type = 'Minor';
+                    break;
+            }
+            $data['list'] .= $this->load->view('Admin/Crime/CrimeRow',$row,TRUE);
+        }
+        
+        $active = $from + 1;
+        $link = '/admin/offences/';
+        $total = $this->model->GetOffencesTotal();
+        $data['pagination'] = $this->BuildPagination($active,$total,$max,$link);
+        
+        $this->load->view('Admin/AdminHeader');
+        $this->load->view('Admin/Crime/CrimeIndex',$data);
+        $this->load->view('Admin/AdminFooter');
+    }
+    
+    public function SaveOffense()
+    {
+        $json_data = array();
+        $json_data['success'] = $this->model->SaveOffense($_POST);
+        echo json_encode($json_data);
+        exit;
+    }
 }
 
 ?>

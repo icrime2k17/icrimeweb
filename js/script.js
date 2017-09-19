@@ -1,5 +1,33 @@
 $(document).ready(function()
 {
+    $(".add-offense").click(function(){
+        if(!$(this).hasClass('toggled'))
+        {
+            $(this).addClass('toggled');
+            $(".offense-form-section").show();
+            $(".offences").hide();
+        }
+        else
+        {
+            $(this).removeClass('toggled');
+            $(".offense-form-section").hide();
+            $(".offences").show();
+        }
+    });
+    
+    $("#offenseform").submit(function(){
+       var action = $("#offenseform input[type=submit]").val();
+       if(action == 'Submit')
+       {
+           SaveOffense();
+       }
+       else if(action == 'Update')
+       {
+           UpdateOffense();
+       }
+       return false; 
+    });
+    
     $('.add-app-user').click(function(){
         $("#add-app-user-modal").modal();
     });
@@ -1078,7 +1106,47 @@ var RenderComments = function()
                 }
             },
             error : function(){
+                RenderComments();
+            }
+        });
+};
+
+var SaveOffense = function()
+{
+    $.ajax({
+            url : '/admin/SaveOffense',
+            method : 'POST',
+            data : {
+                crime : $("#crime").val(),
+                type : $("#type").val()
+            },
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    //swal("Good job!", "Offense successfully saved.", "success");
+                    
+                    swal({ 
+                        title: "Good job!",
+                        text: "Offense successfully saved.",
+                        type: "success" 
+                        },
+                        function(){
+                          window.location.reload();
+                        });
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                dismissLoading();
+            },
+            error : function(){
                 swal("Error", "Error connecting to server.", "error");
+                dismissLoading();
             }
         });
 };
