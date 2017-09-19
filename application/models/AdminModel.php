@@ -1691,6 +1691,23 @@ Class AdminModel extends CI_Model {
         }
     }
     
+    public function DeleteOffense($id)
+    {
+        try
+        {
+            $sql = "UPDATE crimes
+                    SET enabled = 0
+                    WHERE id = ?";
+            $stmt = $this->pdo->query($sql,array($id));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
     public function GetOffenseById($id)
     {
         try

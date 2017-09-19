@@ -1227,6 +1227,14 @@ class Admin extends CI_Controller {
         echo json_encode($json_data);
         exit;
     }
+    
+    public function DeleteOffense()
+    {
+        $json_data = array();
+        $json_data['success'] = $this->model->DeleteOffense($_POST['id']);
+        echo json_encode($json_data);
+        exit;
+    }
 }
 
 ?>

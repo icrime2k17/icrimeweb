@@ -11,6 +11,23 @@ $(document).ready(function()
         RenderOffenseForEdit(id);
     });
     
+    $('.offences-list').on("click",'.delete_record',function(){
+        var id = $(this).attr('data-id');
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this record!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+          },
+          function(){
+                DeleteOffense(id);
+          });
+    });
+    
     $(".add-offense").click(function(){
         if(!$(this).hasClass('toggled'))
         {
@@ -1228,6 +1245,44 @@ var RenderOffenseForEdit = function(id)
             error : function(){
                 swal("Error", "Error connecting to server.", "error");
                 dismissLoading();
+            }
+        });
+};
+
+var DeleteOffense = function(id)
+{
+    $.ajax({
+            url : '/admin/DeleteOffense',
+            method : 'POST',
+            data : {
+                id :id
+            },
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    swal({ 
+                        title: "Good job!",
+                        text: "Offense has been deleted.",
+                        type: "success" 
+                        },
+                        function(){
+                          window.location.reload();
+                        });
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                
+                dismissLoading();
+            },
+            error : function(){
+                dismissLoading();
+                swal("Error", "Error connecting to server.", "error");
             }
         });
 };
