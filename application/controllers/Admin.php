@@ -1210,6 +1210,23 @@ class Admin extends CI_Controller {
         echo json_encode($json_data);
         exit;
     }
+    
+    public function UpdateOffense()
+    {
+        $json_data = array();
+        $json_data['success'] = $this->model->UpdateOffense($_POST);
+        echo json_encode($json_data);
+        exit;
+    }
+    
+    public function GetOffenseById()
+    {
+        $json_data = array();
+        $json_data['info'] = $this->model->GetOffenseById($_POST['id']);
+        $json_data['success'] = TRUE;
+        echo json_encode($json_data);
+        exit;
+    }
 }
 
 ?>

@@ -1,8 +1,21 @@
 $(document).ready(function()
 {
+    $(".offences-list").on("click",".edit_record",function(){
+        var id = $(this).attr('data-id');
+        $("#edit_id").val(id);
+        $("#offenseform input[type=submit]").val("Update");
+        $('.offense-form').html("Update Offense");
+        $(".add-offense").addClass('toggled');
+        $(".offense-form-section").show();
+        $(".offences").hide();
+        RenderOffenseForEdit(id);
+    });
+    
     $(".add-offense").click(function(){
         if(!$(this).hasClass('toggled'))
         {
+            $("#offenseform input[type=submit]").val("Submit");
+            $('.offense-form').html("Add Offense");
             $(this).addClass('toggled');
             $(".offense-form-section").show();
             $(".offences").hide();
@@ -1127,8 +1140,6 @@ var SaveOffense = function()
             success : function(data){
                 if(data.success)
                 {
-                    //swal("Good job!", "Offense successfully saved.", "success");
-                    
                     swal({ 
                         title: "Good job!",
                         text: "Offense successfully saved.",
@@ -1137,6 +1148,76 @@ var SaveOffense = function()
                         function(){
                           window.location.reload();
                         });
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                dismissLoading();
+            },
+            error : function(){
+                swal("Error", "Error connecting to server.", "error");
+                dismissLoading();
+            }
+        });
+};
+
+var UpdateOffense = function()
+{
+    $.ajax({
+            url : '/admin/UpdateOffense',
+            method : 'POST',
+            data : {
+                crime : $("#crime").val(),
+                type : $("#type").val(),
+                id : $("#edit_id").val()
+            },
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    swal({ 
+                        title: "Good job!",
+                        text: "Offense successfully updated.",
+                        type: "success" 
+                        },
+                        function(){
+                          window.location.reload();
+                        });
+                }
+                else
+                {
+                    swal("Error", "Error connecting to server.", "error");
+                }
+                dismissLoading();
+            },
+            error : function(){
+                swal("Error", "Error connecting to server.", "error");
+                dismissLoading();
+            }
+        });
+};
+
+var RenderOffenseForEdit = function(id)
+{
+    $.ajax({
+            url : '/admin/GetOffenseById',
+            method : 'POST',
+            data : {
+                id : id
+            },
+            dataType : "json",
+            beforeSend : function(){
+                loading();
+            },
+            success : function(data){
+                if(data.success)
+                {
+                    $("#crime").val(data.info.crime);
+                    $("#type").val(data.info.type);
                 }
                 else
                 {
