@@ -1723,5 +1723,28 @@ Class AdminModel extends CI_Model {
             exit;
         }
     }
+    
+    public function GetOffenseByCrime($crime)
+    {
+        try
+        {
+            $sql = "SELECT * FROM crimes
+                    WHERE crime = ?";
+            $stmt = $this->pdo->query($sql,array($crime));
+            if(isset($stmt->result()[0]->type))
+            {
+                return $stmt->result()[0]->type;
+            }
+            else
+            {
+                return '';
+            }
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
 }
 ?>

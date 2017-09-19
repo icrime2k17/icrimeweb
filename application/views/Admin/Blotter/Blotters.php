@@ -5,6 +5,7 @@
       <tr>
         <th>Entry Number</th>
         <th>Incident</th>
+        <th>Type</th>
         <th>Place of Incident</th>
         <th>Date Reported</th>
         <th>Actions</th>

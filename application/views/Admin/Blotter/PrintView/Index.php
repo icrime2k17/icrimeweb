@@ -99,6 +99,7 @@
         <div class="form-group col-xs-3">
             <label>Type Of Incident</label>
             <?php echo $info['type_of_incident']; ?>
+            <?php echo ' - '.$info['type']; ?>
         </div>
         <div class="form-group col-xs-3">
             <label>Date and Time Reported</label>

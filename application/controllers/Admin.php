@@ -524,6 +524,18 @@ class Admin extends CI_Controller {
         $stmt = $this->model->GetBlotters($from,$max);
         foreach($stmt->result() as $row)
         {
+            $row->type = $this->model->GetOffenseByCrime($row->incident);
+            switch($row->type)
+            {
+                case 1:
+                    $row->type = "Major";
+                    break;
+                case 2:
+                    $row->type = "Minor";
+                    break;
+                default:
+                    $row->type = '';
+            }
             $data['list'] .= $this->load->view('Admin/Blotter/BlottersList',$row,TRUE);
         }
         
@@ -877,6 +889,19 @@ class Admin extends CI_Controller {
         $json_data['info'] = $this->model->GetBlotterById($id);
         $json_data['info']['entry_number'] = $json_data['info']['id'] + BLOTTER_ENTRY_NUMBER_START;
         $json_data['info']['type_of_incident'] = $json_data['info']['incident'];
+        
+        $json_data['info']['type'] = $this->model->GetOffenseByCrime($json_data['info']['incident']);
+        switch($json_data['info']['type'])
+        {
+            case 1:
+                $json_data['info']['type'] = "Major";
+                break;
+            case 2:
+                $json_data['info']['type'] = "Minor";
+                break;
+            default:
+                $json_data['info']['type'] = '';
+        }
         
         $json_data['info']['date_reported'] = date("M d o", strtotime($json_data['info']['date_reported']));
         $json_data['info']['date_of_incident'] = date("M d o", strtotime($json_data['info']['date_of_incident']));

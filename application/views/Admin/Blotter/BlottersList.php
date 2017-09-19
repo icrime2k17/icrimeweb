@@ -3,6 +3,7 @@ echo "
 <tr>
     <td>$entry_number</td>
     <td>$incident</td>
+    <td>$type</td>
     <td>$place_of_incident</td>
     <td>$date_reported</td>
     <td>
