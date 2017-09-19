@@ -953,6 +953,34 @@ class Admin extends CI_Controller {
         $this->load->view('Admin/Blotter/PrintView/Index',$json_data);
     }
     
+    public function PrintWanted()
+    {
+        if(isset($GLOBALS['params'][0]))
+        {
+            $id = $GLOBALS['params'][0];
+            $data = $this->model->GetWantedById($id);
+            $data['region_caption'] = $this->model->GetRegionById($data['region']);
+            $img = FCPATH."images/uploads/".$data['image'];
+            if(file_exists($img) && (trim($data['image']) != ''))
+            {
+                $data['image'] = '<img src="/images/uploads/'.$data['image'].'">';
+            }
+            else
+            {
+                $data['image'] = '<img src="/images/wanted_default.png">';
+            }
+                
+            if($data)
+            {
+                $this->load->view('Admin/Wanted/PrintView/Index',$data);
+            }
+        }
+        else
+        {
+            echo "Invalid action!";
+        }
+    }
+
     public function GenericDelete()
     {
         $json_data = array();

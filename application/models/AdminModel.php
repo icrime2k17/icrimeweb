@@ -539,6 +539,22 @@ Class AdminModel extends CI_Model {
         }
     }
     
+    public function GetRegionById($id) {
+        try
+        {
+            $sql = "SELECT * FROM region
+                    WHERE id = ?";
+            $stmt = $this->pdo->query($sql,array($id));
+            $result = $stmt->result();
+            return $result[0]->region;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
     public function GetBlotters($from,$max) {
         try
         {

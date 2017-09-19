@@ -266,6 +266,12 @@ $(document).ready(function()
         window.open('/admin/PrintBlotter/'+id,'_blank','Print-Window');
     });
     
+    $('.wanted-list-form').on("click",".print_record",function(){
+        var id = $(this).attr("data-id");
+        //window.location.href = '/admin/PrintBlotter/'+id;
+        window.open('/admin/PrintWanted/'+id,'_blank','Print-Window');
+    });
+    
     $("#wantedform").submit(function(){
        loading(); 
     });
