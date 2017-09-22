@@ -415,4 +415,27 @@ class Webservice extends CI_Controller {
         echo json_encode($json_data);
         exit;
     }
+    
+    public function GetCrimes()
+    {
+        $json_data = array();
+        $json_data['list'] = array();
+        $stmt = $this->model->GetCrimes();
+        foreach ($stmt->result() as $row)
+        {
+            switch ($row->type)
+            {
+                case 1:
+                    $row->type_caption = 'Major';
+                    break;
+                case 2:
+                    $row->type_caption = 'Minor';
+                    break;
+            }
+            array_push($json_data['list'], $row);
+        }
+        $json_data['success'] = TRUE;
+        echo json_encode($json_data);
+        exit;
+    }
 }

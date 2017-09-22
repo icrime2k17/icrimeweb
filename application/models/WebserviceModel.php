@@ -407,6 +407,22 @@ Class WebserviceModel extends CI_Model {
         }
     }
     
+    public function GetCrimes() {
+        try
+        {
+            $sql = "SELECT * FROM crimes 
+                WHERE enabled = 1
+                ORDER BY crime";
+            $stmt = $this->pdo->query($sql);
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
     public function AddReporting($blotter_id,$data) {
         try
         {
