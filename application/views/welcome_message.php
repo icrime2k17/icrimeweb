@@ -32,6 +32,11 @@
                 <span class="welcome-small reveal1000">
                     Your online Crime watch App...
                 </span>
+                <a class="login-btn-link reveal1000" href="/admin/login">
+                    <button class="login-btn">
+                        LOGIN
+                    </button>
+                </a>
             </div>
         </div>
         <div class="main-section section-analysis" data-section-name="analysis">
