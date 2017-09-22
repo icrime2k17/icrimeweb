@@ -8,6 +8,7 @@
           <tr>
             <th>ID</th>
             <th>Crime</th>
+            <th>Type</th>
             <th>Address</th>
             <th>Date/Time Reported</th>
     <!--        <th>Status</th>-->

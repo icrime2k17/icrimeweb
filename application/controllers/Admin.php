@@ -1042,6 +1042,19 @@ class Admin extends CI_Controller {
                 $row->flag = '';
             }
             
+            $row->type = $this->model->GetOffenseByCrime($row->crime);
+            switch($row->type)
+            {
+                case 1:
+                    $row->type = "Major";
+                    break;
+                case 2:
+                    $row->type = "Minor";
+                    break;
+                default:
+                    $row->type = '';
+            }
+            
             $data['list'] .= $this->load->view('Admin/CrimeReports/CrimeReportsList',$row,TRUE);
         }
         
@@ -1070,6 +1083,19 @@ class Admin extends CI_Controller {
             else
             {
                 $data->image = '<i>No image...</i>';
+            }
+            
+            $data->type = $this->model->GetOffenseByCrime($data->crime);
+            switch($data->type)
+            {
+                case 1:
+                    $data->type = "Major";
+                    break;
+                case 2:
+                    $data->type = "Minor";
+                    break;
+                default:
+                    $data->type = '';
             }
             
             $this->load->view('Admin/AdminHeader');

@@ -13,6 +13,10 @@
         <td><?php echo $crime; ?></td>
       </tr>
       <tr>
+        <td>Type</td>
+        <td><?php echo $type; ?></td>
+      </tr>
+      <tr>
         <td>Date/Time Reported</td>
         <td><?php echo $date_reported; ?></td>
       </tr>
