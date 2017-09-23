@@ -461,12 +461,12 @@ $(document).ready(function()
                     }
                     else
                     {
-                        RenderComments();
+                        swal("Error", "Error connecting to server.", "error");
                     }
                 },
                 error : function(){
                     dismissLoading();
-                    RenderComments();
+                    swal("Error", "Error connecting to server.", "error");
                 }
             });
        }
@@ -1142,7 +1142,7 @@ var RenderComments = function()
                 }
                 else
                 {
-                    swal("Error", "Error connecting to server.", "error");
+                    RenderComments();
                 }
             },
             error : function(){
