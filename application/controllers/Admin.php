@@ -1303,6 +1303,19 @@ class Admin extends CI_Controller {
                 $row->flag = '';
             }
             
+            $row->type = $this->model->GetOffenseByCrime($row->crime);
+            switch($row->type)
+            {
+                case 1:
+                    $row->type = "Major";
+                    break;
+                case 2:
+                    $row->type = "Minor";
+                    break;
+                default:
+                    $row->type = '';
+            }
+            
             $json_data['list'] .= $this->load->view('Admin/CrimeReports/CrimeReportsList',$row,TRUE);
         }
         if(trim($json_data['list']) == '')
