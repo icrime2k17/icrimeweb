@@ -571,31 +571,9 @@ var AddAppUser = function(data)
 
 var LoadWantedList = function()
 {
-    $.ajax({
-        url : '/admin/WantedListAjax',
-        method : 'POST',
-        data : null,
-        dataType : "json",
-        beforeSend : function(){
-            loading();
-        },
-        success : function(data){
-            if(data.success)
-            {
-                $("#tableBody").html(data.list);
-            }
-            else
-            {
-                swal("Error", "Error connecting to server.", "error");
-            }
-
-            dismissLoading();
-        },
-        error : function(){
-            dismissLoading();
-            swal("Error", "Error connecting to server.", "error");
-        }
-    });
+    setTimeout(function(){
+        window.location.reload();
+    },1000);
 };
 
 var DeleteWanted = function(id)
@@ -805,31 +783,9 @@ var LoadPoliceStationsEditMode = function(id)
 
 var LoadPoliceStations = function()
 {
-    $.ajax({
-        url : '/admin/StationsAjax',
-        method : 'POST',
-        data : null,
-        dataType : "json",
-        beforeSend : function(){
-            loading();
-        },
-        success : function(data){
-            if(data.success)
-            {
-                $("#tableBody").html(data.list);
-            }
-            else
-            {
-                swal("Error", "Error connecting to server.", "error");
-            }
-
-            dismissLoading();
-        },
-        error : function(){
-            dismissLoading();
-            swal("Error", "Error connecting to server.", "error");
-        }
-    });
+    setTimeout(function(){
+        window.location.reload();
+    },1000);
 };
 
 var DeleteAppUser = function(id)
@@ -948,61 +904,16 @@ var LoadAppUserEditMode = function(id)
 
 var LoadAppUsers = function()
 {
-    $.ajax({
-            url : '/admin/AppUsersAjax',
-            method : 'POST',
-            data : null,
-            dataType : "json",
-            beforeSend : function(){
-                loading();
-            },
-            success : function(data){
-                if(data.success)
-                {
-                    $("#add-app-user-modal").modal('hide');
-                    $("#appUsersBody").html(data.list);
-                }
-                else
-                {
-                    swal("Error", "Error connecting to server.", "error");
-                }
-                
-                dismissLoading();
-            },
-            error : function(){
-                dismissLoading();
-                swal("Error", "Error connecting to server.", "error");
-            }
-        });
+    setTimeout(function(){
+        window.location.reload();
+    },1000);
 };
 
 var LoadBlotters = function()
 {
-    $.ajax({
-            url : '/admin/blottersAjax',
-            method : 'POST',
-            data : null,
-            dataType : "json",
-            beforeSend : function(){
-                //loading();
-            },
-            success : function(data){
-                if(data.success)
-                {
-                    $("#tableBody").html(data.list);
-                }
-                else
-                {
-                    swal("Error", "Error connecting to server.", "error");
-                }
-                
-                //dismissLoading();
-            },
-            error : function(){
-                //dismissLoading();
-                swal("Error", "Error connecting to server.", "error");
-            }
-        });
+    setTimeout(function(){
+        window.location.reload();
+    },1000);
 };
 
 var LoadBlotterEditMode = function(id)
