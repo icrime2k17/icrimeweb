@@ -461,12 +461,12 @@ $(document).ready(function()
                     }
                     else
                     {
-                        swal("Error", "Error connecting to server.", "error");
+                        RenderComments();
                     }
                 },
                 error : function(){
                     dismissLoading();
-                    swal("Error", "Error connecting to server.", "error");
+                    RenderComments();
                 }
             });
        }
