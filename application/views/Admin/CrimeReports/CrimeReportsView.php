@@ -21,7 +21,7 @@
         <td><?php echo $date_reported; ?></td>
       </tr>
       <tr>
-        <td>Address</td>
+        <td>Crime Scene</td>
         <td><?php echo $address; ?></td>
       </tr>
       <tr>
@@ -31,6 +31,10 @@
       <tr>
         <td>Reported By</td>
         <td><?php echo $user_name; ?></td>
+      </tr>
+      <tr>
+        <td>Reporter Location</td>
+        <td><?php echo $reporter_gps_address; ?></td>
       </tr>
       <tr>
         <td>User Mobile Number</td>
