@@ -572,7 +572,6 @@ Class AdminModel extends CI_Model {
                 $sql = "SELECT b.* FROM blotter as b
                     INNER JOIN suspect as s
                     ON b.id = s.blotter_id
-                    WHERE b.enabled = 1
                     AND TRIM(CONCAT(s.lname,' ',s.fname,' ',s.mname)) = ?
                     ORDER BY b.id DESC";
                 $stmt = $this->pdo->query($sql,array($suspect));
