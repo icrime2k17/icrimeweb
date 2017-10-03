@@ -102,10 +102,11 @@ Class WebserviceModel extends CI_Model {
                     g_lat = ?,
                     g_long = ?,
                     address = ?,
+                    reporter_gps_address = ?,
                     image = ?,
                     date_reported = ?,
                     is_flag = 1";
-            $stmt = $this->pdo->query($sql,array($crime,$user_id,$details,$g_lat,$g_long,$address,$image,$date_reported));
+            $stmt = $this->pdo->query($sql,array($crime,$user_id,$details,$g_lat,$g_long,$address,$reporter_gps_address,$image,$date_reported));
             return $stmt;
         } 
         catch (Exception $ex) 
