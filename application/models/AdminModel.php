@@ -555,15 +555,29 @@ Class AdminModel extends CI_Model {
         }
     }
     
-    public function GetBlotters($from,$max) {
+    public function GetBlotters($from,$max,$suspect) {
         try
         {
-            $sql = "SELECT * FROM blotter
-                    WHERE enabled = 1
-                    ORDER BY id DESC
-                    LIMIT ?,?";
-            $stmt = $this->pdo->query($sql,array($from * $max,$max));
-            return $stmt;
+            if($suspect == null)
+            {
+                $sql = "SELECT * FROM blotter
+                        WHERE enabled = 1
+                        ORDER BY id DESC
+                        LIMIT ?,?";
+                $stmt = $this->pdo->query($sql,array($from * $max,$max));
+                return $stmt;
+            }
+            else
+            {
+                $sql = "SELECT b.* FROM blotter as b
+                    INNER JOIN suspect as s
+                    ON b.id = s.blotter_id
+                    WHERE b.enabled = 1
+                    AND TRIM(CONCAT(s.lname,' ',s.fname,' ',s.mname)) = ?
+                    ORDER BY b.id DESC";
+                $stmt = $this->pdo->query($sql,array($suspect));
+                return $stmt;
+            }
         } 
         catch (Exception $ex) 
         {
@@ -1763,6 +1777,41 @@ Class AdminModel extends CI_Model {
             {
                 return '';
             }
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetSuspects($from,$max) {
+        try
+        {
+            $sql = "SELECT DISTINCT(CONCAT(lname,' ',fname,' ',mname)) as suspect_name 
+                    FROM suspect 
+                    WHERE TRIM(CONCAT(lname,' ',fname,' ',mname)) <> '' 
+                    ORDER BY suspect_name
+                    LIMIT ?,?";
+            $stmt = $this->pdo->query($sql,array($from * $max,$max));
+            return $stmt;
+        } 
+        catch (Exception $ex) 
+        {
+            echo $ex;
+            exit;
+        }
+    }
+    
+    public function GetSuspectsTotal()
+    {
+        try
+        {
+            $sql = "SELECT count(DISTINCT(CONCAT(lname,' ',fname,' ',mname))) as total FROM suspect
+                    WHERE TRIM(CONCAT(lname,' ',fname,' ',mname)) <> '' ";
+            $stmt = $this->pdo->query($sql);
+            $result = $stmt->result();
+            return $result[0]->total;
         } 
         catch (Exception $ex) 
         {

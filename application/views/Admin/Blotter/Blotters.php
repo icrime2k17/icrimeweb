@@ -1,5 +1,5 @@
 <div class="col-xs-12 blotters">
-    <h1>Blotters</h1>
+    <h1>Blotters <?php echo $suspect; ?></h1>
     <table class="table table-striped table-hover">
     <thead>
       <tr>

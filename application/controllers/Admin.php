@@ -521,7 +521,15 @@ class Admin extends CI_Controller {
         
         $max = 10;
         
-        $stmt = $this->model->GetBlotters($from,$max);
+        $suspect = null;
+        $data['suspect'] = '';
+        if(isset($_GET['suspect']))
+        {
+            $suspect = $_GET['suspect'];
+            $data['suspect'] = '('.$suspect.')';
+        }
+        
+        $stmt = $this->model->GetBlotters($from,$max,$suspect);
         foreach($stmt->result() as $row)
         {
             $row->type = $this->model->GetOffenseByCrime($row->incident);
@@ -546,10 +554,17 @@ class Admin extends CI_Controller {
         
         $data['crimes_list'] = $this->BuildCrimesList();
         
-        $active = $from + 1;
-        $link = '/admin/blotters/';
-        $total = $this->model->GetBlotterTotal();
-        $data['pagination'] = $this->BuildPagination($active,$total,$max,$link);
+        if($suspect == null)
+        {
+            $active = $from + 1;
+            $link = '/admin/blotters/';
+            $total = $this->model->GetBlotterTotal();
+            $data['pagination'] = $this->BuildPagination($active,$total,$max,$link);
+        }
+        else
+        {
+            $data['pagination'] = '';
+        }
 
         $this->load->view('Admin/AdminHeader');
         $this->load->view('Admin/Blotter/Blotters',$data);
@@ -1325,6 +1340,38 @@ class Admin extends CI_Controller {
         $json_data['success'] = TRUE;
         echo json_encode($json_data);
         exit;
+    }
+    
+    public function Suspects()
+    {
+        $data = array();
+        $data['list'] = '';
+        
+        if(isset($_GET['page']))
+        {
+            $from = $_GET['page'] - 1;
+        }
+        else
+        {
+            $from = 0;
+        }
+        
+        $max = 10;
+        
+        $stmt = $this->model->GetSuspects($from,$max);
+        foreach($stmt->result() as $row)
+        { 
+            $data['list'] .= $this->load->view('Admin/Suspects/List',$row,TRUE);
+        }
+        
+        $active = $from + 1;
+        $link = '/admin/Suspects/';
+        $total = $this->model->GetSuspectsTotal();
+        $data['pagination'] = $this->BuildPagination($active,$total,$max,$link);
+
+        $this->load->view('Admin/AdminHeader');
+        $this->load->view('Admin/Suspects/Index',$data);
+        $this->load->view('Admin/AdminFooter');
     }
 }
 
